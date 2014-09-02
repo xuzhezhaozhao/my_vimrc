@@ -12,8 +12,10 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
-" Plugin 'scrooloose/syntastic'
-
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
+" Plugin 'TagHighlight'
+Plugin 'dyng/ctrlsf.vim'
 
 
 " The following are examples of different formats supported.
@@ -105,9 +107,9 @@ let g:mapleader = ","
 " =================== 键盘映射 ==============================
  
 " 以下3行命令将ctrl-s映射为保存
-nmap <C-S> :update<CR>
-vmap <C-S> <C-C>:update<CR>
-imap <C-S> <C-O>:update<CR>
+nmap <C-S> :w<CR>
+vmap <C-S> <C-C>:w<CR>
+imap <C-S> <C-O>:w<CR>
 
 " Topcoder, compile
 nmap <F5> :make<CR>
@@ -126,7 +128,7 @@ imap <F6> <C-O>:!./fomat.sh<CR>
 
 " Topcoder format code
 "  将4个空格替换为一个tab
-nmap <C-K><C-F> :%s/    /<tab>/g<CR><C-O>
+nmap <C-G><C-F> :%s/    /<tab>/g<CR><C-O>
 " imap <C-K><C-F> <C-O>:%s/    /<tab>/g<CR><ESC><CR><C-O>i
 
 " 一键启动Pyclewn调试
@@ -152,7 +154,7 @@ nnoremap <C-L> <C-W>l
 nmap <leader>w :w!<CR> 
 
 " 快速退出
-nmap <leader>q :q<CR>
+nmap <leader>q :q!<CR>
 
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
@@ -209,7 +211,7 @@ call pathogen#infect()
 " ===================================================
 
 
-" ============ omnicppcomplete 插件设置 =============
+" ============ tags  ===============================
 
 " set tags+=/usr/include/tags 
 " set tags+=~/.vim/tags/glib.tags
@@ -248,16 +250,16 @@ set previewheight=6 " 设置调试窗口大小, 宽度为 8
 
 " ============== tagbar 设置 =========================
 
-" let g:tagbar_left=1 " 使其出现在左边
-let g:tagbar_right=1 " 使其出现右边
+" let g:tagbar_left = 1 " 使其出现在左边
+let g:tagbar_right = 1 " 使其出现右边
 set updatetime=100 " 根据光标位置自动更新高亮tag的间隔时间，单位为毫秒
-let g:tagbar_width=25 " 设置窗口宽度
-" let g:tagbar_compact=1 " 不显示顶部帮助信息，节省空间
-let g:tagbar_show_linenumbers = 1 " 显示绝对行号
-let g:tagbar_expand = 1 " 自动扩展gui窗口
-" autocmd VimEnter * nested :TagbarOpen  " 启动vim时自动打开tagbar
-autocmd VimEnter * nested :call tagbar#autoopen(1) " 若文件类型支持，则自动打开tagbar
-autocmd BufEnter * nested :call tagbar#autoopen(0) " 打开新标签时，自动打开tagbar
+let g:tagbar_width = 30 " 设置窗口宽度
+" let g:tagbar_compact= 1 " 不显示顶部帮助信息，节省空间
+let g:tagbar_show_linenumbers = 0 " 不显示行号
+" let g:tagbar_expand = 1 " 自动扩展gui窗口
+autocmd VimEnter * nested :TagbarOpen  " 启动vim时自动打开tagbar
+" autocmd VimEnter * nested :call tagbar#autoopen(1) " 若文件类型支持，则自动打开tagbar
+" autocmd BufEnter * nested :call tagbar#autoopen(0) " 打开新标签时，自动打开tagbar
 
 " ===================================================
 
@@ -278,6 +280,7 @@ let g:ctrlp_custom_ignore = {
 
 let g:ctrlp_follow_symlinks = 1 	"显示链接文件
 
+
 " MRU模式下不显示的文件
 let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*' " MacOSX/Linux, 
 " let g:ctrlp_mruf_include = '\.cpp$\|\.h$' " 只记住的文件
@@ -295,8 +298,8 @@ let g:ctrlp_mruf_relative = 1
 
 " ================== syntastic 插件设置 ==================
 
-" let g:syntastic_cpp_compiler = 'g++'
-" let g:syntastic_cpp_compiler_options = '-g -std=c++11 -Wall'
+let g:syntastic_cpp_compiler = 'g++'
+let g:syntastic_cpp_compiler_options = '-g -std=c++11 -Wall'
 
 " ===================================================
 
@@ -327,6 +330,7 @@ nmap <F4> :YcmDiags<CR>
 
 "开启基于tag的补全，可以在这之后添加需要的标签路径  
 let g:ycm_collect_identifiers_from_tags_files = 1  
+set tags+=~/.vim/tags/cpp.tags 		" 插件生成的 STL tags
 
 " 语法关键字补全 
 let g:ycm_seed_identifiers_with_syntax = 1  
@@ -346,8 +350,8 @@ let g:ycm_complete_in_strings = 1
 "注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
 
-"输入第一个字符就开始补全  
-let g:ycm_min_num_of_chars_for_completion = 1  
+"输入第二个字符就开始补全  
+let g:ycm_min_num_of_chars_for_completion = 2
 
 "查询ultisnips提供的代码模板补全,  就跟vs + Assist X一样
 let g:ycm_use_ultisnips_completer = 1  
@@ -358,8 +362,125 @@ set completeopt=longest,menu
 "离开插入模式后自动关闭预览窗口
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif	
 
+" 关闭ycm的syntastic
+let g:ycm_show_diagnostics_ui = 0               
+
 
 " ====================================================
+
+
+
+
+" ================== NerdTree ========================
+
+" This option is used to specify which files the NERD tree should ignore. 
+" It must be a list of regular expressions. 
+" let NERDTreeIgnore=['\.vim$', '\~$']
+" let NERDTreeIgnore=['.d$[[dir]]', '.o$[[file]]']
+
+" display line number
+" let NERDTreeShowLineNumbers=1
+
+" 指定文件排序方式, see more from help
+" let NERDTreeSortOrder = []
+" For example, if the option is set to: >
+"    ['\.vim$', '\.c$', '\.h$', '*', 'foobar']
+" <
+" then all .vim files will be placed at the top, followed by all .c files then
+" all .h files. All files containing the string 'foobar' will be placed at the
+" end.  The star is a special flag: it tells the script that every node that
+" doesnt match any of the other regexps should be placed here.
+
+" 窗口宽度
+" let NERDTreeWinSize = 30
+
+" 指定位置
+let NERDTreeWinPos = "left"
+" let NERDTreeWinPos = "right"
+
+" 自动更新 
+let NERDTreeAutoDeleteBuffer=1
+
+" 若最后一个窗口是NerdTree窗口时，自动关闭它
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
+
+" 打开vim时自动打开NerdTree
+" autocmd vimenter * NERDTree
+
+" ====================================================
+
+
+
+" =========== NERDTree 和 Tagbar 共用一个窗口 ========
+
+function! ToggleNERDTreeAndTagbar() 
+" let w:jumpbacktohere = 1
+
+" Detect which plugins are open
+if exists('t:NERDTreeBufName')
+    let nerdtree_open = bufwinnr(t:NERDTreeBufName) != -1
+else
+    let nerdtree_open = 0
+endif
+let tagbar_open = bufwinnr('__Tagbar__') != -1
+
+" Perform the appropriate action
+if nerdtree_open && tagbar_open
+    NERDTreeClose
+    TagbarClose
+elseif nerdtree_open
+    Tagbar
+    wincmd J
+    wincmd k
+    wincmd L
+elseif tagbar_open
+    NERDTree
+    wincmd J
+    wincmd k
+    wincmd L
+else
+    NERDTree
+    Tagbar
+    wincmd J
+    wincmd k
+    wincmd L
+endif
+
+" 改变窗口宽度
+vertical resize +45 
+
+" Jump back to the original window
+" for window in range(1, winnr('$'))
+"     execute window . 'wincmd w'
+"     if exists('w:jumpbacktohere')
+"        unlet w:jumpbacktohere
+"        break
+"    endif
+"endfor  
+
+endfunction
+
+ nnoremap <leader>\ :call ToggleNERDTreeAndTagbar()<CR>
+ 
+" 打开 vim 时自动打开 NERDTree 和 Tagbar
+autocmd vimenter * call ToggleNERDTreeAndTagbar()
+
+" ===================================================
+
+
+" ==================== CtrlSF =======================
+
+" 由于后端是 ag 处理，所有 .agignore 文件中可以定义忽略的文件类型，
+" 并且会自动忽略.gitignore中定义的文件类型
+ 
+" 按ctrl - C 开始准备输入
+nnoremap <C-C> :CtrlSF<space>
+
+" 搜索结果在右端显示，不影响tagbar
+let g:ctrlsf_open_left = 0 
+
+" ===================================================
+
 
 " ================== Help funtions ==================
 
@@ -372,6 +493,8 @@ function! CmdLine(str)
 endfunction
 
 function! VisualSelection(direction) range
+
+
     let l:saved_reg = @"
     execute "normal! vgvy"
 
