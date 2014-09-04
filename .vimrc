@@ -16,6 +16,8 @@ Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
 " Plugin 'TagHighlight'
 Plugin 'dyng/ctrlsf.vim'
+Plugin 'szw/vim-ctrlspace'
+Plugin 'jiangmiao/auto-pairs'
 
 
 " The following are examples of different formats supported.
@@ -128,7 +130,7 @@ imap <F6> <C-O>:!./fomat.sh<CR>
 
 " Topcoder format code
 "  将4个空格替换为一个tab
-nmap <C-G><C-F> :%s/    /<tab>/g<CR><C-O>
+nmap <C-A><C-K><C-F> :%s/    /<tab>/g<CR><C-O>
 " imap <C-K><C-F> <C-O>:%s/    /<tab>/g<CR><ESC><CR><C-O>i
 
 " 一键启动Pyclewn调试
@@ -172,10 +174,10 @@ nmap <M-k> mz:m-2<cr>`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
-" 插入匹配括号
+" 插入匹配括号 （不用了，使用插件 auto-pairs）
 " inoremap ( ()<LEFT>
-inoremap [ []<LEFT>
-inoremap { {}<LEFT>
+" inoremap [ []<LEFT>
+" inoremap { {}<LEFT>
 
 " (不使用，有问题)输入一个字符时，如果下一个字符也是括号，则删除它，避免出现重复字符
 " inoremap ) <ESC>:call RemoveNextDoubleChar(')')<CR>a
@@ -186,7 +188,7 @@ inoremap { {}<LEFT>
 inoremap <BS> <ESC>:call RemovePairs()<CR>a
 
 " tab间切换
-nmap <leader>h :tabN<cr>
+nmap <leader>h :tabnext<cr>
 nmap <leader>l :tabpre<cr>
 
 " ===================================================
@@ -258,8 +260,8 @@ let g:tagbar_width = 28 " 设置窗口宽度
 let g:tagbar_show_linenumbers = 0 " 不显示行号
 " let g:tagbar_expand = 1 " 自动扩展gui窗口
 " autocmd VimEnter * nested :TagbarOpen  " 启动vim时自动打开tagbar
-autocmd VimEnter * nested :call tagbar#autoopen(1) " 若文件类型支持，则自动打开tagbar
-autocmd BufEnter * nested :call tagbar#autoopen(0) " 打开新标签时，自动打开tagbar
+" autocmd VimEnter * nested :call tagbar#autoopen(1) " 若文件类型支持，则自动打开tagbar
+" autocmd BufEnter * nested :call tagbar#autoopen(0) " 打开新标签时，自动打开tagbar
 
 " ===================================================
 
@@ -312,6 +314,9 @@ let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_key_list_select_completion = ['<C-TAB>','<Down>']
 let g:ycm_key_list_previous_completion = ['<C-S-TAB>','<Up>']
 let g:SuperTabDefaultCompletionType = '<C-Tab>'
+
+" 对全C函数的补全快捷键
+let ycm_key_invoke_completion = '<S-space>'
 
 
 "设置error和warning的提示符，如果没有设置，ycm会以syntastic的  
@@ -402,7 +407,9 @@ let NERDTreeAutoDeleteBuffer=1
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
 
 " 打开vim时自动打开NerdTree
-autocmd vimenter * NERDTree
+" autocmd vimenter * NERDTree
+
+" nmap f :NERDTreeToggle<CR><C-L>
 
 " ====================================================
 
@@ -415,32 +422,32 @@ function! ToggleNERDTreeAndTagbar()
 
 " Detect which plugins are open
 if exists('t:NERDTreeBufName')
-    let nerdtree_open = bufwinnr(t:NERDTreeBufName) != -1
+let nerdtree_open = bufwinnr(t:NERDTreeBufName) != -1
 else
-    let nerdtree_open = 0
+let nerdtree_open = 0
 endif
 let tagbar_open = bufwinnr('__Tagbar__') != -1
 
 " Perform the appropriate action
 if nerdtree_open && tagbar_open
-    NERDTreeClose
-    TagbarClose
+NERDTreeClose
+TagbarClose
 elseif nerdtree_open
-    Tagbar
-    wincmd J
-    wincmd k
-    wincmd L
+Tagbar
+wincmd J
+wincmd k
+wincmd L
 elseif tagbar_open
-    NERDTree
-    wincmd J
-    wincmd k
-    wincmd L
+NERDTree
+wincmd J
+wincmd k
+wincmd L
 else
-    NERDTree
-    Tagbar
-    wincmd J
-    wincmd k
-    wincmd L
+NERDTree
+Tagbar
+wincmd J
+wincmd k
+wincmd L
 endif
 
 " 改变窗口宽度
@@ -457,11 +464,50 @@ vertical resize +45
 
 endfunction
 
- nnoremap <leader>\ :call ToggleNERDTreeAndTagbar()<CR>
- 
+nnoremap <leader>\ :call ToggleNERDTreeAndTagbar()<CR>
+
 " 打开 vim 时自动打开 NERDTree 和 Tagbar
 " autocmd vimenter * call ToggleNERDTreeAndTagbar()
 " autocmd BufNewFile * call ToggleNERDTreeAndTagbar()
+
+" ======================================================
+" 打开NERDTree和Tagbar，分左右两列
+function! ToggleNERDTreeAndTagbar2() 
+let w:jumpbacktohere = 1
+
+" Detect which plugins are open
+if exists('t:NERDTreeBufName')
+let nerdtree_open = bufwinnr(t:NERDTreeBufName) != -1
+else
+let nerdtree_open = 0
+endif
+let tagbar_open = bufwinnr('__Tagbar__') != -1
+
+" Perform the appropriate action
+if nerdtree_open && tagbar_open
+NERDTreeClose
+TagbarClose
+elseif nerdtree_open
+Tagbar
+elseif tagbar_open
+NERDTree
+else
+NERDTree
+Tagbar
+endif
+
+" Jump back to the original window
+for window in range(1, winnr('$'))
+    execute window . 'wincmd w'
+    if exists('w:jumpbacktohere')
+       unlet w:jumpbacktohere
+       break
+   endif
+endfor  
+
+endfunction
+
+nnoremap <leader>f :call ToggleNERDTreeAndTagbar2()<CR>
 
 " ===================================================
 
@@ -470,14 +516,14 @@ endfunction
 
 " 由于后端是 ag 处理，所有 .agignore 文件中可以定义忽略的文件类型，
 " 并且会自动忽略.gitignore中定义的文件类型
- 
+
 " 按 ctrl-D 开始准备输入
 nnoremap <C-D> :CtrlSF<space>
 
-" <C-C>查找光标下单词
-nmap <C-C> :CtrlSF<space><C-R>=expand("<cword>")<CR><CR>
+" <C-*>查找光标下单词
+nmap <C-8> :CtrlSF<space><C-R>=expand("<cword>")<CR><CR>
 " 也可以用 <C-W>表示光标下单词
-" nmap <C-C> :CtrlSF<space><CR><C-W><CR>
+" nmap <C-*> :CtrlSF<space><CR><C-W><CR>
 
 
 " 搜索结果在右端显示
