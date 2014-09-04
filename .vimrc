@@ -253,13 +253,13 @@ set previewheight=6 " 设置调试窗口大小, 宽度为 8
 " let g:tagbar_left = 1 " 使其出现在左边
 let g:tagbar_right = 1 " 使其出现右边
 set updatetime=100 " 根据光标位置自动更新高亮tag的间隔时间，单位为毫秒
-let g:tagbar_width = 30 " 设置窗口宽度
+let g:tagbar_width = 28 " 设置窗口宽度
 " let g:tagbar_compact= 1 " 不显示顶部帮助信息，节省空间
 let g:tagbar_show_linenumbers = 0 " 不显示行号
 " let g:tagbar_expand = 1 " 自动扩展gui窗口
-autocmd VimEnter * nested :TagbarOpen  " 启动vim时自动打开tagbar
-" autocmd VimEnter * nested :call tagbar#autoopen(1) " 若文件类型支持，则自动打开tagbar
-" autocmd BufEnter * nested :call tagbar#autoopen(0) " 打开新标签时，自动打开tagbar
+" autocmd VimEnter * nested :TagbarOpen  " 启动vim时自动打开tagbar
+autocmd VimEnter * nested :call tagbar#autoopen(1) " 若文件类型支持，则自动打开tagbar
+autocmd BufEnter * nested :call tagbar#autoopen(0) " 打开新标签时，自动打开tagbar
 
 " ===================================================
 
@@ -365,10 +365,7 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 " 关闭ycm的syntastic
 let g:ycm_show_diagnostics_ui = 0               
 
-
 " ====================================================
-
-
 
 
 " ================== NerdTree ========================
@@ -392,7 +389,7 @@ let g:ycm_show_diagnostics_ui = 0
 " doesnt match any of the other regexps should be placed here.
 
 " 窗口宽度
-" let NERDTreeWinSize = 30
+let NERDTreeWinSize = 28
 
 " 指定位置
 let NERDTreeWinPos = "left"
@@ -405,13 +402,13 @@ let NERDTreeAutoDeleteBuffer=1
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
 
 " 打开vim时自动打开NerdTree
-" autocmd vimenter * NERDTree
+autocmd vimenter * NERDTree
 
 " ====================================================
 
 
-
 " =========== NERDTree 和 Tagbar 共用一个窗口 ========
+" 不好用，容易出问题
 
 function! ToggleNERDTreeAndTagbar() 
 " let w:jumpbacktohere = 1
@@ -463,7 +460,8 @@ endfunction
  nnoremap <leader>\ :call ToggleNERDTreeAndTagbar()<CR>
  
 " 打开 vim 时自动打开 NERDTree 和 Tagbar
-autocmd vimenter * call ToggleNERDTreeAndTagbar()
+" autocmd vimenter * call ToggleNERDTreeAndTagbar()
+" autocmd BufNewFile * call ToggleNERDTreeAndTagbar()
 
 " ===================================================
 
@@ -473,11 +471,17 @@ autocmd vimenter * call ToggleNERDTreeAndTagbar()
 " 由于后端是 ag 处理，所有 .agignore 文件中可以定义忽略的文件类型，
 " 并且会自动忽略.gitignore中定义的文件类型
  
-" 按ctrl - C 开始准备输入
-nnoremap <C-C> :CtrlSF<space>
+" 按 ctrl-D 开始准备输入
+nnoremap <C-D> :CtrlSF<space>
 
-" 搜索结果在右端显示，不影响tagbar
-let g:ctrlsf_open_left = 0 
+" <C-C>查找光标下单词
+nmap <C-C> :CtrlSF<space><C-R>=expand("<cword>")<CR><CR>
+" 也可以用 <C-W>表示光标下单词
+" nmap <C-C> :CtrlSF<space><CR><C-W><CR>
+
+
+" 搜索结果在右端显示
+" let g:ctrlsf_open_left = 0 
 
 " ===================================================
 
