@@ -18,6 +18,13 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'dyng/ctrlsf.vim'
 Plugin 'szw/vim-ctrlspace'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'github-theme'
+Plugin 'freya'
+Plugin 'Lucius'
+Plugin 'rainbow.zip'
+Plugin 'Color-Scheme-Explorer'
+Plugin 'colorer-color-scheme'
+Plugin 'altercation/vim-colors-solarized'
 
 
 " The following are examples of different formats supported.
@@ -114,9 +121,9 @@ vmap <C-S> <C-C>:w<CR>
 imap <C-S> <C-O>:w<CR>
 
 " Topcoder, compile
-nmap <F5> :make<CR>
-vmap <F5> <C-C>:make<CR>
-imap <F5> <C-O>:make<CR>
+nmap <F5> :w<CR>:make<CR><CR>
+vmap <F5> <C-C>:w<CR>:make<CR><CR>
+imap <F5> <C-O>:w<CR>:make<CR><CR>
 
 " Topcoder, run
 nmap <C-F5> :!./a.out<CR>
@@ -356,7 +363,7 @@ let g:ycm_complete_in_strings = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
 
 "输入第二个字符就开始补全  
-let g:ycm_min_num_of_chars_for_completion = 2
+let g:ycm_min_num_of_chars_for_completion = 1
 
 "查询ultisnips提供的代码模板补全,  就跟vs + Assist X一样
 let g:ycm_use_ultisnips_completer = 1  
@@ -531,6 +538,21 @@ nmap <C-8> :CtrlSF<space><C-R>=expand("<cword>")<CR><CR>
 
 " ===================================================
 
+
+" ========== Ctrl Space =============================
+
+let g:ctrlspace_default_mapping_key="<C-M>"
+
+" ===================================================
+
+
+" ============= color scheme ========================
+
+" colorscheme freya
+colorscheme neon 
+
+" ===================================================
+ 
 
 " ================== Help funtions ==================
 
