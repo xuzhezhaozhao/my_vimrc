@@ -21,11 +21,19 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'github-theme'
 Plugin 'freya'
 Plugin 'Lucius'
-Plugin 'rainbow.zip'
+" Plugin 'rainbow.zip'
 Plugin 'Color-Scheme-Explorer'
 Plugin 'colorer-color-scheme'
 Plugin 'altercation/vim-colors-solarized'
-
+Plugin 'OmniCppComplete'
+Plugin 'code_complete-new-update'
+Plugin 'ervandew/supertab'
+Plugin 'Mark'
+Plugin 'taglist.vim'
+Plugin 'Tagbar'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'kien/ctrlp.vim'
+Plugin 'vim-auto-save'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -541,6 +549,7 @@ nmap <C-8> :CtrlSF<space><C-R>=expand("<cword>")<CR><CR>
 
 " ========== Ctrl Space =============================
 
+" 设置启动热键
 let g:ctrlspace_default_mapping_key="<C-M>"
 
 " ===================================================
