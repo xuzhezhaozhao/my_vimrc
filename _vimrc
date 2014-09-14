@@ -1,5 +1,4 @@
 " ====================== Vundle ========================
-
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -34,6 +33,9 @@ Plugin 'Tagbar'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-auto-save'
+Plugin 'DoxygenToolkit.vim'
+Plugin 'DoxyGen-Syntax'
+
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -54,11 +56,10 @@ Plugin 'vim-auto-save'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-
 " ==========================================================
 
+
 " =================== 基本设置 ==============================
- 
 set nocompatible " 推荐设置，使用vim模式，不使用vi模式
 " set cindent "C格式的自动缩进
 set autoindent
@@ -110,19 +111,16 @@ set viminfo^=%
 
 " Format the status line
 " set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
-
-
 " ===========================================================
+
 
 " ============= 变量设置 ====================================
-
 let mapleader = ","     " 映射 <Leader>键  
 let g:mapleader = ","
-
 " ===========================================================
 
+
 " =================== 键盘映射 ==============================
- 
 " 以下3行命令将ctrl-s映射为保存
 nmap <C-S> :w<CR>
 vmap <C-S> <C-C>:w<CR>
@@ -205,68 +203,54 @@ inoremap <BS> <ESC>:call RemovePairs()<CR>a
 " tab间切换
 nmap <leader>h :tabnext<cr>
 nmap <leader>l :tabpre<cr>
-
 " ===================================================
 
 
 " ============= UltiSnips 插件设置 ==================
 " 代码片段
-
 set runtimepath+=~/.vim/ultisnips_rep "UltiSnips
 " let g:UltiSnipsExpandTrigger="<tab>"
 " let g:UltiSnipsJumpForwardTrigger="<tab>"
 " let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
 " ===================================================
 
 
 " ============= pathogen 插件设置 ===================
 " 管理插件
-
 call pathogen#infect()
-
 " ===================================================
 
 
 " ============ tags  ===============================
-
 " set tags+=/usr/include/tags 
 " set tags+=~/.vim/tags/glib.tags
 " set tags+=~/.vim/tags/libc.tags
 " set tags+=~/.vim/tags/susv2.tags
  set tags+=~/.vim/tags/clean.tags 	" /usr/include 目录下删除不用的头文件之后生成的
  set tags+=~/.vim/tags/cpp.tags 		" 插件生成的 STL tags
-
 " ===================================================
 
 
 " ============== code_complete update 版插件设置 ====
-
 " let g:CodeCompl_Hotkey="<C-X>" " 设置补全热键
-
 " ===================================================
 
 
 " ============= pyclewn 设置 =======================
-
 set previewheight=6 " 设置调试窗口大小, 宽度为 8 
-
 " ==================================================
 
 
 " ============== taglist 设置 (不使用了，使用下面的tagbar) =========================
-
 " let Tlist_Auto_Open=1 "  启动vim时自动打开taglist窗口
 " let Tlist_Exit_OnlyWindow=1 " 当仅有taglist窗口时，退出vim
 " set updatetime=100 " 根据光标位置自动更新高亮tag的间隔时间，单位为毫秒
 " let Tlist_Show_One_File=1 " 只显示当前文件的taglist
 " let Tlist_File_Fold_Auto_Close=1 " 自动折叠非当前文件list
-
 " ===================================================
  
 
 " ============== tagbar 设置 =========================
-
 " let g:tagbar_left = 1 " 使其出现在左边
 let g:tagbar_right = 1 " 使其出现右边
 set updatetime=100 " 根据光标位置自动更新高亮tag的间隔时间，单位为毫秒
@@ -277,17 +261,14 @@ let g:tagbar_show_linenumbers = 0 " 不显示行号
 " autocmd VimEnter * nested :TagbarOpen  " 启动vim时自动打开tagbar
 " autocmd VimEnter * nested :call tagbar#autoopen(1) " 若文件类型支持，则自动打开tagbar
 " autocmd BufEnter * nested :call tagbar#autoopen(0) " 打开新标签时，自动打开tagbar
-
 " ===================================================
 
 
 " ============= CtrlP 插件 ===================================
-
 let g:ctrlp_map = '<c-p>' 	"  启动热键
 let g:ctrlp_by_filename = 1 	" 通过文件名查找，0 是路径名加文件名
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip    " MacOSX/Linux, 排除文件
-
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$',
@@ -309,19 +290,16 @@ let g:ctrlp_mruf_relative = 1
 "let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
 "                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 " let g:ctrlp_extensions = ['quickfix']
-
 " ===================================================
 
 
 " ================== syntastic 插件设置 ==================
-
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = '-g -std=c++11 -Wall'
-
 " ===================================================
 
-" ================= YouCompleteme ====================
 
+" ================= YouCompleteme ====================
 "设置全局配置文件的路径  
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'  
 
@@ -384,12 +362,10 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " 关闭ycm的syntastic
 let g:ycm_show_diagnostics_ui = 0               
-
 " ====================================================
 
 
 " ================== NerdTree ========================
-
 " This option is used to specify which files the NERD tree should ignore. 
 " It must be a list of regular expressions. 
 " let NERDTreeIgnore=['\.vim$', '\~$']
@@ -425,7 +401,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeT
 " autocmd vimenter * NERDTree
 
 " nmap f :NERDTreeToggle<CR><C-L>
-
 " ====================================================
 
 
@@ -523,12 +498,10 @@ endfor
 endfunction
 
 nnoremap <leader>f :call ToggleNERDTreeAndTagbar2()<CR>
-
 " ===================================================
 
 
 " ==================== CtrlSF =======================
-
 " 由于后端是 ag 处理，所有 .agignore 文件中可以定义忽略的文件类型，
 " 并且会自动忽略.gitignore中定义的文件类型
 
@@ -543,28 +516,37 @@ nmap <C-8> :CtrlSF<space><C-R>=expand("<cword>")<CR><CR>
 
 " 搜索结果在右端显示
 " let g:ctrlsf_open_left = 0 
-
 " ===================================================
 
 
 " ========== Ctrl Space =============================
-
 " 设置启动热键
 let g:ctrlspace_default_mapping_key="<C-M>"
-
 " ===================================================
 
 
 " ============= color scheme ========================
-
 " colorscheme freya
 colorscheme neon 
-
 " ===================================================
- 
+
+
+" ============= DoxygenToolkit =======================
+let g:doxygenToolkit_authorName="xuzhezhao"
+let g:doxygenToolkit_briefTag_funcName="yes"
+
+nmap <leader>df :Dox<CR>
+nmap <leader>da :DoxAuthor<CR>
+" ===================================================
+
+
+" ================= Doxygen-Syntax ==================
+" 打开语法高亮功能
+let g:load_doxygen_syntax=1
+" ===================================================
+
 
 " ================== Help funtions ==================
-
 " From: http://amix.dk/vim/vimrc.html
 
 function! CmdLine(str)
