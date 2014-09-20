@@ -10,7 +10,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
 " Plugin 'TagHighlight'
@@ -35,7 +35,8 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'vim-auto-save'
 Plugin 'DoxygenToolkit.vim'
 Plugin 'DoxyGen-Syntax'
-
+Plugin 'sjl/gundo.vim'
+Plugin 'TaskList.vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -87,7 +88,9 @@ set backspace=indent,eol,start  " 设置backspace可以删除字符
 set whichwrap=<,>,[,] " 具体查看 :help, 设置左右方向键在行头行尾是否转至上/下一行
 
 " set foldenable " 开始折叠
-" set foldmethod=indent  " 设置折叠方式为按缩进折叠
+" 按 za toggle 折叠块
+set foldmethod=indent  " 设置折叠方式为按缩进折叠
+set foldlevel=99
 " set foldopen=all " 设置为自动打开折叠 
 
 set wildmenu " 增强版命令行，状态栏列出符合条件的命令
@@ -115,7 +118,7 @@ set viminfo^=%
 
 
 " ============= 变量设置 ====================================
-let mapleader = ","     " 映射 <Leader>键  
+" 映射 <Leader>键  
 let g:mapleader = ","
 " ===========================================================
 
@@ -127,7 +130,7 @@ vmap <C-S> <C-C>:w<CR>
 imap <C-S> <C-O>:w<CR>
 
 " Topcoder, compile
-nmap <F5> :w<CR>:make<CR><CR>
+nmap <F5> :w<CR>:make<CR>
 vmap <F5> <C-C>:w<CR>:make<CR><CR>
 imap <F5> <C-O>:w<CR>:make<CR><CR>
 
@@ -254,7 +257,7 @@ set previewheight=6 " 设置调试窗口大小, 宽度为 8
 " let g:tagbar_left = 1 " 使其出现在左边
 let g:tagbar_right = 1 " 使其出现右边
 set updatetime=100 " 根据光标位置自动更新高亮tag的间隔时间，单位为毫秒
-let g:tagbar_width = 28 " 设置窗口宽度
+let g:tagbar_width = 25 " 设置窗口宽度
 " let g:tagbar_compact= 1 " 不显示顶部帮助信息，节省空间
 let g:tagbar_show_linenumbers = 0 " 不显示行号
 " let g:tagbar_expand = 1 " 自动扩展gui窗口
@@ -268,7 +271,7 @@ let g:tagbar_show_linenumbers = 0 " 不显示行号
 let g:ctrlp_map = '<c-p>' 	"  启动热键
 let g:ctrlp_by_filename = 1 	" 通过文件名查找，0 是路径名加文件名
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip    " MacOSX/Linux, 排除文件
+set wildignore+=*/dox/*,*/tmp/*,*.so,*.swp,*.zip    " MacOSX/Linux, 排除文件
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$',
@@ -296,6 +299,7 @@ let g:ctrlp_mruf_relative = 1
 " ================== syntastic 插件设置 ==================
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = '-g -std=c++11 -Wall'
+let g:syntastic_python_python_exec = '/usr/bin/python3.4'
 " ===================================================
 
 
@@ -348,7 +352,7 @@ let g:ycm_complete_in_strings = 1
 "注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
 
-"输入第二个字符就开始补全  
+"输入第一个字符就开始补全  
 let g:ycm_min_num_of_chars_for_completion = 1
 
 "查询ultisnips提供的代码模板补全,  就跟vs + Assist X一样
@@ -361,7 +365,7 @@ set completeopt=longest,menu
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif	
 
 " 关闭ycm的syntastic
-let g:ycm_show_diagnostics_ui = 0               
+let g:ycm_show_diagnostics_ui = 0
 " ====================================================
 
 
@@ -385,7 +389,7 @@ let g:ycm_show_diagnostics_ui = 0
 " doesnt match any of the other regexps should be placed here.
 
 " 窗口宽度
-let NERDTreeWinSize = 28
+let NERDTreeWinSize = 25
 
 " 指定位置
 let NERDTreeWinPos = "left"
@@ -522,6 +526,26 @@ nmap <C-8> :CtrlSF<space><C-R>=expand("<cword>")<CR><CR>
 " ========== Ctrl Space =============================
 " 设置启动热键
 let g:ctrlspace_default_mapping_key="<C-M>"
+
+let g:ctrlspace_use_tabline=1
+
+" Colors of CtrlSpace for Solarized Dark
+" (MacVim and Console Vim under iTerm2 with Solarized Dark theme)
+
+" Based on Solarized TablineSel
+" hi CtrlSpaceSelected guifg=#586e75 guibg=#eee8d5 guisp=#839496 gui=reverse,bold ctermfg=10 ctermbg=7 cterm=reverse,bold
+
+" Based on Solarized Tabline/TablineFill
+" original Normal
+" hi CtrlSpaceNormal   guifg=#839496 guibg=#073642 guisp=#839496 gui=NONE ctermfg=12 ctermbg=0 cterm=NONE
+" tweaked Normal with darker background in Gui
+" hi CtrlSpaceNormal   guifg=#839496 guibg=#021B25 guisp=#839496 gui=NONE ctermfg=12 ctermbg=0 cterm=NONE
+
+" Based on Title
+" hi CtrlSpaceSearch   guifg=#cb4b16 guibg=NONE gui=bold ctermfg=9 ctermbg=NONE term=bold cterm=bold
+
+" Based on PmenuThumb
+" hi CtrlSpaceStatus   guifg=#839496 guibg=#002b36 gui=reverse term=reverse cterm=reverse ctermfg=12 ctermbg=8
 " ===================================================
 
 
