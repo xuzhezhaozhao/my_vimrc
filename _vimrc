@@ -37,6 +37,9 @@ Plugin 'DoxygenToolkit.vim'
 Plugin 'DoxyGen-Syntax'
 Plugin 'sjl/gundo.vim'
 Plugin 'TaskList.vim'
+Plugin 'pthrasher/conqueterm-vim'
+Plugin 'tfnico/vim-gradle'
+Plugin 'rhysd/vim-clang-format'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -146,7 +149,7 @@ imap <F6> <C-O>:!./fomat.sh<CR>
 
 " Topcoder format code
 "  将4个空格替换为一个tab
-nmap <C-A><C-K><C-F> :%s/    /<tab>/g<CR><C-O>
+" nmap <C-A><C-K><C-F> :%s/    /<tab>/g<CR><C-O>
 " imap <C-K><C-F> <C-O>:%s/    /<tab>/g<CR><ESC><CR><C-O>i
 
 " 一键启动Pyclewn调试
@@ -308,9 +311,42 @@ let g:syntastic_python_python_exec = '/usr/bin/python3.4'
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'  
 
 " 解决与Unisnips插件的冲突
-let g:ycm_key_list_select_completion = ['<C-TAB>','<Down>']
-let g:ycm_key_list_previous_completion = ['<C-S-TAB>','<Up>']
-let g:SuperTabDefaultCompletionType = '<C-Tab>'
+"let g:ycm_key_list_select_completion = ['<C-TAB>','<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-S-TAB>','<Up>']
+"let g:SuperTabDefaultCompletionType = '<C-Tab>'
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+"" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+function! g:UltiSnips_Complete()
+    call UltiSnips#ExpandSnippet()
+    if g:ulti_expand_res == 0
+	if pumvisible()
+	    return "\<C-n>"
+	else
+	    call UltiSnips#JumpForwards()
+	    if g:ulti_jump_forwards_res == 0
+	       return "\<TAB>"
+	    endif
+	endif
+    endif
+    return ""
+endfunction
+
+au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+
+" let g:UltiSnipsJumpForwardTrigger="<tab>"
+" let g:UltiSnipsListSnippets="<c-e>"
+" this mapping Enter key to <C-y> to chose the current highlight item 
+" and close the selection list, same as other IDEs.
+" CONFLICT with some plugins like tpope/Endwise
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
 
 " 对全C函数的补全快捷键
 let ycm_key_invoke_completion = '<S-space>'
@@ -356,7 +392,7 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 0
 let g:ycm_min_num_of_chars_for_completion = 1
 
 "查询ultisnips提供的代码模板补全,  就跟vs + Assist X一样
-let g:ycm_use_ultisnips_completer = 1  
+let g:ycm_use_ultisnips_completer = 1
 
 "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
 set completeopt=longest,menu	
@@ -565,8 +601,13 @@ nmap <leader>da :DoxAuthor<CR>
 
 
 " ================= Doxygen-Syntax ==================
-" 打开语法高亮功能
+" 打开Doxgen语法高亮功能
 let g:load_doxygen_syntax=1
+" ===================================================
+
+
+" ================= vim-clang-format ==================
+map <c-a><c-k><c-f> :ClangFormat<cr>
 " ===================================================
 
 
@@ -631,6 +672,8 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
+
+
 " 按退格键时判断当前光标前一个字符，如果是左括号，则删除对应的右括号以及括号中间的内容
 function! RemovePairs()
 	let l:line = getline(".")
@@ -667,3 +710,6 @@ function Maximize_Window()
 endfunction
 
 " ===================================================
+
+
+
