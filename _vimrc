@@ -7,10 +7,9 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
-
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-" Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
 " Plugin 'TagHighlight'
@@ -40,6 +39,12 @@ Plugin 'TaskList.vim'
 Plugin 'pthrasher/conqueterm-vim'
 Plugin 'tfnico/vim-gradle'
 Plugin 'rhysd/vim-clang-format'
+Plugin 'othree/xml.vim'
+Plugin 'a.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive' " git tool
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -70,7 +75,10 @@ set autoindent
 set smartindent
 set nu "行号
 set ruler " 显示状态栏标尺
-set makeprg=g++\ -g\ -std=c++11\ % " quickfix参数
+
+" 放到.vim/ftplugin/cpp.vim c.vim 中
+"set makeprg=g++\ -g\ -std=c++11\ % " quickfix参数
+
 set tabstop=8
 " set expandtab " 用 space 代替tab输入
 set smarttab
@@ -94,7 +102,7 @@ set whichwrap=<,>,[,] " 具体查看 :help, 设置左右方向键在行头行尾
 " 按 za toggle 折叠块
 set foldmethod=indent  " 设置折叠方式为按缩进折叠
 set foldlevel=99
-" set foldopen=all " 设置为自动打开折叠 
+ "set foldopen=all " 设置为自动打开折叠 
 
 set wildmenu " 增强版命令行，状态栏列出符合条件的命令
 set wildignore=*.o,*~ " 补全时忽略指定后缀文件
@@ -115,8 +123,11 @@ autocmd BufReadPost *
 " Remember info about open buffers on close
 set viminfo^=%
 
+" always display status line
+set laststatus=2
 " Format the status line
-" set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ \ \ \ \ \ \ \ Line:\ %l\ \ \ Col:\ %c\ \ \ \ \ \ \ %p%%\ \ \ \ \ \%L
 " ===========================================================
 
 
@@ -127,25 +138,29 @@ let g:mapleader = ","
 
 
 " =================== 键盘映射 ==============================
+" use space to toggle folding area
+map <space> za
+
 " 以下3行命令将ctrl-s映射为保存
 nmap <C-S> :w<CR>
 vmap <C-S> <C-C>:w<CR>
 imap <C-S> <C-O>:w<CR>
 
-" Topcoder, compile
-nmap <F5> :w<CR>:make<CR>
-vmap <F5> <C-C>:w<CR>:make<CR><CR>
-imap <F5> <C-O>:w<CR>:make<CR><CR>
+" 放到 .vim/ftplugin/cpp.vim 中
+ "Topcoder, compile
+"nmap <F5> :w<CR>:make<CR>
+"vmap <F5> <C-C>:w<CR>:make<CR><CR>
+"imap <F5> <C-O>:w<CR>:make<CR><CR>
 
-" Topcoder, run
-nmap <C-F5> :!./a.out<CR>
-vmap <C-F5> <C-C>:!./a.out<CR>
-imap <C-F5> <C-O>:!./a.out<CR>
+ "Topcoder, run
+"nmap <C-F5> :!./a.out<CR>
+"vmap <C-F5> <C-C>:!./a.out<CR>
+"imap <C-F5> <C-O>:!./a.out<CR>
 
-" Topcoder submit
-nmap <F6> :!./fomat.sh<CR>
-vmap <F6> <C-C>:!./fomat.sh<CR>
-imap <F6> <C-O>:!./fomat.sh<CR>
+ "Topcoder submit
+"nmap <F6> :!./fomat.sh<CR>
+"vmap <F6> <C-C>:!./fomat.sh<CR>
+"imap <F6> <C-O>:!./fomat.sh<CR>
 
 " Topcoder format code
 "  将4个空格替换为一个tab
@@ -153,9 +168,9 @@ imap <F6> <C-O>:!./fomat.sh<CR>
 " imap <C-K><C-F> <C-O>:%s/    /<tab>/g<CR><ESC><CR><C-O>i
 
 " 一键启动Pyclewn调试
-nmap <F8> :Pyclewn<CR>:Cmapkeys<CR>:make<CR>:Cfile a.out<CR>
-vmap <F8> <C-C>:Pyclewn<CR>:Cmapkeys<CR>:make<CR>:Cfile a.out<CR>
-imap <F8> <C-O>:Pyclewn<CR>:Cmapkeys<CR>:make<CR>:Cfile a.out<CR>
+"nmap <F8> :Pyclewn<CR>:Cmapkeys<CR>:make<CR>:Cfile a.out<CR>
+"vmap <F8> <C-C>:Pyclewn<CR>:Cmapkeys<CR>:make<CR>:Cfile a.out<CR>
+"imap <F8> <C-O>:Pyclewn<CR>:Cmapkeys<CR>:make<CR>:Cfile a.out<CR>
 
 " 生成tags文件
 map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
@@ -172,7 +187,7 @@ nnoremap <C-L> <C-W>l
 " nmap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 
 " 快速保存
-nmap <leader>w :w!<CR> 
+map <leader>w :w<cr>
 
 " 快速退出
 nmap <leader>q :q!<CR>
@@ -206,9 +221,9 @@ vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 " 用退格键删除一个左括号时同时删除对应的右括号
 inoremap <BS> <ESC>:call RemovePairs()<CR>a
 
-" tab间切换
-nmap <leader>h :tabnext<cr>
-nmap <leader>l :tabpre<cr>
+" tabs间切换
+nmap <leader>l :tabnext<cr>
+nmap <leader>h :tabpre<cr>
 " ===================================================
 
 
@@ -257,10 +272,11 @@ set previewheight=6 " 设置调试窗口大小, 宽度为 8
  
 
 " ============== tagbar 设置 =========================
-" let g:tagbar_left = 1 " 使其出现在左边
-let g:tagbar_right = 1 " 使其出现右边
+nmap <leader>b :TagbarToggle<cr>
+let g:tagbar_left = 1 " 使其出现在左边
+"let g:tagbar_right = 1 " 使其出现右边
 set updatetime=100 " 根据光标位置自动更新高亮tag的间隔时间，单位为毫秒
-let g:tagbar_width = 25 " 设置窗口宽度
+let g:tagbar_width = 20 " 设置窗口宽度
 " let g:tagbar_compact= 1 " 不显示顶部帮助信息，节省空间
 let g:tagbar_show_linenumbers = 0 " 不显示行号
 " let g:tagbar_expand = 1 " 自动扩展gui窗口
@@ -302,7 +318,11 @@ let g:ctrlp_mruf_relative = 1
 " ================== syntastic 插件设置 ==================
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = '-g -std=c++11 -Wall'
+
 let g:syntastic_python_python_exec = '/usr/bin/python3.4'
+
+" ignore some messages
+" let g:syntastic_quiet_messages = {"regex": 'no such'}
 " ===================================================
 
 
@@ -358,10 +378,11 @@ let ycm_key_invoke_completion = '<S-space>'
 " let g:ycm_warning_symbol='>*' 
 
 
+" put in .vim/ftplugin/cpp.vim
 "设置跳转的快捷键，可以跳转到definition和declaration  
-nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>  
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>  
-nnoremap <c-[> :YcmCompleter GoToDefinitionElseDeclaration<CR>  
+"nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>  
+"nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>  
+"nnoremap <c-[> :YcmCompleter GoToDefinitionElseDeclaration<CR>  
 
 " 编译该文件，并显示错误框, 方便跳转
 nmap <F4> :YcmDiags<CR>  
@@ -374,10 +395,10 @@ set tags+=~/.vim/tags/cpp.tags 		" 插件生成的 STL tags
 let g:ycm_seed_identifiers_with_syntax = 1  
 
 "不显示开启vim时检查ycm_extra_conf文件的信息  
-let g:ycm_confirm_extra_conf = 0  
+let g:ycm_confirm_extra_conf = 0
 
 "每次重新生成匹配项，禁止缓存匹配项  
-let g:ycm_cache_omnifunc = 0  
+let g:ycm_cache_omnifunc = 0
 
 "在注释中也可以补全  
 let g:ycm_complete_in_comments = 1  
@@ -400,7 +421,7 @@ set completeopt=longest,menu
 "离开插入模式后自动关闭预览窗口
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif	
 
-" 关闭ycm的syntastic
+" 0: 关闭ycm的syntastic
 let g:ycm_show_diagnostics_ui = 0
 " ====================================================
 
@@ -425,11 +446,11 @@ let g:ycm_show_diagnostics_ui = 0
 " doesnt match any of the other regexps should be placed here.
 
 " 窗口宽度
-let NERDTreeWinSize = 25
+let NERDTreeWinSize = 20
 
 " 指定位置
-let NERDTreeWinPos = "left"
-" let NERDTreeWinPos = "right"
+"let NERDTreeWinPos = "left"
+let NERDTreeWinPos = "right"
 
 " 自动更新 
 let NERDTreeAutoDeleteBuffer=1
@@ -548,11 +569,10 @@ nnoremap <leader>f :call ToggleNERDTreeAndTagbar2()<CR>
 " 按 ctrl-D 开始准备输入
 nnoremap <C-D> :CtrlSF<space>
 
-" <C-*>查找光标下单词
-nmap <C-8> :CtrlSF<space><C-R>=expand("<cword>")<CR><CR>
+" 查找光标下单词
+nmap <A-D> :CtrlSF<space><C-R>=expand("<cword>")<CR><CR>
 " 也可以用 <C-W>表示光标下单词
-" nmap <C-*> :CtrlSF<space><CR><C-W><CR>
-
+" nmap <A-D> :CtrlSF<space><CR><C-W><CR>
 
 " 搜索结果在右端显示
 " let g:ctrlsf_open_left = 0 
@@ -561,9 +581,9 @@ nmap <C-8> :CtrlSF<space><C-R>=expand("<cword>")<CR><CR>
 
 " ========== Ctrl Space =============================
 " 设置启动热键
-let g:ctrlspace_default_mapping_key="<C-M>"
+let g:ctrlspace_default_mapping_key="<C-U>"
 
-let g:ctrlspace_use_tabline=1
+"let g:ctrlspace_use_tabline=1
 
 " Colors of CtrlSpace for Solarized Dark
 " (MacVim and Console Vim under iTerm2 with Solarized Dark theme)
@@ -607,9 +627,39 @@ let g:load_doxygen_syntax=1
 
 
 " ================= vim-clang-format ==================
-map <c-a><c-k><c-f> :ClangFormat<cr>
+nmap <c-a><c-k><c-f> :ClangFormat<cr>
+
+" format on buffer saving
+let g:clang_format#auto_format = 0
+let g:clang_format#auto_format_on_insert_leave = 0
+
+" format command
+let g:clang_format#command = '/usr/clang_3_3/bin/clang-format'
 " ===================================================
 
+
+" ================= Eclim ==================
+" work with YCM
+let g:EclimCompletionMethod = 'omnifunc'
+" ===================================================
+
+
+" ================ a.vim ===========================
+" If this variable is true then a.vim will not alternate to a file/buffer which
+" does not exist. E.g while editing a.c and the :A will not swtich to a.h
+" unless it exists.
+let g:alternateNoDefaultAlternate = 1
+
+" Setup default search path
+" by default
+" let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc'
+let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc,sfr:./include'
+" ===================================================
+
+" ================== vim-markdown ===================
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_no_default_key_mappings = 1
+" ===================================================
 
 " ================== Help funtions ==================
 " From: http://amix.dk/vim/vimrc.html
@@ -710,6 +760,3 @@ function Maximize_Window()
 endfunction
 
 " ===================================================
-
-
-
