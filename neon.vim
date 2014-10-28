@@ -61,7 +61,7 @@ hi Visual       gui=NONE guifg=fg guibg=#5f5f5f
 hi VisualNOS    gui=NONE guifg=#ffe8c8 guibg=#c06800
 
 " Syntax group
-hi Comment      gui=NONE guifg=#c0c0c0 guibg=NONE
+hi Comment      gui=NONE guifg=#d0d0d0 guibg=NONE
 hi Constant     gui=NONE guifg=#92d4ff guibg=NONE
 " hi Error        gui=BOLD guifg=#ffffff guibg=#8000ff
 hi Error        gui=BOLD guifg=#ffffff guibg=#ff0000
@@ -76,5 +76,6 @@ hi Underlined   gui=UNDERLINE guifg=fg guibg=NONE
 
 " compelete menu
 " hi Pmenu gui=NONE guibg=#78a7a4 guifg=#000000
-hi Pmenu gui=NONE guibg=#788794 guifg=#000000
+" hi Pmenu gui=NONE guibg=#788794 guifg=#000000
+hi Pmenu gui=NONE guibg=#404040 guifg=#eeeeee
 hi PmenuSel guibg=#c0aa94 guifg=bg gui=none
