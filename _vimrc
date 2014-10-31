@@ -12,7 +12,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
-" Plugin 'TagHighlight'
+"Plugin 'TagHighlight'
 Plugin 'dyng/ctrlsf.vim'
 Plugin 'szw/vim-ctrlspace'
 Plugin 'jiangmiao/auto-pairs'
@@ -45,6 +45,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive' " git tool
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+Plugin 'bbchung/clighter'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -140,41 +141,41 @@ let g:mapleader = ","
 
 " =================== 键盘映射 ==============================
 " use space to toggle folding area
-map <space> za
+noremap <space> za
 
 " 以下3行命令将ctrl-s映射为保存
-nmap <C-S> :w<CR>
-vmap <C-S> <C-C>:w<CR>
-imap <C-S> <C-O>:w<CR>
+nnoremap <C-S> :w<CR>
+vnoremap <C-S> <C-C>:w<CR>
+inoremap <C-S> <C-O>:w<CR>
 
 " 放到 .vim/ftplugin/cpp.vim 中
  "Topcoder, compile
-"nmap <F5> :w<CR>:make<CR>
-"vmap <F5> <C-C>:w<CR>:make<CR><CR>
-"imap <F5> <C-O>:w<CR>:make<CR><CR>
+"nnoremap <F5> :w<CR>:make<CR>
+"vnoremap <F5> <C-C>:w<CR>:make<CR><CR>
+"inoremap <F5> <C-O>:w<CR>:make<CR><CR>
 
  "Topcoder, run
-"nmap <C-F5> :!./a.out<CR>
-"vmap <C-F5> <C-C>:!./a.out<CR>
-"imap <C-F5> <C-O>:!./a.out<CR>
+"nnoremap <C-F5> :!./a.out<CR>
+"vnoremap <C-F5> <C-C>:!./a.out<CR>
+"inoremap <C-F5> <C-O>:!./a.out<CR>
 
  "Topcoder submit
-"nmap <F6> :!./fomat.sh<CR>
-"vmap <F6> <C-C>:!./fomat.sh<CR>
-"imap <F6> <C-O>:!./fomat.sh<CR>
+"nnoremap <F6> :!./fomat.sh<CR>
+"vnoremap <F6> <C-C>:!./fomat.sh<CR>
+"inoremap <F6> <C-O>:!./fomat.sh<CR>
 
 " Topcoder format code
 "  将4个空格替换为一个tab
-" nmap <C-A><C-K><C-F> :%s/    /<tab>/g<CR><C-O>
-" imap <C-K><C-F> <C-O>:%s/    /<tab>/g<CR><ESC><CR><C-O>i
+" nnoremap <C-A><C-K><C-F> :%s/    /<tab>/g<CR><C-O>
+" inoremap <C-K><C-F> <C-O>:%s/    /<tab>/g<CR><ESC><CR><C-O>i
 
 " 一键启动Pyclewn调试
-"nmap <F8> :Pyclewn<CR>:Cmapkeys<CR>:make<CR>:Cfile a.out<CR>
-"vmap <F8> <C-C>:Pyclewn<CR>:Cmapkeys<CR>:make<CR>:Cfile a.out<CR>
-"imap <F8> <C-O>:Pyclewn<CR>:Cmapkeys<CR>:make<CR>:Cfile a.out<CR>
+"nnoremap <F8> :Pyclewn<CR>:Cmapkeys<CR>:make<CR>:Cfile a.out<CR>
+"vnoremap <F8> <C-C>:Pyclewn<CR>:Cmapkeys<CR>:make<CR>:Cfile a.out<CR>
+"inoremap <F8> <C-O>:Pyclewn<CR>:Cmapkeys<CR>:make<CR>:Cfile a.out<CR>
 
 " 生成tags文件
-map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+noremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 "窗口分割时,进行切换的按键热键需要连接两次,比如从下方窗口移动
 "光标到上方窗口,需要<c-w><c-w>k,非常麻烦,现在重映射为<c-k>,切换的
@@ -185,13 +186,13 @@ nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 
 " 使用空格来打开/关闭折叠
-" nmap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+" nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 
 " 快速保存
-map <leader>w :w<cr>
+noremap <leader>w :w<cr>
 
 " 快速退出
-nmap <leader>q :q!<CR>
+nnoremap <leader>q :q!<CR>
 
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
@@ -199,15 +200,15 @@ vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
 " Treat long lines as break lines (useful when moving around in them)
-map j gj
-map k gk
+noremap j gj
+noremap k gk
 
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 " 上下移动一行或选定的区域
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+nnoremap <M-j> mz:m+<cr>`z
+nnoremap <M-k> mz:m-2<cr>`z
+vnoremap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vnoremap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " 插入匹配括号 （不用了，使用插件 auto-pairs）
 " inoremap ( ()<LEFT>
@@ -223,8 +224,8 @@ vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 inoremap <BS> <ESC>:call RemovePairs()<CR>a
 
 " tabs间切换
-nmap <leader>l :tabnext<cr>
-nmap <leader>h :tabpre<cr>
+nnoremap <leader>l :tabnext<cr>
+nnoremap <leader>h :tabpre<cr>
 " ===================================================
 
 
@@ -273,7 +274,7 @@ set previewheight=6 " 设置调试窗口大小, 宽度为 8
  
 
 " ============== tagbar 设置 =========================
-nmap <leader>b :TagbarToggle<cr>
+nnoremap <leader>b :TagbarToggle<cr>
 let g:tagbar_left = 1 " 使其出现在左边
 "let g:tagbar_right = 1 " 使其出现右边
 set updatetime=100 " 根据光标位置自动更新高亮tag的间隔时间，单位为毫秒
@@ -386,7 +387,7 @@ let ycm_key_invoke_completion = '<S-space>'
 "nnoremap <c-[> :YcmCompleter GoToDefinitionElseDeclaration<CR>  
 
 " 编译该文件，并显示错误框, 方便跳转
-nmap <F4> :YcmDiags<CR>  
+nnoremap <F4> :YcmDiags<CR>  
 
 "开启基于tag的补全，可以在这之后添加需要的标签路径  
 let g:ycm_collect_identifiers_from_tags_files = 1  
@@ -462,7 +463,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeT
 " 打开vim时自动打开NerdTree
 " autocmd vimenter * NERDTree
 
-" nmap f :NERDTreeToggle<CR><C-L>
+" nnoremap f :NERDTreeToggle<CR><C-L>
 " ====================================================
 
 
@@ -571,9 +572,9 @@ nnoremap <leader>f :call ToggleNERDTreeAndTagbar2()<CR>
 nnoremap <C-D> :CtrlSF<space>
 
 " 查找光标下单词
-nmap <A-D> :CtrlSF<space><C-R>=expand("<cword>")<CR><CR>
+nnoremap <A-D> :CtrlSF<space><C-R>=expand("<cword>")<CR><CR>
 " 也可以用 <C-W>表示光标下单词
-" nmap <A-D> :CtrlSF<space><CR><C-W><CR>
+" nnoremap <A-D> :CtrlSF<space><CR><C-W><CR>
 
 " 搜索结果在右端显示
 " let g:ctrlsf_open_left = 0 
@@ -616,8 +617,8 @@ colorscheme neon
 let g:doxygenToolkit_authorName="xuzhezhao"
 let g:doxygenToolkit_briefTag_funcName="yes"
 
-nmap <leader>df :Dox<CR>
-nmap <leader>da :DoxAuthor<CR>
+nnoremap <leader>df :Dox<CR>
+nnoremap <leader>da :DoxAuthor<CR>
 " ===================================================
 
 
@@ -628,7 +629,7 @@ let g:load_doxygen_syntax=1
 
 
 " ================= vim-clang-format ==================
-nmap <c-a><c-k><c-f> :ClangFormat<cr>
+nnoremap <c-a><c-k><c-f> :ClangFormat<cr>
 
 " format on buffer saving
 let g:clang_format#auto_format = 0
@@ -662,7 +663,20 @@ let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_no_default_key_mappings = 1
 " ===================================================
 
-" ================== Help funtions ==================
+
+" ================= clighter =======================
+let g:clighter_libclang_file = '/usr/clang_3_3/lib/libclang.so'
+let g:clighter_autostart = 1
+
+"let g:clighter_window_size = -1 " whole buffer
+"let g:clighter_window_size = 0 " highlight current screen of window
+let g:clighter_window_size = 1
+
+let g:clighter_realtime = 0
+" ==================================================
+
+
+" ================== Help funtions =================
 " From: http://amix.dk/vim/vimrc.html
 
 function! CmdLine(str)
