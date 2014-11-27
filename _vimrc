@@ -1,4 +1,4 @@
-" ====================== Vundle ========================
+" {{{ ====================== Vundle ========================
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -16,22 +16,22 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'dyng/ctrlsf.vim'
 Plugin 'szw/vim-ctrlspace'
 Plugin 'jiangmiao/auto-pairs'
-Plugin 'github-theme'
-Plugin 'freya'
-Plugin 'Lucius'
+"Plugin 'github-theme'
+"Plugin 'freya'
+"Plugin 'Lucius'
 " Plugin 'rainbow.zip'
-Plugin 'Color-Scheme-Explorer'
-Plugin 'colorer-color-scheme'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'OmniCppComplete'
-Plugin 'code_complete-new-update'
+"Plugin 'Color-Scheme-Explorer'
+"Plugin 'colorer-color-scheme'
+"Plugin 'altercation/vim-colors-solarized'
+"Plugin 'OmniCppComplete'
+"Plugin 'code_complete-new-update'
 Plugin 'ervandew/supertab'
 Plugin 'Mark'
 Plugin 'taglist.vim'
 Plugin 'Tagbar'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/ctrlp.vim'
-Plugin 'vim-auto-save'
+"Plugin 'vim-auto-save'
 Plugin 'DoxygenToolkit.vim'
 Plugin 'DoxyGen-Syntax'
 Plugin 'sjl/gundo.vim'
@@ -42,10 +42,15 @@ Plugin 'rhysd/vim-clang-format'
 Plugin 'othree/xml.vim'
 Plugin 'a.vim'
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-fugitive' " git tool
+"Plugin 'tpope/vim-fugitive' " git tool
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'bbchung/clighter'
+"Plugin 'bbchung/clighter'
+
+"Plugin 'xuzhezhaozhao/vim-potion'
+Plugin 'name5566/vim-bookmark'
+
+Plugin 'saihoooooooo/glowshi-ft.vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -66,24 +71,29 @@ Plugin 'bbchung/clighter'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" ==========================================================
+" }}} ==========================================================
 
+" {{{ ==================== autocmd ============================
+autocmd FileType vim :setlocal foldmethod=marker
+" }}} ==========================================================
 
-" =================== 基本设置 ==============================
+" {{{ =================== 基本设置 ==============================
 set nocompatible " 推荐设置，使用vim模式，不使用vi模式
 " set cindent "C格式的自动缩进
 set autoindent
 set smartindent
 set nu "行号
 set ruler " 显示状态栏标尺
+set cc=81 " 标尺功能
+set tw=200
 
 " 放到.vim/ftplugin/cpp.vim c.vim 中
 "set makeprg=g++\ -g\ -std=c++11\ % " quickfix参数
 
-set tabstop=8
+set tabstop=4
 " set expandtab " 用 space 代替tab输入
 set smarttab
-set shiftwidth=8
+set shiftwidth=4
 set cursorline " 高亮显示当前行
 set hlsearch " 高亮搜索结果
 " set cc=80 " 标尺功能,高亮第80行
@@ -101,7 +111,8 @@ set backspace=indent,eol,start  " 设置backspace可以删除字符
 set whichwrap=<,>,[,] " 具体查看 :help, 设置左右方向键在行头行尾是否转至上/下一行
 
 " set foldenable " 开始折叠
-" 按 za toggle 折叠块
+" 按 space键 toggle 折叠块
+nnoremap <space> za
 set foldmethod=indent  " 设置折叠方式为按缩进折叠
 set foldlevel=99
  "set foldopen=all " 设置为自动打开折叠 
@@ -129,19 +140,22 @@ set viminfo^=%
 set laststatus=2
 " Format the status line
 "set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ \ \ \ \ \ \ \ Line:\ %l\ \ \ Col:\ %c\ \ \ \ \ \ \ %p%%\ \ \ \ \ \%L
-" ===========================================================
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ \ \ 
+set statusline+=%=
+set statusline+=\ %l\ /\ %L\ \ \ \ \ \ \ %c\ \ \ \ \ \ \ 
+set statusline+=%p%%\ \ 
 
+" 高亮匹配 <>
+set mps+=<:>
+" }}} ==========================================================
 
-" ============= 变量设置 ====================================
+" {{{ ============= 变量设置 ====================================
 " 映射 <Leader>键  
 let g:mapleader = ","
-" ===========================================================
+" }}} ===========================================================
 
-
-" =================== 键盘映射 ==============================
+" {{{ =================== 键盘映射 ==============================
 " use space to toggle folding area
-noremap <space> za
 
 " 以下3行命令将ctrl-s映射为保存
 nnoremap <C-S> :w<CR>
@@ -175,7 +189,7 @@ inoremap <C-S> <C-O>:w<CR>
 "inoremap <F8> <C-O>:Pyclewn<CR>:Cmapkeys<CR>:make<CR>:Cfile a.out<CR>
 
 " 生成tags文件
-noremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+nnoremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 "窗口分割时,进行切换的按键热键需要连接两次,比如从下方窗口移动
 "光标到上方窗口,需要<c-w><c-w>k,非常麻烦,现在重映射为<c-k>,切换的
@@ -185,11 +199,8 @@ nnoremap <C-J> <C-W>j
 nnoremap <C-K> <C-W>k
 nnoremap <C-L> <C-W>l
 
-" 使用空格来打开/关闭折叠
-" nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
-
 " 快速保存
-noremap <leader>w :w<cr>
+nnoremap <leader>w :w<cr>
 
 " 快速退出
 nnoremap <leader>q :q!<CR>
@@ -200,8 +211,8 @@ vnoremap <silent> * :call VisualSelection('f')<CR>
 vnoremap <silent> # :call VisualSelection('b')<CR>
 
 " Treat long lines as break lines (useful when moving around in them)
-noremap j gj
-noremap k gk
+nnoremap j gj
+nnoremap k gk
 
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 " 上下移动一行或选定的区域
@@ -226,54 +237,79 @@ inoremap <BS> <ESC>:call RemovePairs()<CR>a
 " tabs间切换
 nnoremap <leader>l :tabnext<cr>
 nnoremap <leader>h :tabpre<cr>
-" ===================================================
 
+" edit .vimrc and save
+nnoremap <leader>ev :e $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
 
-" ============= UltiSnips 插件设置 ==================
+" go to line head and tail
+nnoremap H ^
+nnoremap L $
+
+" wrap the word under the cursor with " or '
+nnoremap <leader>" viw<esc>a"<esc>bi"<esc>e
+nnoremap <leader>' viw<esc>a'<esc>bi'<esc>e
+
+" wrap visual selection area with " or '
+vnoremap <leader>" <esc>a"<esc>`<i"<esc>`>l
+vnoremap <leader>' <esc>a'<esc>`<i'<esc>`>l
+
+" grep the WORD under the cursor in current directory
+"nnoremap <leader>g :execute "grep! -R" . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr><cr> 
+" add ; to the end of line
+nnoremap ; A;<esc>
+
+" add pair to visual selection area
+vnoremap ' <esc>`<i'<esc>`>la'<esc>
+vnoremap " <esc>`<i"<esc>`>la"<esc>
+vnoremap ( <esc>`<i(<esc>`>la)<esc>
+vnoremap ) <esc>`<i(<esc>`>la)<esc>
+vnoremap [ <esc>`<i[<esc>`>la]<esc>
+vnoremap ] <esc>`<i[<esc>`>la]<esc>
+vnoremap { <esc>`<i{<esc>`>la}<esc>
+vnoremap } <esc>`<i{<esc>`>la}<esc>
+vnoremap < <esc>`<i<<esc>`>la><esc>
+vnoremap > <esc>`<i<<esc>`>la><esc>
+" }}} ===================================================
+
+" {{{ ============== correct word =======================
+iabbrev adn and
+iabbrev teh the
+iabbrev waht what
+" }}} ===================================================
+ 
+"{{{ ==== plugin setup =====
+"
+" {{{ ============= UltiSnips 插件设置 ==================
 " 代码片段
 set runtimepath+=~/.vim/ultisnips_rep "UltiSnips
 " let g:UltiSnipsExpandTrigger="<tab>"
 " let g:UltiSnipsJumpForwardTrigger="<tab>"
 " let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-" ===================================================
+"}}}  ===================================================
 
 
-" ============= pathogen 插件设置 ===================
-" 管理插件
-call pathogen#infect()
-" ===================================================
-
-
-" ============ tags  ===============================
+"{{{ ============ tags  ===============================
 " set tags+=/usr/include/tags 
 " set tags+=~/.vim/tags/glib.tags
 " set tags+=~/.vim/tags/libc.tags
 " set tags+=~/.vim/tags/susv2.tags
  set tags+=~/.vim/tags/clean.tags 	" /usr/include 目录下删除不用的头文件之后生成的
  set tags+=~/.vim/tags/cpp.tags 		" 插件生成的 STL tags
-" ===================================================
+"}}} ===================================================
 
 
-" ============== code_complete update 版插件设置 ====
+"{{{ ============== code_complete update 版插件设置 ====
 " let g:CodeCompl_Hotkey="<C-X>" " 设置补全热键
-" ===================================================
+"}}} ===================================================
 
 
-" ============= pyclewn 设置 =======================
+"{{{ ============= pyclewn 设置 =======================
 set previewheight=6 " 设置调试窗口大小, 宽度为 8 
-" ==================================================
+"}}} ==================================================
 
 
-" ============== taglist 设置 (不使用了，使用下面的tagbar) =========================
-" let Tlist_Auto_Open=1 "  启动vim时自动打开taglist窗口
-" let Tlist_Exit_OnlyWindow=1 " 当仅有taglist窗口时，退出vim
-" set updatetime=100 " 根据光标位置自动更新高亮tag的间隔时间，单位为毫秒
-" let Tlist_Show_One_File=1 " 只显示当前文件的taglist
-" let Tlist_File_Fold_Auto_Close=1 " 自动折叠非当前文件list
-" ===================================================
- 
-
-" ============== tagbar 设置 =========================
+"{{{ ============== tagbar 设置 =========================
 nnoremap <leader>b :TagbarToggle<cr>
 let g:tagbar_left = 1 " 使其出现在左边
 "let g:tagbar_right = 1 " 使其出现右边
@@ -285,10 +321,10 @@ let g:tagbar_show_linenumbers = 0 " 不显示行号
 " autocmd VimEnter * nested :TagbarOpen  " 启动vim时自动打开tagbar
 " autocmd VimEnter * nested :call tagbar#autoopen(1) " 若文件类型支持，则自动打开tagbar
 " autocmd BufEnter * nested :call tagbar#autoopen(0) " 打开新标签时，自动打开tagbar
-" ===================================================
+"}}} ===================================================
 
 
-" ============= CtrlP 插件 ===================================
+"{{{ ============= CtrlP 插件 ===================================
 let g:ctrlp_map = '<c-p>' 	"  启动热键
 let g:ctrlp_by_filename = 1 	" 通过文件名查找，0 是路径名加文件名
 
@@ -314,21 +350,21 @@ let g:ctrlp_mruf_relative = 1
 "let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
 "                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 " let g:ctrlp_extensions = ['quickfix']
-" ===================================================
+"}}} ===================================================
 
 
-" ================== syntastic 插件设置 ==================
+"{{{ ================== syntastic 插件设置 ==================
 let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = '-g -std=c++11 -Wall'
+let g:syntastic_cpp_compiler_options = '-g -std=c++11 -Wall -DLEVELDB_PLATFORM_POSIX'
 
 let g:syntastic_python_python_exec = '/usr/bin/python3.4'
 
 " ignore some messages
 " let g:syntastic_quiet_messages = {"regex": 'no such'}
-" ===================================================
+"}}} ===================================================
 
 
-" ================= YouCompleteme ====================
+"{{{ ================= YouCompleteme ====================
 "设置全局配置文件的路径  
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'  
 
@@ -425,10 +461,10 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " 0: 关闭ycm的syntastic
 let g:ycm_show_diagnostics_ui = 0
-" ====================================================
+"}}} ====================================================
 
 
-" ================== NerdTree ========================
+"{{{ ================== NerdTree ========================
 " This option is used to specify which files the NERD tree should ignore. 
 " It must be a list of regular expressions. 
 " let NERDTreeIgnore=['\.vim$', '\~$']
@@ -464,10 +500,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeT
 " autocmd vimenter * NERDTree
 
 " nnoremap f :NERDTreeToggle<CR><C-L>
-" ====================================================
+"}}} ====================================================
 
 
-" =========== NERDTree 和 Tagbar 共用一个窗口 ========
+"{{{ =========== NERDTree 和 Tagbar 共用一个窗口 ========
 " 不好用，容易出问题
 
 function! ToggleNERDTreeAndTagbar() 
@@ -523,8 +559,9 @@ nnoremap <leader>\ :call ToggleNERDTreeAndTagbar()<CR>
 " autocmd vimenter * call ToggleNERDTreeAndTagbar()
 " autocmd BufNewFile * call ToggleNERDTreeAndTagbar()
 
-" ======================================================
-" 打开NERDTree和Tagbar，分左右两列
+"}}} ======================================================
+
+"{{{ ========== 打开NERDTree和Tagbar，分左右两列 ===========
 function! ToggleNERDTreeAndTagbar2() 
 let w:jumpbacktohere = 1
 
@@ -561,27 +598,21 @@ endfor
 endfunction
 
 nnoremap <leader>f :call ToggleNERDTreeAndTagbar2()<CR>
-" ===================================================
+"}}} ===================================================
 
 
-" ==================== CtrlSF =======================
-" 由于后端是 ag 处理，所有 .agignore 文件中可以定义忽略的文件类型，
+"{{{ ==================== CtrlSF =======================
+" 由于后端是 ag 处理，所以 .agignore 文件中可以定义忽略的文件类型，
 " 并且会自动忽略.gitignore中定义的文件类型
 
-" 按 ctrl-D 开始准备输入
-nnoremap <C-D> :CtrlSF<space>
-
-" 查找光标下单词
-nnoremap <A-D> :CtrlSF<space><C-R>=expand("<cword>")<CR><CR>
-" 也可以用 <C-W>表示光标下单词
-" nnoremap <A-D> :CtrlSF<space><CR><C-W><CR>
+nnoremap <c-d> :silent execute "CtrlSF " . shellescape(expand("<cWORD>"))<cr>
 
 " 搜索结果在右端显示
 " let g:ctrlsf_open_left = 0 
-" ===================================================
+"}}} ===================================================
 
 
-" ========== Ctrl Space =============================
+"{{{ ========== Ctrl Space =============================
 " 设置启动热键
 let g:ctrlspace_default_mapping_key="<C-U>"
 
@@ -604,31 +635,31 @@ let g:ctrlspace_default_mapping_key="<C-U>"
 
 " Based on PmenuThumb
 " hi CtrlSpaceStatus   guifg=#839496 guibg=#002b36 gui=reverse term=reverse cterm=reverse ctermfg=12 ctermbg=8
-" ===================================================
+"}}} ===================================================
 
 
-" ============= color scheme ========================
+"{{{ ============= color scheme ========================
 " colorscheme freya
 colorscheme neon 
-" ===================================================
+"}}} ===================================================
 
 
-" ============= DoxygenToolkit =======================
+"{{{ ============= DoxygenToolkit =======================
 let g:doxygenToolkit_authorName="xuzhezhao"
 let g:doxygenToolkit_briefTag_funcName="yes"
 
 nnoremap <leader>df :Dox<CR>
 nnoremap <leader>da :DoxAuthor<CR>
-" ===================================================
+"}}} ===================================================
 
 
-" ================= Doxygen-Syntax ==================
+"{{{ ================= Doxygen-Syntax ==================
 " 打开Doxgen语法高亮功能
 let g:load_doxygen_syntax=1
-" ===================================================
+"}}} ===================================================
 
 
-" ================= vim-clang-format ==================
+"{{{ ================= vim-clang-format ==================
 nnoremap <c-a><c-k><c-f> :ClangFormat<cr>
 
 " format on buffer saving
@@ -637,16 +668,16 @@ let g:clang_format#auto_format_on_insert_leave = 0
 
 " format command
 let g:clang_format#command = '/usr/clang_3_3/bin/clang-format'
-" ===================================================
+"}}} ===================================================
 
 
-" ================= Eclim ==================
+"{{{ ================= Eclim ==================
 " work with YCM
 let g:EclimCompletionMethod = 'omnifunc'
-" ===================================================
+"}}} ===================================================
 
 
-" ================ a.vim ===========================
+"{{{ ================ a.vim ===========================
 " If this variable is true then a.vim will not alternate to a file/buffer which
 " does not exist. E.g while editing a.c and the :A will not swtich to a.h
 " unless it exists.
@@ -656,27 +687,60 @@ let g:alternateNoDefaultAlternate = 1
 " by default
 " let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc'
 let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc,sfr:./include'
-" ===================================================
+"}}} ===================================================
 
-" ================== vim-markdown ===================
+"{{{ ================== vim-markdown ===================
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_no_default_key_mappings = 1
-" ===================================================
+"}}} ===================================================
 
 
-" ================= clighter =======================
-let g:clighter_libclang_file = '/usr/clang_3_3/lib/libclang.so'
-let g:clighter_autostart = 1
+"{{{ ================= clighter =======================
+"let g:clighter_libclang_file = '/usr/lib/x86_64-linux-gnu/libclang-3.5.so.1'
+"let g:clighter_libclang_file='/usr/clang_3_3/lib/libclang.so'
+let g:clighter_autostart = 0
 
 "let g:clighter_window_size = -1 " whole buffer
-"let g:clighter_window_size = 0 " highlight current screen of window
-let g:clighter_window_size = 1
+let g:clighter_window_size = 0 " highlight current screen of window
+"let g:clighter_window_size = 1
 
 let g:clighter_realtime = 0
-" ==================================================
 
+let g:clighter_rename_prompt_level = 1
 
-" ================== Help funtions =================
+let g:clighter_highlight_groups = ['clighterMacroInstantiation', 'clighterStructDecl', 'clighterClassDecl', 'clighterEnumDecl', 'clighterEnumConstantDecl', 'clighterTypeRef', 'clighterDeclRefExprEnum']
+
+let g:clighter_cursorHL = 0
+"}}} ==================================================
+
+"{{{ ================= vim-bookmark =======================
+let g:vbookmark_bookmarkSaveFile = $HOME . '/.vimbookmark'
+" 禁用默认的按键绑定
+let g:vbookmark_disableMapping = 1
+"  使用新的快捷键
+nnoremap <silent> mm :VbookmarkToggle<CR>
+nnoremap <silent> mn :VbookmarkNext<CR>
+nnoremap <silent> mp :VbookmarkPrevious<CR>
+nnoremap <silent> ma :VbookmarkClearAll<CR>
+"}}} ==================================================
+
+"{{{ ================= glowshi-ft =======================
+let glowshi_ft_no_default_key_mappings = 1
+map f <plug>(glowshi-ft-f)
+map F <plug>(glowshi-ft-F)
+map t <plug>(glowshi-ft-t)
+map T <plug>(glowshi-ft-T)
+"map <unique>; <plug>(glowshi-ft-repeat)
+"map <unique>, <plug>(glowshi-ft-opposite)
+"
+" highlight
+let g:glowshi_ft_selected_hl_link = 'Cursor'
+"let g:glowshi_ft_candidates_hl_link = 'Error'
+"}}} ==================================================
+
+"}}} =====
+
+"{{{ ================== Help funtions =================
 " From: http://amix.dk/vim/vimrc.html
 
 function! CmdLine(str)
@@ -770,8 +834,8 @@ function! RemovePairs()
 endfunction
 
 " 最大化窗口
-function Maximize_Window()
+function! Maximize_Window()
   silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 endfunction
 
-" ===================================================
+"}}} ===================================================

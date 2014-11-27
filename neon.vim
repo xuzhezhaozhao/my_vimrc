@@ -56,8 +56,9 @@ hi LineNr       gui=NONE guifg=#707070 guibg=NONE
 hi NonText      gui=BOLD guifg=#d84070 guibg=#383838
 hi SpecialKey   gui=BOLD guifg=#8888ff guibg=NONE
 hi Title        gui=BOLD guifg=fg      guibg=NONE
-" hi Visual       gui=NONE guifg=#b0ffb0 guibg=#008000
-hi Visual       gui=NONE guifg=fg guibg=#5f5f5f
+ "hi Visual       gui=NONE guifg=#b0ffb0 guibg=#008000
+hi Visual       gui=NONE guifg=#ffffff guibg=#8f8f8f
+
 hi VisualNOS    gui=NONE guifg=#ffe8c8 guibg=#c06800
 
 " Syntax group
@@ -79,3 +80,6 @@ hi Underlined   gui=UNDERLINE guifg=fg guibg=NONE
 " hi Pmenu gui=NONE guibg=#788794 guifg=#000000
 hi Pmenu gui=NONE guibg=#404040 guifg=#eeeeee
 hi PmenuSel guibg=#c0aa94 guifg=bg gui=none
+
+" colorcolum
+hi ColorColumn guibg=#404040
