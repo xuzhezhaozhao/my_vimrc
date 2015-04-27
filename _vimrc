@@ -14,7 +14,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
 "Plugin 'TagHighlight'
 Plugin 'dyng/ctrlsf.vim'
-Plugin 'szw/vim-ctrlspace'
+"Plugin 'szw/vim-ctrlspace'
 Plugin 'jiangmiao/auto-pairs'
 "Plugin 'github-theme'
 "Plugin 'freya'
@@ -37,9 +37,9 @@ Plugin 'DoxyGen-Syntax'
 Plugin 'sjl/gundo.vim'
 Plugin 'TaskList.vim'
 Plugin 'pthrasher/conqueterm-vim'
-Plugin 'tfnico/vim-gradle'
+"Plugin 'tfnico/vim-gradle'
 Plugin 'rhysd/vim-clang-format'
-Plugin 'othree/xml.vim'
+"Plugin 'othree/xml.vim'
 Plugin 'a.vim'
 Plugin 'tpope/vim-surround'
 "Plugin 'tpope/vim-fugitive' " git tool
@@ -48,9 +48,15 @@ Plugin 'plasticboy/vim-markdown'
 "Plugin 'bbchung/clighter'
 
 "Plugin 'xuzhezhaozhao/vim-potion'
-Plugin 'name5566/vim-bookmark'
+"Plugin 'name5566/vim-bookmark'
 
 Plugin 'saihoooooooo/glowshi-ft.vim'
+Plugin 'panozzaj/vim-autocorrect'
+"Plugin 'matlab.vim'
+"Plugin 'MatlabFilesEdition'
+Plugin 'Align.vim'
+
+"Plugin 'mattn/emmet-vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -85,7 +91,7 @@ set smartindent
 set nu "行号
 set ruler " 显示状态栏标尺
 set cc=81 " 标尺功能
-set tw=200
+set textwidth=0
 
 " 放到.vim/ftplugin/cpp.vim c.vim 中
 "set makeprg=g++\ -g\ -std=c++11\ % " quickfix参数
@@ -268,8 +274,20 @@ vnoremap [ <esc>`<i[<esc>`>la]<esc>
 vnoremap ] <esc>`<i[<esc>`>la]<esc>
 vnoremap { <esc>`<i{<esc>`>la}<esc>
 vnoremap } <esc>`<i{<esc>`>la}<esc>
-vnoremap < <esc>`<i<<esc>`>la><esc>
-vnoremap > <esc>`<i<<esc>`>la><esc>
+
+" move in insert mode
+inoremap <c-l> <c-o>l
+"inoremap <c-h> <c-o>h " no use, ctrl H is binded to BackSpace key
+inoremap <c-k> <c-o>k
+inoremap <c-j> <c-o>j
+
+" smart indentation
+vnoremap < <gv
+vnoremap > >gv
+
+" preview html file
+nmap <silent> <leader>v :!google-chrome-stable %<CR>
+
 " }}} ===================================================
 
 " {{{ ============== correct word =======================
@@ -416,11 +434,10 @@ let ycm_key_invoke_completion = '<S-space>'
 " let g:ycm_warning_symbol='>*' 
 
 
-" put in .vim/ftplugin/cpp.vim
 "设置跳转的快捷键，可以跳转到definition和declaration  
-"nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>  
-"nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>  
-"nnoremap <c-[> :YcmCompleter GoToDefinitionElseDeclaration<CR>  
+nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>  
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>  
+nnoremap <c-[> :YcmCompleter GoToDefinitionElseDeclaration<CR>  
 
 " 编译该文件，并显示错误框, 方便跳转
 nnoremap <F4> :YcmDiags<CR>  
@@ -445,7 +462,7 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
 
 "注释和字符串中的文字也会被收入补全
-let g:ycm_collect_identifiers_from_comments_and_strings = 0
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
 "输入第一个字符就开始补全  
 let g:ycm_min_num_of_chars_for_completion = 1
@@ -469,6 +486,7 @@ let g:ycm_show_diagnostics_ui = 0
 " It must be a list of regular expressions. 
 " let NERDTreeIgnore=['\.vim$', '\~$']
 " let NERDTreeIgnore=['.d$[[dir]]', '.o$[[file]]']
+let NERDTreeIgnore=['.o$[[file]]']
 
 " display line number
 " let NERDTreeShowLineNumbers=1
@@ -482,6 +500,7 @@ let g:ycm_show_diagnostics_ui = 0
 " all .h files. All files containing the string 'foobar' will be placed at the
 " end.  The star is a special flag: it tells the script that every node that
 " doesnt match any of the other regexps should be placed here.
+let NERDTreeSortOrder = ['\/$', '\.cpp$', '\.cc$', '\.h$', '*']
 
 " 窗口宽度
 let NERDTreeWinSize = 20
@@ -495,9 +514,6 @@ let NERDTreeAutoDeleteBuffer=1
 
 " 若最后一个窗口是NerdTree窗口时，自动关闭它
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
-
-" 打开vim时自动打开NerdTree
-" autocmd vimenter * NERDTree
 
 " nnoremap f :NERDTreeToggle<CR><C-L>
 "}}} ====================================================
@@ -605,12 +621,15 @@ nnoremap <leader>f :call ToggleNERDTreeAndTagbar2()<CR>
 " 由于后端是 ag 处理，所以 .agignore 文件中可以定义忽略的文件类型，
 " 并且会自动忽略.gitignore中定义的文件类型
 
-nnoremap <c-d> :silent execute "CtrlSF " . shellescape(expand("<cWORD>"))<cr>
+nnoremap <c-d> :silent execute "CtrlSF " . shellescape(expand("<cword>"))<cr>
 
 " 搜索结果在右端显示
 " let g:ctrlsf_open_left = 0 
 "}}} ===================================================
 
+"{{{ ========== NERDCommenter =========================
+
+"}}} ==================================================
 
 "{{{ ========== Ctrl Space =============================
 " 设置启动热键
