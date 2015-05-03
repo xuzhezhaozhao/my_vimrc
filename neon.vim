@@ -83,3 +83,8 @@ hi PmenuSel guibg=#c0aa94 guifg=bg gui=none
 
 " colorcolum
 hi ColorColumn guibg=#404040
+
+" ======== Clighter =================
+" 变量声明 
+hi clighterVarDecl guibg=bg guifg=fg gui=none
+" =======================================

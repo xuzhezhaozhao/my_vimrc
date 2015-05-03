@@ -12,7 +12,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
-"Plugin 'TagHighlight'
+Plugin 'TagHighlight'
 Plugin 'dyng/ctrlsf.vim'
 "Plugin 'szw/vim-ctrlspace'
 Plugin 'jiangmiao/auto-pairs'
@@ -26,29 +26,29 @@ Plugin 'jiangmiao/auto-pairs'
 "Plugin 'OmniCppComplete'
 "Plugin 'code_complete-new-update'
 Plugin 'ervandew/supertab'
-Plugin 'Mark'
-Plugin 'taglist.vim'
+" Plugin 'Mark'
+"Plugin 'taglist.vim'
 Plugin 'Tagbar'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/ctrlp.vim'
 "Plugin 'vim-auto-save'
 Plugin 'DoxygenToolkit.vim'
-Plugin 'DoxyGen-Syntax'
-Plugin 'sjl/gundo.vim'
+" Plugin 'DoxyGen-Syntax'
+" Plugin 'sjl/gundo.vim'
 Plugin 'TaskList.vim'
-Plugin 'pthrasher/conqueterm-vim'
+" Plugin 'pthrasher/conqueterm-vim'
 "Plugin 'tfnico/vim-gradle'
-Plugin 'rhysd/vim-clang-format'
+" Plugin 'rhysd/vim-clang-format'
 "Plugin 'othree/xml.vim'
 Plugin 'a.vim'
 Plugin 'tpope/vim-surround'
 "Plugin 'tpope/vim-fugitive' " git tool
 Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-"Plugin 'bbchung/clighter'
+"Plugin 'plasticboy/vim-markdown'
+Plugin 'bbchung/clighter'
 
 "Plugin 'xuzhezhaozhao/vim-potion'
-"Plugin 'name5566/vim-bookmark'
+Plugin 'name5566/vim-bookmark'
 
 Plugin 'saihoooooooo/glowshi-ft.vim'
 Plugin 'panozzaj/vim-autocorrect'
@@ -57,6 +57,8 @@ Plugin 'panozzaj/vim-autocorrect'
 Plugin 'Align.vim'
 
 "Plugin 'mattn/emmet-vim'
+
+"Plugin 'justinmk/vim-syntax-extra'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -100,9 +102,8 @@ set tabstop=4
 " set expandtab " 用 space 代替tab输入
 set smarttab
 set shiftwidth=4
-set cursorline " 高亮显示当前行
+" set cursorline " 高亮显示当前行
 set hlsearch " 高亮搜索结果
-" set cc=80 " 标尺功能,高亮第80行
 set anti
 set guifont=YaHei\ Consolas\ Hybrid\ 12,Fixed\ 12 " 设置 gvim 的字体及大小
 "set guifont=Menlo\ Regular\ 12,Fixed\ 12 " 设置 gvim 的字体及大小
@@ -153,6 +154,14 @@ set statusline+=%p%%\ \
 
 " 高亮匹配 <>
 set mps+=<:>
+
+"""""" 去除 scrollbar
+set guioptions-=r
+set guioptions-=L
+
+" 去除工具栏
+set guioptions-=m
+set guioptions-=T
 " }}} ==========================================================
 
 " {{{ ============= 变量设置 ====================================
@@ -267,7 +276,6 @@ nnoremap ; A;<esc>
 
 " add pair to visual selection area
 vnoremap ' <esc>`<i'<esc>`>la'<esc>
-vnoremap " <esc>`<i"<esc>`>la"<esc>
 vnoremap ( <esc>`<i(<esc>`>la)<esc>
 vnoremap ) <esc>`<i(<esc>`>la)<esc>
 vnoremap [ <esc>`<i[<esc>`>la]<esc>
@@ -288,6 +296,10 @@ vnoremap > >gv
 " preview html file
 nmap <silent> <leader>v :!google-chrome-stable %<CR>
 
+" 系统剪切板
+vmap Y "+y
+nmap Y "+yy
+nmap P "+p
 " }}} ===================================================
 
 " {{{ ============== correct word =======================
@@ -312,8 +324,8 @@ set runtimepath+=~/.vim/ultisnips_rep "UltiSnips
 " set tags+=~/.vim/tags/glib.tags
 " set tags+=~/.vim/tags/libc.tags
 " set tags+=~/.vim/tags/susv2.tags
- set tags+=~/.vim/tags/clean.tags 	" /usr/include 目录下删除不用的头文件之后生成的
- set tags+=~/.vim/tags/cpp.tags 		" 插件生成的 STL tags
+ "set tags+=~/.vim/tags/clean.tags 	" /usr/include 目录下删除不用的头文件之后生成的
+ "set tags+=~/.vim/tags/cpp.tags 		" 插件生成的 STL tags
 "}}} ===================================================
 
 
@@ -344,9 +356,10 @@ let g:tagbar_show_linenumbers = 0 " 不显示行号
 
 "{{{ ============= CtrlP 插件 ===================================
 let g:ctrlp_map = '<c-p>' 	"  启动热键
+nmap <leader>. :CtrlPTag<cr>
 let g:ctrlp_by_filename = 1 	" 通过文件名查找，0 是路径名加文件名
 
-set wildignore+=*/dox/*,*/tmp/*,*.so,*.swp,*.zip    " MacOSX/Linux, 排除文件
+set wildignore+=*/dox/*,*/tmp/*,*.so,*.swp,*.zip,*tar.bz2,*tar,*.gz    " MacOSX/Linux, 排除文件
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$',
@@ -375,7 +388,7 @@ let g:ctrlp_mruf_relative = 1
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = '-g -std=c++11 -Wall -DLEVELDB_PLATFORM_POSIX'
 
-let g:syntastic_python_python_exec = '/usr/bin/python3.4'
+let g:syntastic_python_python_exec = '/usr/bin/python3'
 
 " ignore some messages
 " let g:syntastic_quiet_messages = {"regex": 'no such'}
@@ -400,18 +413,18 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 function! g:UltiSnips_Complete()
-    call UltiSnips#ExpandSnippet()
-    if g:ulti_expand_res == 0
+	call UltiSnips#ExpandSnippet()
+	if g:ulti_expand_res == 0
 	if pumvisible()
-	    return "\<C-n>"
+		return "\<C-n>"
 	else
-	    call UltiSnips#JumpForwards()
-	    if g:ulti_jump_forwards_res == 0
-	       return "\<TAB>"
-	    endif
+		call UltiSnips#JumpForwards()
+		if g:ulti_jump_forwards_res == 0
+		   return "\<TAB>"
+		endif
 	endif
-    endif
-    return ""
+	endif
+	return ""
 endfunction
 
 au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
@@ -435,16 +448,14 @@ let ycm_key_invoke_completion = '<S-space>'
 
 
 "设置跳转的快捷键，可以跳转到definition和declaration  
-nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>  
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>  
+"nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>  
+"nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>  
 nnoremap <c-[> :YcmCompleter GoToDefinitionElseDeclaration<CR>  
+"nnoremap <c-"> :YcmCompleter GoToDefinitionElseDeclaration<CR> 
 
-" 编译该文件，并显示错误框, 方便跳转
-nnoremap <F4> :YcmDiags<CR>  
-
-"开启基于tag的补全，可以在这之后添加需要的标签路径  
-let g:ycm_collect_identifiers_from_tags_files = 1  
-set tags+=~/.vim/tags/cpp.tags 		" 插件生成的 STL tags
+""开启基于tag的补全，可以在这之后添加需要的标签路径  
+"let g:ycm_collect_identifiers_from_tags_files = 1  
+"set tags+=~/.vim/tags/cpp.tags 		" 插件生成的 STL tags
 
 " 语法关键字补全 
 let g:ycm_seed_identifiers_with_syntax = 1  
@@ -477,7 +488,13 @@ set completeopt=longest,menu
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif	
 
 " 0: 关闭ycm的syntastic
-let g:ycm_show_diagnostics_ui = 0
+let g:ycm_show_diagnostics_ui = 1
+
+" 将出错信息写入到locationlist中去
+"let g:ycm_always_populate_location_list = 1
+
+"nmap <C-Y> :YcmForceCompileAndDiagnostics<cr>
+nmap <C-Y> :YcmDiags<cr>
 "}}} ====================================================
 
 
@@ -500,7 +517,7 @@ let NERDTreeIgnore=['.o$[[file]]']
 " all .h files. All files containing the string 'foobar' will be placed at the
 " end.  The star is a special flag: it tells the script that every node that
 " doesnt match any of the other regexps should be placed here.
-let NERDTreeSortOrder = ['\/$', '\.cpp$', '\.cc$', '\.h$', '*']
+let NERDTreeSortOrder = ['\/$', '\.cpp$', '\.c$', '\.cc$', '\.h$', '*']
 
 " 窗口宽度
 let NERDTreeWinSize = 20
@@ -674,7 +691,7 @@ nnoremap <leader>da :DoxAuthor<CR>
 
 "{{{ ================= Doxygen-Syntax ==================
 " 打开Doxgen语法高亮功能
-let g:load_doxygen_syntax=1
+let g:load_doxygen_syntax=0
 "}}} ===================================================
 
 
@@ -715,21 +732,25 @@ let g:vim_markdown_no_default_key_mappings = 1
 
 
 "{{{ ================= clighter =======================
-"let g:clighter_libclang_file = '/usr/lib/x86_64-linux-gnu/libclang-3.5.so.1'
-"let g:clighter_libclang_file='/usr/clang_3_3/lib/libclang.so'
-let g:clighter_autostart = 0
+let g:clighter_libclang_file = '/usr/lib/llvm-3.5/lib/libclang.so.1'
+let g:clighter_autostart = 1
 
 "let g:clighter_window_size = -1 " whole buffer
-let g:clighter_window_size = 0 " highlight current screen of window
+"let g:clighter_window_size = 0 " highlight current screen of window
 "let g:clighter_window_size = 1
 
 let g:clighter_realtime = 0
 
 let g:clighter_rename_prompt_level = 1
 
+
+let g:clighter_syntax_groups = ['clighterNamespaceRef', 'clighterFunctionDecl', 'clighterFieldDecl', 'clighterDeclRefExprCall', 'clighterMemberRefExprCall', 'clighterMemberRefExprVar', 'clighterNamespace', 'clighterNamespaceRef', 'cligherInclusionDirective', 'clighterVarDecl']
+
 let g:clighter_highlight_groups = ['clighterMacroInstantiation', 'clighterStructDecl', 'clighterClassDecl', 'clighterEnumDecl', 'clighterEnumConstantDecl', 'clighterTypeRef', 'clighterDeclRefExprEnum']
 
-let g:clighter_cursorHL = 0
+let g:ClighterOccurrences = 0
+
+"nmap <silent> <Leader>r :call clighter#Rename()<CR>
 "}}} ==================================================
 
 "{{{ ================= vim-bookmark =======================
