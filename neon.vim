@@ -26,9 +26,10 @@ hi MoreMsg      gui=BOLD guifg=#70ffc0 guibg=#8040ff
 hi Question     gui=BOLD guifg=#e8e800 guibg=NONE
 
 " Split area
-hi StatusLine   gui=NONE guifg=#000000 guibg=#c4c4c4
-hi StatusLineNC gui=NONE guifg=#707070 guibg=#c4c4c4
-hi VertSplit    gui=NONE guifg=#707070 guibg=#c4c4c4
+hi StatusLine   gui=NONE guifg=#000000 guibg=#bebebe
+"hi StatusLine   gui=NONE guifg=#dddddd guibg=#2a2a2a
+hi StatusLineNC gui=NONE guifg=#707070 guibg=#bebebe
+hi VertSplit    gui=NONE guifg=#707070 guibg=#bebebe
 hi WildMenu     gui=NONE guifg=#000000 guibg=#ff80c0
 
 " Diff
@@ -84,7 +85,12 @@ hi PmenuSel guibg=#c0aa94 guifg=bg gui=none
 " colorcolum
 hi ColorColumn guibg=#404040
 
+
 " ======== Clighter =================
 " 变量声明 
 hi clighterVarDecl guibg=bg guifg=fg gui=none
+" 宏函数调用等
+hi clighterMacroInstantiation guifg=#ffa8ff guibg=NONE gui=none 
+" 类型引用
+hi clighterTypeRef guibg=NONE guifg=#ff3f3f gui=none
 " =======================================

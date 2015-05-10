@@ -12,7 +12,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
-Plugin 'TagHighlight'
+"Plugin 'TagHighlight'
 Plugin 'dyng/ctrlsf.vim'
 "Plugin 'szw/vim-ctrlspace'
 Plugin 'jiangmiao/auto-pairs'
@@ -38,7 +38,7 @@ Plugin 'DoxygenToolkit.vim'
 Plugin 'TaskList.vim'
 " Plugin 'pthrasher/conqueterm-vim'
 "Plugin 'tfnico/vim-gradle'
-" Plugin 'rhysd/vim-clang-format'
+Plugin 'rhysd/vim-clang-format'
 "Plugin 'othree/xml.vim'
 Plugin 'a.vim'
 Plugin 'tpope/vim-surround'
@@ -59,6 +59,8 @@ Plugin 'Align.vim'
 "Plugin 'mattn/emmet-vim'
 
 "Plugin 'justinmk/vim-syntax-extra'
+
+Plugin 'python.vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -125,7 +127,7 @@ set foldlevel=99
  "set foldopen=all " 设置为自动打开折叠 
 
 set wildmenu " 增强版命令行，状态栏列出符合条件的命令
-set wildignore=*.o,*~ " 补全时忽略指定后缀文件
+set wildignore=*.o,*~,*.swp " 补全时忽略指定后缀文件
 set cmdheight=1 " 命令栏高度
 
 set wrap " 一行太长时，自动显示为多行
@@ -162,6 +164,8 @@ set guioptions-=L
 " 去除工具栏
 set guioptions-=m
 set guioptions-=T
+
+set columns=94
 " }}} ==========================================================
 
 " {{{ ============= 变量设置 ====================================
@@ -204,7 +208,8 @@ inoremap <C-S> <C-O>:w<CR>
 "inoremap <F8> <C-O>:Pyclewn<CR>:Cmapkeys<CR>:make<CR>:Cfile a.out<CR>
 
 " 生成tags文件
-nnoremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+"nnoremap <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+nnoremap <C-F12> :!ctags -R .<CR>
 
 "窗口分割时,进行切换的按键热键需要连接两次,比如从下方窗口移动
 "光标到上方窗口,需要<c-w><c-w>k,非常麻烦,现在重映射为<c-k>,切换的
@@ -300,6 +305,8 @@ nmap <silent> <leader>v :!google-chrome-stable %<CR>
 vmap Y "+y
 nmap Y "+yy
 nmap P "+p
+
+nmap <c-n> :nohl<cr>
 " }}} ===================================================
 
 " {{{ ============== correct word =======================
@@ -366,9 +373,7 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 
-
 let g:ctrlp_follow_symlinks = 1 	"显示链接文件
-
 
 " MRU模式下不显示的文件
 let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*' " MacOSX/Linux, 
@@ -503,7 +508,7 @@ nmap <C-Y> :YcmDiags<cr>
 " It must be a list of regular expressions. 
 " let NERDTreeIgnore=['\.vim$', '\~$']
 " let NERDTreeIgnore=['.d$[[dir]]', '.o$[[file]]']
-let NERDTreeIgnore=['.o$[[file]]']
+let NERDTreeIgnore=['.o$[[file]]', '.asv$[[file]]', '.fig$[[file]]', '.xlsx$[[file]]']
 
 " display line number
 " let NERDTreeShowLineNumbers=1
@@ -536,62 +541,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeT
 "}}} ====================================================
 
 
-"{{{ =========== NERDTree 和 Tagbar 共用一个窗口 ========
-" 不好用，容易出问题
-
-function! ToggleNERDTreeAndTagbar() 
-" let w:jumpbacktohere = 1
-
-" Detect which plugins are open
-if exists('t:NERDTreeBufName')
-let nerdtree_open = bufwinnr(t:NERDTreeBufName) != -1
-else
-let nerdtree_open = 0
-endif
-let tagbar_open = bufwinnr('__Tagbar__') != -1
-
-" Perform the appropriate action
-if nerdtree_open && tagbar_open
-NERDTreeClose
-TagbarClose
-elseif nerdtree_open
-Tagbar
-wincmd J
-wincmd k
-wincmd L
-elseif tagbar_open
-NERDTree
-wincmd J
-wincmd k
-wincmd L
-else
-NERDTree
-Tagbar
-wincmd J
-wincmd k
-wincmd L
-endif
-
-" 改变窗口宽度
-vertical resize +45 
-
-" Jump back to the original window
-" for window in range(1, winnr('$'))
-"     execute window . 'wincmd w'
-"     if exists('w:jumpbacktohere')
-"        unlet w:jumpbacktohere
-"        break
-"    endif
-"endfor  
-
-endfunction
-
-nnoremap <leader>\ :call ToggleNERDTreeAndTagbar()<CR>
 
 " 打开 vim 时自动打开 NERDTree 和 Tagbar
 " autocmd vimenter * call ToggleNERDTreeAndTagbar()
 " autocmd BufNewFile * call ToggleNERDTreeAndTagbar()
-
 "}}} ======================================================
 
 "{{{ ========== 打开NERDTree和Tagbar，分左右两列 ===========
@@ -610,13 +563,17 @@ let tagbar_open = bufwinnr('__Tagbar__') != -1
 if nerdtree_open && tagbar_open
 NERDTreeClose
 TagbarClose
+"set columns-=40
 elseif nerdtree_open
 Tagbar
+"set columns+=20
 elseif tagbar_open
 NERDTree
+"set columns+=20
 else
 NERDTree
 Tagbar
+"set columns+=40
 endif
 
 " Jump back to the original window
@@ -703,7 +660,7 @@ let g:clang_format#auto_format = 0
 let g:clang_format#auto_format_on_insert_leave = 0
 
 " format command
-let g:clang_format#command = '/usr/clang_3_3/bin/clang-format'
+let g:clang_format#command = 'clang-format'
 "}}} ===================================================
 
 
@@ -733,10 +690,10 @@ let g:vim_markdown_no_default_key_mappings = 1
 
 "{{{ ================= clighter =======================
 let g:clighter_libclang_file = '/usr/lib/llvm-3.5/lib/libclang.so.1'
-let g:clighter_autostart = 1
+" let g:clighter_autostart = 1
 
 "let g:clighter_window_size = -1 " whole buffer
-"let g:clighter_window_size = 0 " highlight current screen of window
+let g:clighter_window_size = 0 " highlight current screen of window
 "let g:clighter_window_size = 1
 
 let g:clighter_realtime = 0
@@ -746,7 +703,9 @@ let g:clighter_rename_prompt_level = 1
 
 let g:clighter_syntax_groups = ['clighterNamespaceRef', 'clighterFunctionDecl', 'clighterFieldDecl', 'clighterDeclRefExprCall', 'clighterMemberRefExprCall', 'clighterMemberRefExprVar', 'clighterNamespace', 'clighterNamespaceRef', 'cligherInclusionDirective', 'clighterVarDecl']
 
-let g:clighter_highlight_groups = ['clighterMacroInstantiation', 'clighterStructDecl', 'clighterClassDecl', 'clighterEnumDecl', 'clighterEnumConstantDecl', 'clighterTypeRef', 'clighterDeclRefExprEnum']
+"let g:clighter_syntax_groups = ['clighterPrepro','clighterDecl', 'clighterRef','clighterMacroInstantiation','clighterVarDecl','clighterStructDecl','clighterUnionDecl','clighterClassDecl','clighterEnumDecl','clighterParmDecl','clighterFunctionDecl','clighterEnumConstantDecl','clighterDeclRefExprEnum','clighterDeclRefExprCall','clighterMemberRefExprCall','clighterMemberRefExprVar', 'clighterTypeRef', 'clighterNamespace', 'clighterNamespaceRef', 'clighterTemplateTypeParameter','clighterTemplateRef', 'clighterOccurrences']
+
+"let g:clighter_highlight_groups = ['clighterMacroInstantiation', 'clighterStructDecl', 'clighterClassDecl', 'clighterEnumDecl', 'clighterEnumConstantDecl', 'clighterTypeRef', 'clighterDeclRefExprEnum']
 
 let g:ClighterOccurrences = 0
 
@@ -777,6 +736,16 @@ map T <plug>(glowshi-ft-T)
 let g:glowshi_ft_selected_hl_link = 'Cursor'
 "let g:glowshi_ft_candidates_hl_link = 'Error'
 "}}} ==================================================
+
+"{{{ ============ python.vim ==========================
+let python_no_number_highlight = 1
+let python_no_builtin_highlight = 1
+let python_no_exception_highlight = 1
+let python_no_doctest_highlight = 1
+let python_no_doctest_code_highlight = 1
+let readline_has_bash = 1
+"}}} ==================================================
+
 
 "}}} =====
 
