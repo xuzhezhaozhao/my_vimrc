@@ -26,7 +26,7 @@ Plugin 'jiangmiao/auto-pairs'
 "Plugin 'OmniCppComplete'
 "Plugin 'code_complete-new-update'
 Plugin 'ervandew/supertab'
-" Plugin 'Mark'
+Plugin 'Mark'
 "Plugin 'taglist.vim'
 Plugin 'Tagbar'
 Plugin 'scrooloose/nerdcommenter'
@@ -36,7 +36,7 @@ Plugin 'DoxygenToolkit.vim'
 " Plugin 'DoxyGen-Syntax'
 " Plugin 'sjl/gundo.vim'
 Plugin 'TaskList.vim'
-" Plugin 'pthrasher/conqueterm-vim'
+Plugin 'pthrasher/conqueterm-vim'
 "Plugin 'tfnico/vim-gradle'
 Plugin 'rhysd/vim-clang-format'
 "Plugin 'othree/xml.vim'
@@ -49,6 +49,7 @@ Plugin 'bbchung/clighter'
 
 "Plugin 'xuzhezhaozhao/vim-potion'
 Plugin 'name5566/vim-bookmark'
+" Plugin 'MattesGroeger/vim-bookmarks'
 
 Plugin 'saihoooooooo/glowshi-ft.vim'
 Plugin 'panozzaj/vim-autocorrect'
@@ -60,7 +61,15 @@ Plugin 'Align.vim'
 
 "Plugin 'justinmk/vim-syntax-extra'
 
-Plugin 'python.vim'
+Plugin 'hdima/python-syntax'
+
+Plugin 'raichoo/haskell-vim'
+
+Plugin 'tpope/vim-repeat'
+
+Plugin 'tmhedberg/matchit'
+
+Plugin 'Igorjan94/codeforces.vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -104,7 +113,7 @@ set tabstop=4
 " set expandtab " 用 space 代替tab输入
 set smarttab
 set shiftwidth=4
-" set cursorline " 高亮显示当前行
+set cursorline " 高亮显示当前行
 set hlsearch " 高亮搜索结果
 set anti
 set guifont=YaHei\ Consolas\ Hybrid\ 12,Fixed\ 12 " 设置 gvim 的字体及大小
@@ -149,10 +158,10 @@ set viminfo^=%
 set laststatus=2
 " Format the status line
 "set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ \ \ 
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ \ \ \ \ \ \%y
 set statusline+=%=
-set statusline+=\ %l\ /\ %L\ \ \ \ \ \ \ %c\ \ \ \ \ \ \ 
-set statusline+=%p%%\ \ 
+set statusline+=\ %l\ /\ %L\ \ \ \ \ \ \ %v\ \ \ \ \ \ \ 
+set statusline+=%p%%\ \ \ 
 
 " 高亮匹配 <>
 set mps+=<:>
@@ -666,7 +675,7 @@ let g:clang_format#command = 'clang-format'
 
 "{{{ ================= Eclim ==================
 " work with YCM
-let g:EclimCompletionMethod = 'omnifunc'
+"let g:EclimCompletionMethod = 'omnifunc'
 "}}} ===================================================
 
 
@@ -716,11 +725,35 @@ let g:ClighterOccurrences = 0
 let g:vbookmark_bookmarkSaveFile = $HOME . '/.vimbookmark'
 " 禁用默认的按键绑定
 let g:vbookmark_disableMapping = 1
-"  使用新的快捷键
+" 使用新的快捷键
 nnoremap <silent> mm :VbookmarkToggle<CR>
 nnoremap <silent> mn :VbookmarkNext<CR>
 nnoremap <silent> mp :VbookmarkPrevious<CR>
 nnoremap <silent> ma :VbookmarkClearAll<CR>
+"}}} ==================================================
+
+"{{{ ================= vim-bookmarks =======================
+"let g:bookmark_center = 1
+"let g:bookmark_save_per_working_dir = 1
+"let g:bookmark_auto_save = 1
+
+"" Finds the Git super-project directory based on the file passed as an argument.
+"function! g:BMBufferFileLocation(file)
+    "let filename = 'vim-bookmarks'
+    "let location = ''
+    "if isdirectory(fnamemodify(a:file, ":p:h").'/.git')
+        "" Current work dir is git's work tree
+        "let location = fnamemodify(a:file, ":p:h").'/.git'
+    "else
+        "" Look upwards (at parents) for a directory named '.git'
+        "let location = finddir('.git', fnamemodify(a:file, ":p:h").'/.;')
+    "endif
+    "if len(location) > 0
+        "return simplify(location.'/.'.filename)
+    "else
+        "return simplify(fnamemodify(a:file, ":p:h").'/.'.filename)
+    "endif
+"endfunction
 "}}} ==================================================
 
 "{{{ ================= glowshi-ft =======================
@@ -738,12 +771,18 @@ let g:glowshi_ft_selected_hl_link = 'Cursor'
 "}}} ==================================================
 
 "{{{ ============ python.vim ==========================
-let python_no_number_highlight = 1
-let python_no_builtin_highlight = 1
-let python_no_exception_highlight = 1
-let python_no_doctest_highlight = 1
-let python_no_doctest_code_highlight = 1
-let readline_has_bash = 1
+let g:python_highlight_indent_errors = 0
+let g:python_highlight_space_errors = 0
+let g:python_highlight_indent_errors = 0
+let g:python_highlight_builtins = 1
+let g:python_highlight_exceptions = 1
+let g:python_highlight_string_formatting = 1
+let g:python_highlight_string_format = 1
+let g:python_highlight_string_templates = 1
+let g:python_highlight_doctests = 1
+let g:python_print_as_function = 1
+let g:python_highlight_file_headers_as_comments = 1
+let g:python_highlight_all = 1
 "}}} ==================================================
 
 

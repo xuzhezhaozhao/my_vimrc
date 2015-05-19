@@ -15,7 +15,8 @@ hi Normal       guifg=#f0f0f0 guibg=#303030
 hi IncSearch    gui=UNDERLINE guifg=#80ffff guibg=#0060c0
 " hi Search       gui=NONE guifg=#ffffa8 guibg=#808000
 " hi Search       gui=NONE guifg=#ffffa8 guibg=#63813a
-hi Search       gui=NONE guifg=#101010 guibg=darkkhaki
+"hi Search       gui=NONE guifg=#101010 guibg=darkkhaki
+hi Search       gui=NONE guifg=#080808 guibg=#bababf
 " hi Search       gui=NONE guifg=#b0ffb0 guibg=#008000
 
 " Messages
@@ -48,7 +49,8 @@ hi lCursor      gui=NONE guifg=#ffffff guibg=khaki
 hi CursorIM     gui=NONE guifg=#ffffff guibg=khaki
 
 " Fold
-hi Folded       gui=NONE guifg=#40f0f0 guibg=#006090
+"hi Folded       gui=NONE guifg=#40f0f0 guibg=#006090
+hi Folded       gui=NONE guifg=#d0d0d0 guibg=bg
 hi FoldColumn   gui=NONE guifg=#40c0ff guibg=#404040
 
 " Other
@@ -85,6 +87,11 @@ hi PmenuSel guibg=#c0aa94 guifg=bg gui=none
 " colorcolum
 hi ColorColumn guibg=#404040
 
+" 高亮当前行颜色, 这样设置会只高亮当前行的行号, nice
+highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+
+" sign area
+highlight SignColumn guibg=bg guifg=NONE
 
 " ======== Clighter =================
 " 变量声明 
