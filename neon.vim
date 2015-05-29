@@ -13,7 +13,6 @@ hi Normal       guifg=#f0f0f0 guibg=#303030
 
 " Search
 hi IncSearch    gui=UNDERLINE guifg=#80ffff guibg=#0060c0
-" hi Search       gui=NONE guifg=#ffffa8 guibg=#808000
 " hi Search       gui=NONE guifg=#ffffa8 guibg=#63813a
 "hi Search       gui=NONE guifg=#101010 guibg=darkkhaki
 hi Search       gui=NONE guifg=#080808 guibg=#bababf
@@ -100,4 +99,6 @@ hi clighterVarDecl guibg=bg guifg=fg gui=none
 hi clighterMacroInstantiation guifg=#ffa8ff guibg=NONE gui=none 
 " 类型引用
 hi clighterTypeRef guibg=NONE guifg=#ff3f3f gui=none
+
+hi clighterOccurrences gui=NONE guifg=#101010 guibg=darkkhaki
 " =======================================

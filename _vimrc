@@ -39,7 +39,7 @@ Plugin 'TaskList.vim'
 Plugin 'pthrasher/conqueterm-vim'
 "Plugin 'tfnico/vim-gradle'
 Plugin 'rhysd/vim-clang-format'
-"Plugin 'othree/xml.vim'
+Plugin 'othree/xml.vim'
 Plugin 'a.vim'
 Plugin 'tpope/vim-surround'
 "Plugin 'tpope/vim-fugitive' " git tool
@@ -57,7 +57,7 @@ Plugin 'panozzaj/vim-autocorrect'
 "Plugin 'MatlabFilesEdition'
 Plugin 'Align.vim'
 
-"Plugin 'mattn/emmet-vim'
+Plugin 'mattn/emmet-vim'
 
 "Plugin 'justinmk/vim-syntax-extra'
 
@@ -70,6 +70,14 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tmhedberg/matchit'
 
 Plugin 'Igorjan94/codeforces.vim'
+
+Plugin 'rdnetto/YCM-Generator'
+
+Plugin 'tpope/vim-fugitive'
+
+Plugin 'terryma/vim-multiple-cursors'
+
+Plugin 'Shougo/unite.vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -116,7 +124,7 @@ set shiftwidth=4
 set cursorline " 高亮显示当前行
 set hlsearch " 高亮搜索结果
 set anti
-set guifont=YaHei\ Consolas\ Hybrid\ 12,Fixed\ 12 " 设置 gvim 的字体及大小
+set guifont=YaHei\ Consolas\ Hybrid\ 15,Fixed\ 15 " 设置 gvim 的字体及大小
 "set guifont=Menlo\ Regular\ 12,Fixed\ 12 " 设置 gvim 的字体及大小
 set autochdir	" 自动设置当前编辑的文件所在路径为工作路径
 set so=3 " 光标在还有3行时自动滚屏
@@ -130,7 +138,7 @@ set whichwrap=<,>,[,] " 具体查看 :help, 设置左右方向键在行头行尾
 
 " set foldenable " 开始折叠
 " 按 space键 toggle 折叠块
-nnoremap <space> za
+nnoremap <space> zA
 set foldmethod=indent  " 设置折叠方式为按缩进折叠
 set foldlevel=99
  "set foldopen=all " 设置为自动打开折叠 
@@ -175,6 +183,8 @@ set guioptions-=m
 set guioptions-=T
 
 set columns=94
+
+set selection=inclusive
 " }}} ==========================================================
 
 " {{{ ============= 变量设置 ====================================
@@ -315,13 +325,15 @@ vmap Y "+y
 nmap Y "+yy
 nmap P "+p
 
-nmap <c-n> :nohl<cr>
+nmap <leader>j <c-f>
+nmap <leader>k <c-b>
 " }}} ===================================================
 
 " {{{ ============== correct word =======================
 iabbrev adn and
 iabbrev teh the
 iabbrev waht what
+iabbrev itn int
 " }}} ===================================================
  
 "{{{ ==== plugin setup =====
@@ -360,7 +372,7 @@ nnoremap <leader>b :TagbarToggle<cr>
 let g:tagbar_left = 1 " 使其出现在左边
 "let g:tagbar_right = 1 " 使其出现右边
 set updatetime=100 " 根据光标位置自动更新高亮tag的间隔时间，单位为毫秒
-let g:tagbar_width = 20 " 设置窗口宽度
+let g:tagbar_width = 22 " 设置窗口宽度
 " let g:tagbar_compact= 1 " 不显示顶部帮助信息，节省空间
 let g:tagbar_show_linenumbers = 0 " 不显示行号
 " let g:tagbar_expand = 1 " 自动扩展gui窗口
@@ -502,7 +514,7 @@ set completeopt=longest,menu
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif	
 
 " 0: 关闭ycm的syntastic
-let g:ycm_show_diagnostics_ui = 1
+let g:ycm_show_diagnostics_ui = 0
 
 " 将出错信息写入到locationlist中去
 "let g:ycm_always_populate_location_list = 1
@@ -534,7 +546,7 @@ let NERDTreeIgnore=['.o$[[file]]', '.asv$[[file]]', '.fig$[[file]]', '.xlsx$[[fi
 let NERDTreeSortOrder = ['\/$', '\.cpp$', '\.c$', '\.cc$', '\.h$', '*']
 
 " 窗口宽度
-let NERDTreeWinSize = 20
+let NERDTreeWinSize = 22
 
 " 指定位置
 "let NERDTreeWinPos = "left"
@@ -717,7 +729,6 @@ let g:clighter_syntax_groups = ['clighterNamespaceRef', 'clighterFunctionDecl', 
 "let g:clighter_highlight_groups = ['clighterMacroInstantiation', 'clighterStructDecl', 'clighterClassDecl', 'clighterEnumDecl', 'clighterEnumConstantDecl', 'clighterTypeRef', 'clighterDeclRefExprEnum']
 
 let g:ClighterOccurrences = 0
-
 "nmap <silent> <Leader>r :call clighter#Rename()<CR>
 "}}} ==================================================
 
