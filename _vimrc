@@ -79,6 +79,8 @@ Plugin 'terryma/vim-multiple-cursors'
 
 Plugin 'Shougo/unite.vim'
 
+Plugin 'rust-lang/rust.vim'
+
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -282,8 +284,8 @@ nnoremap <leader>ev :e $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " go to line head and tail
-nnoremap H ^
-nnoremap L $
+"nnoremap H ^
+"nnoremap L $
 
 " wrap the word under the cursor with " or '
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>e
@@ -372,7 +374,7 @@ nnoremap <leader>b :TagbarToggle<cr>
 let g:tagbar_left = 1 " 使其出现在左边
 "let g:tagbar_right = 1 " 使其出现右边
 set updatetime=100 " 根据光标位置自动更新高亮tag的间隔时间，单位为毫秒
-let g:tagbar_width = 22 " 设置窗口宽度
+let g:tagbar_width = 25 " 设置窗口宽度
 " let g:tagbar_compact= 1 " 不显示顶部帮助信息，节省空间
 let g:tagbar_show_linenumbers = 0 " 不显示行号
 " let g:tagbar_expand = 1 " 自动扩展gui窗口
@@ -411,13 +413,30 @@ let g:ctrlp_mruf_relative = 1
 
 
 "{{{ ================== syntastic 插件设置 ==================
+" status line 格式
+let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+" 自动打开 location list
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_loc_list_height = 5
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = '-g -std=c++11 -Wall -DLEVELDB_PLATFORM_POSIX'
 
+let g:syntastic_c_compiler = 'gcc'
+let g:syntastic_c_compiler_options = '-g -std=c99 -Wall '
+
 let g:syntastic_python_python_exec = '/usr/bin/python3'
 
+
 " ignore some messages
-" let g:syntastic_quiet_messages = {"regex": 'no such'}
+let g:syntastic_quiet_messages = {"regex": 'no such file or directory'}
 "}}} ===================================================
 
 
@@ -546,7 +565,7 @@ let NERDTreeIgnore=['.o$[[file]]', '.asv$[[file]]', '.fig$[[file]]', '.xlsx$[[fi
 let NERDTreeSortOrder = ['\/$', '\.cpp$', '\.c$', '\.cc$', '\.h$', '*']
 
 " 窗口宽度
-let NERDTreeWinSize = 22
+let NERDTreeWinSize = 25
 
 " 指定位置
 "let NERDTreeWinPos = "left"
@@ -587,10 +606,8 @@ TagbarClose
 "set columns-=40
 elseif nerdtree_open
 Tagbar
-"set columns+=20
 elseif tagbar_open
 NERDTree
-"set columns+=20
 else
 NERDTree
 Tagbar
