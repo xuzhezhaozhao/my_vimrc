@@ -431,12 +431,16 @@ let g:syntastic_cpp_compiler_options = '-g -std=c++11 -Wall -DLEVELDB_PLATFORM_P
 
 let g:syntastic_c_compiler = 'gcc'
 let g:syntastic_c_compiler_options = '-g -std=c99 -Wall '
+"let g:syntastic_c_compiler_options = '-g -std=c99 -Wall -I/home/xzz/redis/deps/hiredis/'
 
 let g:syntastic_python_python_exec = '/usr/bin/python3'
 
+" for redis source code
+autocmd FileType c if stridx(expand("%:p"), "/redis/") != -1 |
+	\ let g:syntastic_c_compiler_options = '-g -ggdb -std=c99 -pedantic -Wall -W -I../deps/hiredis -I../deps/linenoise -I../deps/lua/src -I../deps/jemalloc/include' | endif
 
 " ignore some messages
-let g:syntastic_quiet_messages = {"regex": 'no such file or directory'}
+"let g:syntastic_quiet_messages = {"regex": 'no such file or directory'}
 "}}} ===================================================
 
 
