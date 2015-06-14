@@ -81,6 +81,8 @@ Plugin 'Shougo/unite.vim'
 
 Plugin 'rust-lang/rust.vim'
 
+Plugin 'szw/vim-tags'
+
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -187,6 +189,9 @@ set guioptions-=T
 set columns=94
 
 set selection=inclusive
+
+set fileencoding=utf-8
+set fileencodings=ucs-bom,utf-8,chinese,cp936
 " }}} ==========================================================
 
 " {{{ ============= 变量设置 ====================================
@@ -370,6 +375,8 @@ set previewheight=6 " 设置调试窗口大小, 宽度为 8
 
 
 "{{{ ============== tagbar 设置 =========================
+" 按出现顺序排序, 为 1 则是按字母序
+let g:tagbar_sort = 0
 nnoremap <leader>b :TagbarToggle<cr>
 let g:tagbar_left = 1 " 使其出现在左边
 "let g:tagbar_right = 1 " 使其出现右边
@@ -421,7 +428,7 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 " 自动打开 location list
-let g:syntastic_auto_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
 let g:syntastic_loc_list_height = 5
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
@@ -430,14 +437,17 @@ let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = '-g -std=c++11 -Wall -DLEVELDB_PLATFORM_POSIX'
 
 let g:syntastic_c_compiler = 'gcc'
-let g:syntastic_c_compiler_options = '-g -std=c99 -Wall '
-"let g:syntastic_c_compiler_options = '-g -std=c99 -Wall -I/home/xzz/redis/deps/hiredis/'
+let g:syntastic_c_compiler_options = '-g -Wall -std=c99'
 
 let g:syntastic_python_python_exec = '/usr/bin/python3'
 
 " for redis source code
 autocmd FileType c if stridx(expand("%:p"), "/redis/") != -1 |
-	\ let g:syntastic_c_compiler_options = '-g -ggdb -std=c99 -pedantic -Wall -W -I../deps/hiredis -I../deps/linenoise -I../deps/lua/src -I../deps/jemalloc/include' | endif
+	\ let g:syntastic_c_compiler_options = '-std=c99 -g -ggdb -pedantic -Wall -W -I../deps/hiredis -I../deps/linenoise -I../deps/lua/src -I../deps/jemalloc/include' | endif
+
+" for unp source code
+autocmd FileType c if stridx(expand("%:p"), "/unp") != -1 |
+	\ let g:syntastic_c_compiler_options = '-g -ggdb -pedantic -Wall -W' | endif
 
 " ignore some messages
 "let g:syntastic_quiet_messages = {"regex": 'no such file or directory'}
@@ -817,6 +827,10 @@ let g:python_highlight_file_headers_as_comments = 1
 let g:python_highlight_all = 1
 "}}} ==================================================
 
+
+" ===================== vim-tags ======================
+let g:vim_tags_auto_generate = 1
+" =====================================================
 
 "}}} =====
 
