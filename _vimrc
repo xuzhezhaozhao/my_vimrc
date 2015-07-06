@@ -142,7 +142,7 @@ set whichwrap=<,>,[,] " 具体查看 :help, 设置左右方向键在行头行尾
 
 " set foldenable " 开始折叠
 " 按 space键 toggle 折叠块
-nnoremap <space> zA
+nnoremap <space> za
 set foldmethod=indent  " 设置折叠方式为按缩进折叠
 set foldlevel=99
  "set foldopen=all " 设置为自动打开折叠 
@@ -190,6 +190,7 @@ set columns=94
 
 set selection=inclusive
 
+" 解决 windows 中文乱码
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,chinese,cp936
 " }}} ==========================================================
@@ -289,8 +290,8 @@ nnoremap <leader>ev :e $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " go to line head and tail
-"nnoremap H ^
-"nnoremap L $
+nnoremap H ^
+nnoremap L $
 
 " wrap the word under the cursor with " or '
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>e
@@ -434,10 +435,10 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = '-g -std=c++11 -Wall -DLEVELDB_PLATFORM_POSIX'
+let g:syntastic_cpp_compiler_options = '-g -std=c++11 -Wall -DLEVELDB_PLATFORM_POSIX -fopenmp'
 
 let g:syntastic_c_compiler = 'gcc'
-let g:syntastic_c_compiler_options = '-g -Wall -std=c99'
+let g:syntastic_c_compiler_options = '-g -Wall -std=c99 -fopenmp'
 
 let g:syntastic_python_python_exec = '/usr/bin/python3'
 
@@ -592,6 +593,10 @@ let NERDTreeAutoDeleteBuffer=1
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
 
 " nnoremap f :NERDTreeToggle<CR><C-L>
+ 
+function! NERDTreeCustomIgnoreFilter(path)
+    return a:path.isExecutable
+endfunction
 "}}} ====================================================
 
 
