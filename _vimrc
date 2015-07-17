@@ -83,6 +83,8 @@ Plugin 'rust-lang/rust.vim'
 
 Plugin 'szw/vim-tags'
 
+Plugin 'octol/vim-cpp-enhanced-highlight'
+
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -134,6 +136,7 @@ set autochdir	" 自动设置当前编辑的文件所在路径为工作路径
 set so=3 " 光标在还有3行时自动滚屏
 set ignorecase smartcase " 搜索时默认不区分大小写，只有搜索关键字中出现一个大字母时才区分大小写
 set incsearch  " 即时搜素
+set nowrapscan " 搜索时不循环
 set showcmd " 命令模式下显示输入的命令
 syntax on " 语法高亮
 filetype plugin on " 文件类型检查
@@ -196,7 +199,7 @@ set fileencodings=ucs-bom,utf-8,chinese,cp936
 " }}} ==========================================================
 
 " {{{ ============= 变量设置 ====================================
-" 映射 <Leader>键  
+" 映射 <Leader>键 
 let g:mapleader = ","
 " }}} ===========================================================
 
@@ -239,7 +242,7 @@ inoremap <C-S> <C-O>:w<CR>
 nnoremap <C-F12> :!ctags -R .<CR>
 
 "窗口分割时,进行切换的按键热键需要连接两次,比如从下方窗口移动
-"光标到上方窗口,需要<c-w><c-w>k,非常麻烦,现在重映射为<c-k>,切换的
+"光标到上方窗口,需要<c-w>k,非常麻烦,现在重映射为<c-k>,切换的
 "时候会变得非常方便.
 nnoremap <C-H> <C-W>h
 nnoremap <C-J> <C-W>j
@@ -835,6 +838,12 @@ let g:python_highlight_all = 1
 
 " ===================== vim-tags ======================
 let g:vim_tags_auto_generate = 1
+let g:vim_tags_project_tags_command = "{CTAGS} -R {OPTIONS} {DIRECTORY}"
+" =====================================================
+
+" ===================== vim-cpp-enhanced-highlight ====
+let g:cpp_class_scope_highlight = 1
+let g:cpp_experimental_template_highlight = 1
 " =====================================================
 
 "}}} =====
