@@ -206,6 +206,24 @@ let g:mapleader = ","
 " {{{ =================== 键盘映射 ==============================
 " use space to toggle folding area
 
+""""""""""""""""""""""""""""""""""""""""""
+" thanks for rick唐
+"Ultimate Visual Search
+""""""""""""""""""""""""""""""""""""""""""
+vnoremap * :<C-u>call <SID>UltiVSearch()<CR>/<C-R>=@/<CR><CR>
+vnoremap # :<C-u>call <SID>UltiVSearch()<CR>?<C-R>=@/<CR><CR>
+
+function! s:UltiVSearch()
+  let temp = @s
+  norm! gv"sy
+  let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n','g')
+  let @s = temp
+endfunction
+"holy hack! it works! 
+""""""""""""""""""""""""""""""""""""""""""
+"Ultimate Visual Search
+""""""""""""""""""""""""""""""""""""""""""
+
 " 以下3行命令将ctrl-s映射为保存
 nnoremap <C-S> :w<CR>
 vnoremap <C-S> <C-C>:w<CR>
@@ -257,8 +275,8 @@ nnoremap <leader>q :q!<CR>
 
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :call VisualSelection('f')<CR>
-vnoremap <silent> # :call VisualSelection('b')<CR>
+"vnoremap <silent> * :call VisualSelection('f')<CR>
+"vnoremap <silent> # :call VisualSelection('b')<CR>
 
 " Treat long lines as break lines (useful when moving around in them)
 nnoremap j gj
