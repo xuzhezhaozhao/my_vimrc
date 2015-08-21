@@ -312,7 +312,9 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " go to line head and tail
 nnoremap H ^
+vnoremap H ^
 nnoremap L $
+vnoremap L $
 
 " wrap the word under the cursor with " or '
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>e
@@ -456,20 +458,17 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = '-g -std=c++11 -Wall -DLEVELDB_PLATFORM_POSIX -fopenmp'
+let g:syntastic_cpp_compiler_options = '-std=c++11 -Wall'
+let g:syntastic_cpp_config_file = '.syntastic_cpp_config'
 
 let g:syntastic_c_compiler = 'gcc'
-let g:syntastic_c_compiler_options = '-g -Wall -std=c99 -fopenmp'
+let g:syntastic_c_compiler_options = '-std=c99 -Wall'
+" 参数设置文件, 从被检查的文件目录开始逐级向上检查是否有该文件
+" 利用给设置, 可以为每个 project 指定不同的编译器选项
+let g:syntastic_c_config_file = '.syntastic_c_config'
+let g:syntastic_c_include_dirs = []
 
 let g:syntastic_python_python_exec = '/usr/bin/python3'
-
-" for redis source code
-autocmd FileType c if stridx(expand("%:p"), "/redis/") != -1 |
-	\ let g:syntastic_c_compiler_options = '-std=c99 -g -ggdb -pedantic -Wall -W -I../deps/hiredis -I../deps/linenoise -I../deps/lua/src -I../deps/jemalloc/include' | endif
-
-" for unp source code
-autocmd FileType c if stridx(expand("%:p"), "/unp") != -1 |
-	\ let g:syntastic_c_compiler_options = '-g -ggdb -pedantic -Wall -W' | endif
 
 " ignore some messages
 "let g:syntastic_quiet_messages = {"regex": 'no such file or directory'}
