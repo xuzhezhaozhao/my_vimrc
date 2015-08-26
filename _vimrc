@@ -676,6 +676,14 @@ nnoremap <c-d> :silent execute "CtrlSF " . shellescape(expand("<cword>"))<cr>
 
 " 搜索结果在右端显示
 " let g:ctrlsf_open_left = 0 
+
+let g:ctrlsf_context = '-B 2 -A 2'
+let g:ctrlsf_indent = 2
+let g:ctrlsf_default_root = 'project'
+let g:ctrlsf_mapping = {
+    \ "next": "n",
+    \ "prev": "N",
+    \ }
 "}}} ===================================================
 
 "{{{ ========== NERDCommenter =========================
@@ -861,6 +869,13 @@ let g:vim_tags_project_tags_command = "{CTAGS} -R {OPTIONS} {DIRECTORY}"
 " ===================== vim-cpp-enhanced-highlight ====
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
+" =====================================================
+
+
+" ==================== Emmet-vim ======================
+" enable only in html/css
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
 " =====================================================
 
 "}}} =====
