@@ -85,6 +85,10 @@ Plugin 'szw/vim-tags'
 
 Plugin 'octol/vim-cpp-enhanced-highlight'
 
+Plugin 'tomasr/molokai'
+
+Plugin 'WolfgangMehner/matlab-support'
+
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -368,7 +372,7 @@ iabbrev itn int
 " }}} ===================================================
  
 "{{{ ==== plugin setup =====
-"
+
 " {{{ ============= UltiSnips 插件设置 ==================
 " 代码片段
 set runtimepath+=~/.vim/ultisnips_rep "UltiSnips
@@ -617,14 +621,12 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeT
 function! NERDTreeCustomIgnoreFilter(path)
     return a:path.isExecutable
 endfunction
-"}}} ====================================================
-
-
 
 " 打开 vim 时自动打开 NERDTree 和 Tagbar
 " autocmd vimenter * call ToggleNERDTreeAndTagbar()
 " autocmd BufNewFile * call ToggleNERDTreeAndTagbar()
-"}}} ======================================================
+"}}} ====================================================
+
 
 "{{{ ========== 打开NERDTree和Tagbar，分左右两列 ===========
 function! ToggleNERDTreeAndTagbar2() 
@@ -861,24 +863,29 @@ let g:python_highlight_all = 1
 "}}} ==================================================
 
 
-" ===================== vim-tags ======================
+"{{{ ===================== vim-tags ===================
 let g:vim_tags_auto_generate = 1
 let g:vim_tags_project_tags_command = "{CTAGS} -R {OPTIONS} {DIRECTORY}"
-" =====================================================
+"}}} ==================================================
 
-" ===================== vim-cpp-enhanced-highlight ====
+"{{{ ================== vim-cpp-enhanced-highlight ====
 let g:cpp_class_scope_highlight = 1
 let g:cpp_experimental_template_highlight = 1
-" =====================================================
+"}}} ==================================================
 
 
-" ==================== Emmet-vim ======================
+"{{{ ================== Emmet-vim =====================
 " enable only in html/css
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
-" =====================================================
+"}}} ==================================================
 
-"}}} =====
+
+"{{{ ================ matlab-support ==================
+let g:Matlab_MlintExecutable = '/home/xzz/.MATLAB/R2013b/bin/glnxa64/mlint'
+"}}} ==================================================
+
+"}}} ==== plugin setup end
 
 "{{{ ================== Help funtions =================
 " From: http://amix.dk/vim/vimrc.html
