@@ -15,7 +15,8 @@ hi Normal       guifg=#f0f0f0 guibg=#303030
 hi IncSearch    gui=UNDERLINE guifg=#80ffff guibg=#0060c0
 " hi Search       gui=NONE guifg=#ffffa8 guibg=#63813a
 "hi Search       gui=NONE guifg=#101010 guibg=darkkhaki
-hi Search       gui=NONE guifg=#080808 guibg=#bababf
+"hi Search       gui=NONE guifg=#080808 guibg=#bababf
+hi Search       gui=NONE guifg=#080808 guibg=#e8d098
 " hi Search       gui=NONE guifg=#b0ffb0 guibg=#008000
 
 " Messages
