@@ -9,6 +9,8 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
@@ -117,6 +119,11 @@ autocmd FileType vim :setlocal foldmethod=marker
 " }}} ==========================================================
 
 " {{{ =================== 基本设置 ==============================
+set runtimepath+=~/.vim,/etc/vim,/usr/share/vim/vimfiles,/usr/share/vim/addons,/usr/share/vim/vim74,/usr/share/vim/vimfiles,/usr/share/vim/addons/after,~/.vim/after
+let $VIM = "/home/xzz/.usr/local/share/vim"
+let $VIMRUNTIME = "/home/xzz/.usr/local/share/vim/vim74"
+set helpfile=$VIMRUNTIME/doc/
+
 set nocompatible " 推荐设置，使用vim模式，不使用vi模式
 " set cindent "C格式的自动缩进
 set autoindent
@@ -202,6 +209,15 @@ set selection=inclusive
 " 解决 windows 中文乱码
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,chinese,cp936
+
+" 标签页只显示文件名
+function! ShortTabLabel ()
+    let bufnrlist = tabpagebuflist (v:lnum)
+    let label = bufname (bufnrlist[tabpagewinnr (v:lnum) -1])
+    let filename = fnamemodify (label, ':t')
+    return filename
+endfunction
+set guitablabel=%{ShortTabLabel()}
 " }}} ==========================================================
 
 " {{{ ============= 变量设置 ====================================
@@ -377,7 +393,7 @@ iabbrev itn int
 
 " {{{ ============= UltiSnips 插件设置 ==================
 " 代码片段
-set runtimepath+=~/.vim/ultisnips_rep "UltiSnips
+"set runtimepath+=~/.vim/ultisnips_rep "UltiSnips
 " let g:UltiSnipsExpandTrigger="<tab>"
 " let g:UltiSnipsJumpForwardTrigger="<tab>"
 " let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
@@ -778,7 +794,7 @@ let g:vim_markdown_no_default_key_mappings = 1
 
 
 "{{{ ================= clighter =======================
-let g:clighter_libclang_file = '/usr/lib/llvm-3.5/lib/libclang.so.1'
+let g:clighter_libclang_file = '/home/xzz/lib/llvm-3.5/lib/libclang.so.1'
 " let g:clighter_autostart = 1
 
 "let g:clighter_window_size = -1 " whole buffer
