@@ -211,13 +211,7 @@ set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,chinese,cp936
 
 " 标签页只显示文件名
-function! ShortTabLabel ()
-    let bufnrlist = tabpagebuflist (v:lnum)
-    let label = bufname (bufnrlist[tabpagewinnr (v:lnum) -1])
-    let filename = fnamemodify (label, ':t')
-    return filename
-endfunction
-set guitablabel=%{ShortTabLabel()}
+set guitablabel=%t
 " }}} ==========================================================
 
 " {{{ ============= 变量设置 ====================================
@@ -765,7 +759,7 @@ let g:clang_format#auto_format = 0
 let g:clang_format#auto_format_on_insert_leave = 0
 
 " format command
-let g:clang_format#command = 'clang-format'
+let g:clang_format#command = 'clang-format-3.6'
 "}}} ===================================================
 
 
