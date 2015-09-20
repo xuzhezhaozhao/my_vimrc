@@ -34,11 +34,11 @@ Plugin 'Tagbar'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'kien/ctrlp.vim'
 "Plugin 'vim-auto-save'
-Plugin 'DoxygenToolkit.vim'
+"Plugin 'DoxygenToolkit.vim'
 " Plugin 'DoxyGen-Syntax'
 " Plugin 'sjl/gundo.vim'
 Plugin 'TaskList.vim'
-Plugin 'pthrasher/conqueterm-vim'
+"Plugin 'pthrasher/conqueterm-vim'
 "Plugin 'tfnico/vim-gradle'
 Plugin 'rhysd/vim-clang-format'
 Plugin 'othree/xml.vim'
@@ -57,7 +57,7 @@ Plugin 'saihoooooooo/glowshi-ft.vim'
 Plugin 'panozzaj/vim-autocorrect'
 "Plugin 'matlab.vim'
 "Plugin 'MatlabFilesEdition'
-Plugin 'Align.vim'
+"Plugin 'Align.vim'
 
 Plugin 'mattn/emmet-vim'
 
@@ -71,11 +71,11 @@ Plugin 'tpope/vim-repeat'
 
 Plugin 'tmhedberg/matchit'
 
-Plugin 'Igorjan94/codeforces.vim'
+"Plugin 'Igorjan94/codeforces.vim'
 
-Plugin 'rdnetto/YCM-Generator'
+"Plugin 'rdnetto/YCM-Generator'
 
-Plugin 'tpope/vim-fugitive'
+"Plugin 'tpope/vim-fugitive'
 
 Plugin 'terryma/vim-multiple-cursors'
 
@@ -87,11 +87,13 @@ Plugin 'szw/vim-tags'
 
 Plugin 'octol/vim-cpp-enhanced-highlight'
 
-Plugin 'tomasr/molokai'
+"Plugin 'tomasr/molokai'
 
 Plugin 'WolfgangMehner/matlab-support'
 
 "Plugin 'gilgigilgil/anderson.vim'
+
+Plugin 'xuzhezhaozhao/FileJump'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -116,14 +118,10 @@ filetype plugin indent on    " required
 
 " {{{ ==================== autocmd ============================
 autocmd FileType vim :setlocal foldmethod=marker
+autocmd FileType help :setlocal nu
 " }}} ==========================================================
 
 " {{{ =================== 基本设置 ==============================
-set runtimepath+=~/.vim,/etc/vim,/usr/share/vim/vimfiles,/usr/share/vim/addons,/usr/share/vim/vim74,/usr/share/vim/vimfiles,/usr/share/vim/addons/after,~/.vim/after
-let $VIM = "/home/xzz/.usr/local/share/vim"
-let $VIMRUNTIME = "/home/xzz/.usr/local/share/vim/vim74"
-set helpfile=$VIMRUNTIME/doc/
-
 set nocompatible " 推荐设置，使用vim模式，不使用vi模式
 " set cindent "C格式的自动缩进
 set autoindent
@@ -421,7 +419,7 @@ nnoremap <leader>b :TagbarToggle<cr>
 let g:tagbar_left = 1 " 使其出现在左边
 "let g:tagbar_right = 1 " 使其出现右边
 set updatetime=100 " 根据光标位置自动更新高亮tag的间隔时间，单位为毫秒
-let g:tagbar_width = 25 " 设置窗口宽度
+let g:tagbar_width = 35 " 设置窗口宽度
 " let g:tagbar_compact= 1 " 不显示顶部帮助信息，节省空间
 let g:tagbar_show_linenumbers = 0 " 不显示行号
 " let g:tagbar_expand = 1 " 自动扩展gui窗口
@@ -433,6 +431,8 @@ let g:tagbar_show_linenumbers = 0 " 不显示行号
 
 "{{{ ============= CtrlP 插件 ===================================
 let g:ctrlp_map = '<c-p>' 	"  启动热键
+let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_working_path_mode = 'ra'
 nmap <leader>. :CtrlPTag<cr>
 let g:ctrlp_by_filename = 1 	" 通过文件名查找，0 是路径名加文件名
 
@@ -544,10 +544,8 @@ let ycm_key_invoke_completion = '<S-space>'
 
 
 "设置跳转的快捷键，可以跳转到definition和declaration  
-"nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>  
-"nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>  
-nnoremap <c-[> :YcmCompleter GoToDefinitionElseDeclaration<CR>  
-"nnoremap <c-"> :YcmCompleter GoToDefinitionElseDeclaration<CR> 
+" 放到 .gvimrc 中, 在终端 vim 中映射这个键有 bug
+"nnoremap <c-[> :YcmCompleter GoToDefinitionElseDeclaration<CR>  
 
 ""开启基于tag的补全，可以在这之后添加需要的标签路径  
 "let g:ycm_collect_identifiers_from_tags_files = 1  
@@ -584,13 +582,15 @@ set completeopt=longest,menu
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif	
 
 " 0: 关闭ycm的syntastic
-let g:ycm_show_diagnostics_ui = 0
+let g:ycm_show_diagnostics_ui = 1
 
 " 将出错信息写入到locationlist中去
 "let g:ycm_always_populate_location_list = 1
 
 "nmap <C-Y> :YcmForceCompileAndDiagnostics<cr>
 nmap <C-Y> :YcmDiags<cr>
+
+let g:ycm_add_preview_to_completeopt = 0
 "}}} ====================================================
 
 
@@ -616,7 +616,7 @@ let NERDTreeIgnore=['.o$[[file]]', '.asv$[[file]]', '.fig$[[file]]', '.xlsx$[[fi
 let NERDTreeSortOrder = ['\/$', '\.cpp$', '\.c$', '\.cc$', '\.h$', '*']
 
 " 窗口宽度
-let NERDTreeWinSize = 25
+let NERDTreeWinSize = 35
 
 " 指定位置
 "let NERDTreeWinPos = "left"
@@ -788,8 +788,8 @@ let g:vim_markdown_no_default_key_mappings = 1
 
 
 "{{{ ================= clighter =======================
-let g:clighter_libclang_file = '/home/xzz/lib/llvm-3.5/lib/libclang.so.1'
-" let g:clighter_autostart = 1
+let g:clighter_libclang_file = '/usr/lib/llvm-3.7/lib/libclang.so.1'
+let g:clighter_autostart = 1
 
 "let g:clighter_window_size = -1 " whole buffer
 let g:clighter_window_size = 0 " highlight current screen of window
@@ -895,6 +895,10 @@ autocmd FileType html,css EmmetInstall
 
 "{{{ ================ matlab-support ==================
 let g:Matlab_MlintExecutable = '/home/xzz/.MATLAB/R2013b/bin/glnxa64/mlint'
+"}}} ==================================================
+
+"{{{ ================ auto-pairs ======================
+let g:AutoPairsFlyMode = 0
 "}}} ==================================================
 
 "}}} ==== plugin setup end
