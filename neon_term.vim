@@ -81,8 +81,8 @@ hi Underlined   gui=UNDERLINE guifg=fg guibg=NONE
 " compelete menu
 " hi Pmenu gui=NONE guibg=#78a7a4 guifg=#000000
 " hi Pmenu gui=NONE guibg=#788794 guifg=#000000
-hi Pmenu gui=NONE guibg=#404040 guifg=#eeeeee
-hi PmenuSel guibg=#c0aa94 guifg=bg gui=none
+hi Pmenu gui=NONE guibg=#404040 guifg=#eeeeee ctermbg=black ctermfg=grey
+hi PmenuSel guibg=#c0aa94 guifg=bg gui=none ctermbg=black ctermfg=grey
 
 " colorcolum
 hi ColorColumn guibg=#404040
