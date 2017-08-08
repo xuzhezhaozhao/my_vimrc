@@ -47,7 +47,7 @@ Plugin 'tpope/vim-surround'
 "Plugin 'tpope/vim-fugitive' " git tool
 Plugin 'godlygeek/tabular'
 "Plugin 'plasticboy/vim-markdown'
-Plugin 'bbchung/clighter'
+"Plugin 'bbchung/clighter'
 
 "Plugin 'xuzhezhaozhao/vim-potion'
 Plugin 'name5566/vim-bookmark'
@@ -141,7 +141,8 @@ set shiftwidth=4
 set cursorline " 高亮显示当前行
 set hlsearch " 高亮搜索结果
 set anti
-set guifont=YaHei\ Consolas\ Hybrid\ 15,Fixed\ 15 " 设置 gvim 的字体及大小
+" 把字体文件放在 ~/.fonts 中
+set guifont=YaHei\ Consolas\ Hybrid\ 16,Fixed\ 16 " 设置 gvim 的字体及大小
 "set guifont=Menlo\ Regular\ 12,Fixed\ 12 " 设置 gvim 的字体及大小
 set autochdir	" 自动设置当前编辑的文件所在路径为工作路径
 set so=3 " 光标在还有3行时自动滚屏
@@ -419,7 +420,7 @@ nnoremap <leader>b :TagbarToggle<cr>
 let g:tagbar_left = 1 " 使其出现在左边
 "let g:tagbar_right = 1 " 使其出现右边
 set updatetime=100 " 根据光标位置自动更新高亮tag的间隔时间，单位为毫秒
-let g:tagbar_width = 35 " 设置窗口宽度
+let g:tagbar_width = 30 " 设置窗口宽度
 " let g:tagbar_compact= 1 " 不显示顶部帮助信息，节省空间
 let g:tagbar_show_linenumbers = 0 " 不显示行号
 " let g:tagbar_expand = 1 " 自动扩展gui窗口
@@ -616,7 +617,7 @@ let NERDTreeIgnore=['.o$[[file]]', '.asv$[[file]]', '.fig$[[file]]', '.xlsx$[[fi
 let NERDTreeSortOrder = ['\/$', '\.cpp$', '\.c$', '\.cc$', '\.h$', '*']
 
 " 窗口宽度
-let NERDTreeWinSize = 35
+let NERDTreeWinSize = 30
 
 " 指定位置
 "let NERDTreeWinPos = "left"
