@@ -41,6 +41,7 @@ Plugin 'TaskList.vim'
 "Plugin 'pthrasher/conqueterm-vim'
 "Plugin 'tfnico/vim-gradle'
 Plugin 'rhysd/vim-clang-format'
+Plugin 'Chiel92/vim-autoformat'
 Plugin 'othree/xml.vim'
 Plugin 'a.vim'
 Plugin 'tpope/vim-surround'
@@ -142,7 +143,7 @@ set cursorline " 高亮显示当前行
 set hlsearch " 高亮搜索结果
 set anti
 " 把字体文件放在 ~/.fonts 中
-set guifont=YaHei\ Consolas\ Hybrid\ 16,Fixed\ 16 " 设置 gvim 的字体及大小
+set guifont=YaHei\ Consolas\ Hybrid\ 18,Fixed\ 18 " 设置 gvim 的字体及大小
 "set guifont=Menlo\ Regular\ 12,Fixed\ 12 " 设置 gvim 的字体及大小
 set autochdir	" 自动设置当前编辑的文件所在路径为工作路径
 set so=3 " 光标在还有3行时自动滚屏
@@ -638,6 +639,10 @@ endfunction
 " 打开 vim 时自动打开 NERDTree 和 Tagbar
 " autocmd vimenter * call ToggleNERDTreeAndTagbar()
 " autocmd BufNewFile * call ToggleNERDTreeAndTagbar()
+ 
+" 文件名按1,2,,...,10排序
+let NERDTreeNaturalSort = 1
+
 "}}} ====================================================
 
 
