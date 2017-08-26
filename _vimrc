@@ -120,6 +120,11 @@ filetype plugin indent on    " required
 " {{{ ==================== autocmd ============================
 autocmd FileType vim :setlocal foldmethod=marker
 autocmd FileType help :setlocal nu
+
+" 自动设置文件头部
+autocmd BufNewFile *.c,*.cpp,*.h,*.cc,*.hpp,*.sh,*.py,*.java exec ":call SetTitle()"
+" 自动将光标移动到文件末尾
+autocmd BufNewfile * normal G
 " }}} ==========================================================
 
 " {{{ =================== 基本设置 ==============================
@@ -421,7 +426,7 @@ nnoremap <leader>b :TagbarToggle<cr>
 let g:tagbar_left = 1 " 使其出现在左边
 "let g:tagbar_right = 1 " 使其出现右边
 set updatetime=100 " 根据光标位置自动更新高亮tag的间隔时间，单位为毫秒
-let g:tagbar_width = 30 " 设置窗口宽度
+let g:tagbar_width = 27 " 设置窗口宽度
 " let g:tagbar_compact= 1 " 不显示顶部帮助信息，节省空间
 let g:tagbar_show_linenumbers = 0 " 不显示行号
 " let g:tagbar_expand = 1 " 自动扩展gui窗口
@@ -601,7 +606,7 @@ let g:ycm_add_preview_to_completeopt = 0
 " It must be a list of regular expressions. 
 " let NERDTreeIgnore=['\.vim$', '\~$']
 " let NERDTreeIgnore=['.d$[[dir]]', '.o$[[file]]']
-let NERDTreeIgnore=['.o$[[file]]', '.asv$[[file]]', '.fig$[[file]]', '.xlsx$[[file]]']
+let NERDTreeIgnore=['\.o$[[file]]', '.asv$[[file]]', '.fig$[[file]]', '.xlsx$[[file]]']
 
 " display line number
 " let NERDTreeShowLineNumbers=1
@@ -618,7 +623,7 @@ let NERDTreeIgnore=['.o$[[file]]', '.asv$[[file]]', '.fig$[[file]]', '.xlsx$[[fi
 let NERDTreeSortOrder = ['\/$', '\.cpp$', '\.c$', '\.cc$', '\.h$', '*']
 
 " 窗口宽度
-let NERDTreeWinSize = 30
+let NERDTreeWinSize = 27
 
 " 指定位置
 "let NERDTreeWinPos = "left"
@@ -628,7 +633,7 @@ let NERDTreeWinPos = "right"
 let NERDTreeAutoDeleteBuffer=1
 
 " 若最后一个窗口是NerdTree窗口时，自动关闭它
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " nnoremap f :NERDTreeToggle<CR><C-L>
  
@@ -765,7 +770,7 @@ let g:clang_format#auto_format = 0
 let g:clang_format#auto_format_on_insert_leave = 0
 
 " format command
-let g:clang_format#command = 'clang-format-3.6'
+let g:clang_format#command = 'clang-format-3.9'
 "}}} ===================================================
 
 
@@ -1007,4 +1012,49 @@ function! Maximize_Window()
   silent !wmctrl -r :ACTIVE: -b add,maximized_vert,maximized_horz
 endfunction
 
+"定义函数SetTitle，自动插入文件头
+func! SetTitle()
+        "如果文件类型为.c或者.cpp文件
+        if (&filetype == 'c' || &filetype == 'cpp')
+                call setline(1, "/*******************************************************")  
+                call setline(2, "\ @Author: zhezhaoxu")
+                call setline(3, "\ @Created Time : ".strftime("%c"))
+                call setline(4, "\ @File Name: ".expand("%"))
+                call setline(5, "\ @Description:")
+                call setline(6, " ******************************************************/")  
+                call setline(7,"")  
+        endif
+        "如果文件类型为.sh文件
+        if &filetype == 'shell'  
+                call setline(1, "\#!/bin/sh")
+                call setline(2, "\# Author: 你的名字")
+                call setline(3, "\# Created Time : ".strftime("%c"))
+                call setline(4, "\# File Name: ".expand("%"))
+                call setline(5, "\# Description:")
+                call setline(6,"")
+        endif
+        "如果文件类型为.py文件
+        if &filetype == 'python'
+                call setline(1, "\#!/usr/bin/env python")
+                call setline(2, "\# -*- coding=utf8 -*-")
+                call setline(3, "\"\"\"")
+                call setline(4, "\# Author: 你的名字")
+                call setline(5, "\# Created Time : ".strftime("%c"))
+                call setline(6, "\# File Name: ".expand("%"))
+                call setline(7, "\# Description:")
+                call setline(8, "\"\"\"")
+                call setline(9,"")
+        endif
+        "如果文件类型为.java文件
+        if &filetype == 'java'  
+                call setline(1, "//coding=utf8")  
+                call setline(2, "/**")  
+                call setline(3, "\ *\ @Author: 你的名字")  
+                call setline(4, "\ *\ @Created Time : ".strftime("%c"))  
+                call setline(5, "\ *\ @File Name: ".expand("%"))  
+                call setline(6, "\ *\ @Description:")  
+                call setline(7, "\ */")  
+                call setline(8,"")  
+        endif
+endfunc
 "}}} ===================================================
