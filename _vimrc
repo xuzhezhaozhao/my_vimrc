@@ -94,8 +94,6 @@ Plugin 'WolfgangMehner/matlab-support'
 
 "Plugin 'gilgigilgil/anderson.vim'
 
-Plugin 'xuzhezhaozhao/FileJump'
-
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -217,6 +215,9 @@ set fileencodings=ucs-bom,utf-8,chinese,cp936
 
 " 标签页只显示文件名
 set guitablabel=%t
+
+" 共享剪贴板, 直接 yank or paste
+set clipboard+=unnamed
 " }}} ==========================================================
 
 " {{{ ============= 变量设置 ====================================
