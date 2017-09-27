@@ -380,6 +380,8 @@ nmap P "+p
 
 nmap <leader>j <c-f>
 nmap <leader>k <c-b>
+
+nnoremap <leader>i :call SetTitle()<CR>
 " }}} ===================================================
 
 " {{{ ============== correct word =======================
