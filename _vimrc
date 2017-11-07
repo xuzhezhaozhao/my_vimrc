@@ -12,7 +12,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
 "Plugin 'TagHighlight'
 Plugin 'dyng/ctrlsf.vim'
@@ -36,7 +36,7 @@ Plugin 'kien/ctrlp.vim'
 "Plugin 'vim-auto-save'
 "Plugin 'DoxygenToolkit.vim'
 " Plugin 'DoxyGen-Syntax'
-" Plugin 'sjl/gundo.vim'
+Plugin 'sjl/gundo.vim'
 Plugin 'TaskList.vim'
 "Plugin 'pthrasher/conqueterm-vim'
 "Plugin 'tfnico/vim-gradle'
@@ -94,6 +94,9 @@ Plugin 'WolfgangMehner/matlab-support'
 
 "Plugin 'gilgigilgil/anderson.vim'
 
+Plugin 'xuzhezhaozhao/FileJump'
+
+Plugin 'LargeFile'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -120,7 +123,7 @@ autocmd FileType vim :setlocal foldmethod=marker
 autocmd FileType help :setlocal nu
 
 " 自动设置文件头部
-autocmd BufNewFile *.c,*.cpp,*.h,*.cc,*.hpp,*.sh,*.py,*.java exec ":call SetTitle()"
+"autocmd BufNewFile *.c,*.cpp,*.h,*.cc,*.hpp,*.sh,*.py,*.java exec ":call SetTitle()"
 " 自动将光标移动到文件末尾
 autocmd BufNewfile * normal G
 " }}} ==========================================================
@@ -139,14 +142,14 @@ set textwidth=0
 "set makeprg=g++\ -g\ -std=c++11\ % " quickfix参数
 
 set tabstop=4
-" set expandtab " 用 space 代替tab输入
+set expandtab " 用 space 代替tab输入
 set smarttab
 set shiftwidth=4
 set cursorline " 高亮显示当前行
 set hlsearch " 高亮搜索结果
 set anti
 " 把字体文件放在 ~/.fonts 中
-set guifont=YaHei\ Consolas\ Hybrid\ 18,Fixed\ 18 " 设置 gvim 的字体及大小
+set guifont=YaHei\ Consolas\ Hybrid\ 15,Fixed\ 15 " 设置 gvim 的字体及大小
 "set guifont=Menlo\ Regular\ 12,Fixed\ 12 " 设置 gvim 的字体及大小
 set autochdir	" 自动设置当前编辑的文件所在路径为工作路径
 set so=3 " 光标在还有3行时自动滚屏
@@ -381,7 +384,7 @@ nmap P "+p
 nmap <leader>j <c-f>
 nmap <leader>k <c-b>
 
-nnoremap <leader>i :call SetTitle()<CR>
+"nnoremap <leader>i :call SetTitle()<CR>
 " }}} ===================================================
 
 " {{{ ============== correct word =======================
@@ -429,7 +432,7 @@ nnoremap <leader>b :TagbarToggle<cr>
 let g:tagbar_left = 1 " 使其出现在左边
 "let g:tagbar_right = 1 " 使其出现右边
 set updatetime=100 " 根据光标位置自动更新高亮tag的间隔时间，单位为毫秒
-let g:tagbar_width = 27 " 设置窗口宽度
+let g:tagbar_width = 30 " 设置窗口宽度
 " let g:tagbar_compact= 1 " 不显示顶部帮助信息，节省空间
 let g:tagbar_show_linenumbers = 0 " 不显示行号
 " let g:tagbar_expand = 1 " 自动扩展gui窗口
@@ -466,38 +469,6 @@ let g:ctrlp_mruf_relative = 1
 "let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
 "                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 " let g:ctrlp_extensions = ['quickfix']
-"}}} ===================================================
-
-
-"{{{ ================== syntastic 插件设置 ==================
-" status line 格式
-let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-" 自动打开 location list
-"let g:syntastic_auto_loc_list = 1
-let g:syntastic_loc_list_height = 5
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = '-std=c++11 -Wall'
-let g:syntastic_cpp_config_file = '.syntastic_cpp_config'
-
-let g:syntastic_c_compiler = 'gcc'
-let g:syntastic_c_compiler_options = '-std=c99 -Wall'
-" 参数设置文件, 从被检查的文件目录开始逐级向上检查是否有该文件
-" 利用给设置, 可以为每个 project 指定不同的编译器选项
-let g:syntastic_c_config_file = '.syntastic_c_config'
-let g:syntastic_c_include_dirs = []
-
-let g:syntastic_python_python_exec = '/usr/bin/python3'
-
-" ignore some messages
-"let g:syntastic_quiet_messages = {"regex": 'no such file or directory'}
 "}}} ===================================================
 
 
@@ -544,7 +515,7 @@ au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:U
 
 
 " 对全C函数的补全快捷键
-let ycm_key_invoke_completion = '<S-space>'
+"let ycm_key_invoke_completion = '<S-space>'
 
 
 "设置error和warning的提示符，如果没有设置，ycm会以syntastic的  
@@ -567,19 +538,19 @@ let g:ycm_seed_identifiers_with_syntax = 1
 "不显示开启vim时检查ycm_extra_conf文件的信息  
 let g:ycm_confirm_extra_conf = 0
 
-"每次重新生成匹配项，禁止缓存匹配项  
+"0 每次重新生成匹配项，禁止缓存匹配项  
 let g:ycm_cache_omnifunc = 0
 
-"在注释中也可以补全  
-let g:ycm_complete_in_comments = 1  
+"1: 在注释中也可以补全  
+let g:ycm_complete_in_comments = 1
 
-"在字符串输入中也能补全
+"1: 在字符串输入中也能补全
 let g:ycm_complete_in_strings = 1
 
-"注释和字符串中的文字也会被收入补全
+"1: 注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
-"输入第一个字符就开始补全  
+"输入第几个字符开始补全  
 let g:ycm_min_num_of_chars_for_completion = 1
 
 "查询ultisnips提供的代码模板补全,  就跟vs + Assist X一样
@@ -601,6 +572,8 @@ let g:ycm_show_diagnostics_ui = 1
 nmap <C-Y> :YcmDiags<cr>
 
 let g:ycm_add_preview_to_completeopt = 0
+
+let g:ycm_auto_trigger = 1
 "}}} ====================================================
 
 
@@ -609,7 +582,7 @@ let g:ycm_add_preview_to_completeopt = 0
 " It must be a list of regular expressions. 
 " let NERDTreeIgnore=['\.vim$', '\~$']
 " let NERDTreeIgnore=['.d$[[dir]]', '.o$[[file]]']
-let NERDTreeIgnore=['\.o$[[file]]', '.asv$[[file]]', '.fig$[[file]]', '.xlsx$[[file]]']
+let NERDTreeIgnore=['\.o$[[file]]', '.asv$[[file]]', '.fig$[[file]]', '.xlsx$[[file]]', '.lo$[[file]]']
 
 " display line number
 " let NERDTreeShowLineNumbers=1
@@ -626,7 +599,7 @@ let NERDTreeIgnore=['\.o$[[file]]', '.asv$[[file]]', '.fig$[[file]]', '.xlsx$[[f
 let NERDTreeSortOrder = ['\/$', '\.cpp$', '\.c$', '\.cc$', '\.h$', '*']
 
 " 窗口宽度
-let NERDTreeWinSize = 27
+let NERDTreeWinSize = 30
 
 " 指定位置
 "let NERDTreeWinPos = "left"
@@ -1030,7 +1003,7 @@ func! SetTitle()
         "如果文件类型为.sh文件
         if &filetype == 'shell'  
                 call append(1, "\#!/bin/sh")
-                call append(2, "\# Author: 你的名字")
+                call append(2, "\# Author: zhezhaoxu")
                 call append(3, "\# Created Time : ".strftime("%c"))
                 call append(4, "\# File Name: ".expand("%"))
                 call append(5, "\# Description:")
@@ -1041,7 +1014,7 @@ func! SetTitle()
                 call append(1, "\#!/usr/bin/env python")
                 call append(2, "\# -*- coding=utf8 -*-")
                 call append(3, "\"\"\"")
-                call append(4, "\# Author: 你的名字")
+                call append(4, "\# Author: zhezhaoxu")
                 call append(5, "\# Created Time : ".strftime("%c"))
                 call append(6, "\# File Name: ".expand("%"))
                 call append(7, "\# Description:")
@@ -1052,7 +1025,7 @@ func! SetTitle()
         if &filetype == 'java'  
                 call append(1, "//coding=utf8")  
                 call append(2, "/**")  
-                call append(3, "\ *\ @Author: 你的名字")  
+                call append(3, "\ *\ @Author: zhezhaoxu")  
                 call append(4, "\ *\ @Created Time : ".strftime("%c"))  
                 call append(5, "\ *\ @File Name: ".expand("%"))  
                 call append(6, "\ *\ @Description:")  
@@ -1061,3 +1034,6 @@ func! SetTitle()
         endif
 endfunc
 "}}} ===================================================
+augroup filetype
+    autocmd! BufRead,BufNewFile BUILD set filetype=blade
+augroup end
