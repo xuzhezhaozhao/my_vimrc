@@ -144,7 +144,7 @@ set textwidth=0
 set tabstop=4
 set expandtab " 用 space 代替tab输入
 set smarttab
-set shiftwidth=4
+set shiftwidth=2
 set cursorline " 高亮显示当前行
 set hlsearch " 高亮搜索结果
 set anti
@@ -1033,7 +1033,23 @@ func! SetTitle()
                 call append(8,"")  
         endif
 endfunc
-"}}} ===================================================
+
 augroup filetype
     autocmd! BufRead,BufNewFile BUILD set filetype=blade
 augroup end
+
+
+" Remove trailing whitespace when writing a buffer, but not for diff files.
+" From: Vigil <vim5632@rainslide.net>
+function RemoveTrailingWhitespace()
+    if &ft != "diff"
+        let b:curcol = col(".")
+        let b:curline = line(".")
+        silent! %s/\s\+$//
+        silent! %s/\(\s*\n\)\+\%$//
+        call cursor(b:curline, b:curcol)
+    endif
+endfunction
+autocmd BufWritePre * call RemoveTrailingWhitespace()
+
+"}}} ===================================================
