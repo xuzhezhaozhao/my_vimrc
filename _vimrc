@@ -103,9 +103,6 @@ Plugin 'Yggdroot/indentLine'
 " required: sudo apt-get install python-autopep8
 Plugin 'tell-k/vim-autopep8'
 
-" Python autocompletion, go to definition.
-Plugin 'davidhalter/jedi-vim'
-
 Plugin 'fisadev/vim-ctrlp-cmdpalette'
 Plugin 'kien/tabman.vim'
 Plugin 'vim-scripts/IndexedSearch'
@@ -120,6 +117,8 @@ Plugin 'vim-scripts/YankRing.vim'
 Plugin 'fisadev/fisa-vim-colorscheme'
 
 Plugin 'kien/rainbow_parentheses.vim'
+
+Plugin 'python-mode/python-mode'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -168,19 +167,17 @@ set textwidth=0
 set tabstop=4
 set expandtab " 用 space 代替tab输入
 set smarttab
-set shiftwidth=2
+set shiftwidth=4
 set softtabstop=4
 
 " tab length exceptions on some file types
-autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4
-autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4 softtabstop=4
-autocmd FileType javascript setlocal shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType c,cpp setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 set cursorline " 高亮显示当前行
 set hlsearch " 高亮搜索结果
 set anti
 " 把字体文件放在 ~/.fonts 中
-set guifont=YaHei\ Consolas\ Hybrid\ 15,Fixed\ 15 " 设置 gvim 的字体及大小
+set guifont=YaHei\ Consolas\ Hybrid\ 18,Fixed\ 18 " 设置 gvim 的字体及大小
 "set guifont=Menlo\ Regular\ 12,Fixed\ 12 " 设置 gvim 的字体及大小
 set autochdir	" 自动设置当前编辑的文件所在路径为工作路径
 set so=3 " 光标在还有3行时自动滚屏
@@ -964,31 +961,16 @@ let g:indentLine_char = '¦'
 let g:autopep8_max_line_length=80
 
 " Number of spaces per indent level (default: 4)
-let g:autopep8_indent_size=2
+let g:autopep8_indent_size=4
 
 " Disable show diff window
-let g:autopep8_disable_show_diff=1
+let g:autopep8_disable_show_diff=0
 
 " Chose diff window type. (default: horizontal)
 " let g:autopep8_diff_type='horizontal'
 " let g:autopep8_diff_type='vertical'
 " }}} =================================================
 
-
-" {{{ =================== jedi-vim ==================
-" All these mappings work only for python code:
-" Go to definition
-" let g:jedi#goto_command = '<leader>uuuuuu'
-
-" Find ocurrences
-let g:jedi#usages_command = '<leader>o'
-
-" Find assignments
-let g:jedi#goto_assignments_command = '<leader>a'
-
-" Go to definition in new tab
-nmap ,D :tab split<CR>:call jedi#goto()<CR>
-" }}} =================================================
 
 " {{{ =================== tabman ==================
 let g:loaded_tabman = 0
@@ -1002,7 +984,7 @@ let g:tabman_width = 25
 let g:tabman_side = 'left'
 
 " Set this to 1 to show windows created by plugins, help and quickfix
-let g:tabman_specials = 1
+let g:tabman_specials = 0
 
 " Set this to 0 to disable line numbering in the TabMan window
 let g:tabman_number = 1
@@ -1055,6 +1037,10 @@ nnoremap <silent> <C-U> :YRShow<CR>
 inoremap <silent> <C-U> <ESC>:YRShow<CR>
 " }}} =================================================
 
+" {{{ =================== python-syntax ====================
+let g:python_highlight_all = 1
+let g:python_version_2 = 1
+" }}} =================================================
 
 " {{{ =================== RainbowParentheses ====================
 let g:rbpt_colorpairs = [
