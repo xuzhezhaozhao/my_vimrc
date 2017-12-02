@@ -103,6 +103,22 @@ Plugin 'Yggdroot/indentLine'
 " required: sudo apt-get install python-autopep8
 Plugin 'tell-k/vim-autopep8'
 
+" Python autocompletion, go to definition.
+Plugin 'davidhalter/jedi-vim'
+
+Plugin 'fisadev/vim-ctrlp-cmdpalette'
+Plugin 'kien/tabman.vim'
+Plugin 'vim-scripts/IndexedSearch'
+
+" Gvim colorscheme
+Plugin 'vim-scripts/Wombat'
+
+" Yank history navigation
+Plugin 'vim-scripts/YankRing.vim'
+
+" Terminal Vim with 256 colors colorscheme
+Plugin 'fisadev/fisa-vim-colorscheme'
+
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -151,6 +167,13 @@ set tabstop=4
 set expandtab " 用 space 代替tab输入
 set smarttab
 set shiftwidth=2
+set softtabstop=4
+
+" tab length exceptions on some file types
+autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType htmldjango setlocal shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType javascript setlocal shiftwidth=4 tabstop=4 softtabstop=4
+
 set cursorline " 高亮显示当前行
 set hlsearch " 高亮搜索结果
 set anti
@@ -227,6 +250,31 @@ set guitablabel=%t
 
 " 共享剪贴板, 直接 yank or paste
 set clipboard+=unnamed
+
+" save as sudo
+ca w!! w !sudo tee "%"
+
+" 隐藏 tab 栏， use tabman plugin
+set showtabline=0
+
+" better backup, swap and undos storage
+set directory=~/.vim/dirs/tmp     " directory to place swap files in
+set backup                        " make backup files
+set backupdir=~/.vim/dirs/backups " where to put backup files
+set undofile                      " persistent undos - undo after you re-open the file
+set undodir=~/.vim/dirs/undos
+set viminfo+=n~/.vim/dirs/viminfo
+
+" create needed directories if they don't exist
+if !isdirectory(&backupdir)
+  call mkdir(&backupdir, "p")
+endif
+if !isdirectory(&directory)
+  call mkdir(&directory, "p")
+endif
+if !isdirectory(&undodir)
+  call mkdir(&undodir, "p")
+endif
 " }}} ==========================================================
 
 " {{{ ============= 变量设置 ====================================
@@ -337,10 +385,6 @@ inoremap <BS> <ESC>:call RemovePairs()<CR>a
 nnoremap <leader>l :tabnext<cr>
 nnoremap <leader>h :tabpre<cr>
 
-" edit .vimrc and save
-nnoremap <leader>ev :e $MYVIMRC<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
-
 " go to line head and tail
 nnoremap H ^
 vnoremap H ^
@@ -379,18 +423,10 @@ inoremap <c-j> <c-o>j
 vnoremap < <gv
 vnoremap > >gv
 
-" preview html file
-nmap <silent> <leader>v :!google-chrome-stable %<CR>
-
 " 系统剪切板
 vmap Y "+y
 nmap Y "+yy
 nmap P "+p
-
-nmap <leader>j <c-f>
-nmap <leader>k <c-b>
-
-"nnoremap <leader>i :call SetTitle()<CR>
 " }}} ===================================================
 
 " {{{ ============== correct word =======================
@@ -434,7 +470,6 @@ set previewheight=6 " 设置调试窗口大小, 宽度为 8
 "{{{ ============== tagbar 设置 =========================
 " 按出现顺序排序, 为 1 则是按字母序
 let g:tagbar_sort = 0
-nnoremap <leader>b :TagbarToggle<cr>
 let g:tagbar_left = 1 " 使其出现在左边
 "let g:tagbar_right = 1 " 使其出现右边
 set updatetime=100 " 根据光标位置自动更新高亮tag的间隔时间，单位为毫秒
@@ -699,7 +734,7 @@ let g:ctrlsf_mapping = {
 
 "{{{ ========== Ctrl Space =============================
 " 设置启动热键
-let g:ctrlspace_default_mapping_key="<C-U>"
+"let g:ctrlspace_default_mapping_key="<C-U>"
 
 "let g:ctrlspace_use_tabline=1
 
@@ -724,17 +759,23 @@ let g:ctrlspace_default_mapping_key="<C-U>"
 
 
 "{{{ ============= color scheme ========================
-" colorscheme freya
-colorscheme neon
+" use 256 colors when possible
+if (&term =~? 'mlterm\|xterm\|xterm-256\|screen-256') || has('nvim')
+  let &t_Co = 256
+  colorscheme fisa
+else
+  colorscheme delek
+endif
+
+if has('gui_running')
+  colorscheme neon
+endif
 "}}} ===================================================
 
 
 "{{{ ============= DoxygenToolkit =======================
 let g:doxygenToolkit_authorName="xuzhezhao"
 let g:doxygenToolkit_briefTag_funcName="yes"
-
-nnoremap <leader>df :Dox<CR>
-nnoremap <leader>da :DoxAuthor<CR>
 "}}} ===================================================
 
 
@@ -800,7 +841,6 @@ let g:clighter_syntax_groups = ['clighterNamespaceRef', 'clighterFunctionDecl', 
 "let g:clighter_highlight_groups = ['clighterMacroInstantiation', 'clighterStructDecl', 'clighterClassDecl', 'clighterEnumDecl', 'clighterEnumConstantDecl', 'clighterTypeRef', 'clighterDeclRefExprEnum']
 
 let g:ClighterOccurrences = 0
-"nmap <silent> <Leader>r :call clighter#Rename()<CR>
 "}}} ==================================================
 
 "{{{ ================= vim-bookmark =======================
@@ -932,7 +972,88 @@ let g:autopep8_disable_show_diff=1
 " let g:autopep8_diff_type='vertical'
 " }}} =================================================
 
+
+" {{{ =================== jedi-vim ==================
+" All these mappings work only for python code:
+" Go to definition
+" let g:jedi#goto_command = '<leader>uuuuuu'
+
+" Find ocurrences
+let g:jedi#usages_command = '<leader>o'
+
+" Find assignments
+let g:jedi#goto_assignments_command = '<leader>a'
+
+" Go to definition in new tab
+nmap ,D :tab split<CR>:call jedi#goto()<CR>
+" }}} =================================================
+
+" {{{ =================== tabman ==================
+let g:loaded_tabman = 0
+
+" Change the default mappings
+let g:tabman_toggle = '<leader>g'
+
+" Change the width of the TabMan window:
+let g:tabman_width = 25
+
+let g:tabman_side = 'left'
+
+" Set this to 1 to show windows created by plugins, help and quickfix
+let g:tabman_specials = 1
+
+" Set this to 0 to disable line numbering in the TabMan window
+let g:tabman_number = 1
+" }}} =================================================
+
+" {{{ =================== yankring ====================
+let g:yankring_enabled = 1  " enable the yankring
+
+" Controls how many elements to save in the yankring
+let g:yankring_max_history = 100
+
+" If the yanked element has a length less than this value
+" it will not be added to the YankRing
+let g:yankring_min_element_length = 2
+
+" Will truncate a new entry to the specified maximum.  If set to 0,
+" there is no limit
+let g:yankring_max_element_length = 4194304 " 4M
+
+" When the YankRing window is opened, each element is displayed on a
+" separate line.  Since each yank could be very large, the display of
+" the element is limited to the above default.
+let g:yankring_max_display = 70
+
+" If you have enabled the storing of global variables in the |viminfo|
+" file, the YankRing will be default persist the contents of the ring
+" between starting and stopping Vim.
+let g:yankring_persist = 1
+
+" By default, any instance of Vim will share the same yankring
+" history file.  But if want each instance to have their own history
+" you can set this option to 0.  Setting g:yankring_persist = 0 and
+" g:yankring_share_between_instances = 0 will ensure no 2 instances
+" of Vim share the same YankRing history AND the history is not
+" remembered the next time Vim is started.
+" let g:yankring_share_between_instances = 0
+
+" By default Vim will not repeat (using '.') yanking of text.  This can
+" be controlled via the |'cpoptions'| setting.  The YankRing now respects
+" the cpoptions setting, if 'y' is included and you press '.', the
+" previous yank command is repeated and added to the yankring.
+" You can also add this behaviour by setting this in your |vimrc|:
+" let g:yankring_dot_repeat_yank = 1
+
+
+" store yankring history file there too
+let g:yankring_history_dir = '~/.vim/dirs/'
+
+nnoremap <silent> <C-U> :YRShow<CR>
+" }}} =================================================
+
 "}}} ==== plugin setup end
+
 
 "{{{ ================== Help funtions =================
 " From: http://amix.dk/vim/vimrc.html
