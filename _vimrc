@@ -1052,6 +1052,7 @@ let g:yankring_persist = 1
 let g:yankring_history_dir = '~/.vim/dirs/'
 
 nnoremap <silent> <C-U> :YRShow<CR>
+inoremap <silent> <C-U> <ESC>:YRShow<CR>
 " }}} =================================================
 
 
