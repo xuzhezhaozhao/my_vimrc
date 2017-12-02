@@ -958,7 +958,7 @@ let g:indentLine_char = '¦'
 " let g:autopep8_select="E501,W293"
 
 " Set maximum allowed line length (default: 79)
-let g:autopep8_max_line_length=80
+let g:autopep8_max_line_length=79
 
 " Number of spaces per indent level (default: 4)
 let g:autopep8_indent_size=4
@@ -1068,6 +1068,66 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+" }}} =================================================
+
+
+" {{{ =================== RainbowParentheses ====================
+let g:pymode = 1
+let g:pymode_paths = ['', '/home/xzz/anaconda2/lib/python27.zip', '/home/xzz/anaconda2/lib/python2.7/plat-linux2', '/home/xzz/anaconda2/lib/python2.7/lib-tk', '/home/xzz/anaconda2/lib/python2.7/lib-old', '/home/xzz/anaconda2/lib/python2.7/lib-dynload', '/home/xzz/anaconda2/lib/python2.7/site-packages']
+
+" Trim unused white spaces on save
+let g:pymode_trim_whitespaces = 1
+
+" Setup default python options.
+let g:pymode_options = 1
+
+let g:pymode_options_max_line_length = 79
+let g:pymode_options_colorcolumn = 1
+
+let g:pymode_python = 'python'
+
+let g:pymode_indent = 1
+let g:pymode_folding = 1
+let g:pymode_motion = 1
+
+let g:pymode_doc = 1
+let g:pymode_doc_bind = 'K'
+
+let g:pymode_run = 1
+let g:pymode_run_bind = '<leader>r'
+
+let g:pymode_breakpoint = 1
+
+" ,b conflict with yankring
+" let g:pymode_breakpoint_bind = '<leader>b'
+
+let g:pymode_lint = 1
+let g:pymode_lint_on_write = 1
+let g:pymode_lint_message = 1
+
+let g:pymode_rope = 1
+let g:pymode_rope_completion = 1
+let g:pymode_rope_complete_on_dot = 1
+" Set |'g:pymode_rope_lookup_project'| to 0 for prevent searching in parent dirs
+let g:pymode_rope_lookup_project = 0
+
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_print_as_function = 0
+let g:pymode_syntax_highlight_async_await = g:pymode_syntax_all
+let g:pymode_syntax_highlight_equal_operator = g:pymode_syntax_all
+let g:pymode_syntax_highlight_stars_operator = g:pymode_syntax_all
+let g:pymode_syntax_highlight_self = g:pymode_syntax_all
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+let g:pymode_syntax_string_formatting = g:pymode_syntax_all
+let g:pymode_syntax_string_format = g:pymode_syntax_all
+let g:pymode_syntax_string_templates = g:pymode_syntax_all
+let g:pymode_syntax_doctests = g:pymode_syntax_all
+let g:pymode_syntax_builtin_objs = g:pymode_syntax_all
+let g:pymode_syntax_builtin_types = g:pymode_syntax_all
+let g:pymode_syntax_highlight_exceptions = g:pymode_syntax_all
+let g:pymode_syntax_docstrings = g:pymode_syntax_all
 " }}} =================================================
 
 "}}} ==== plugin setup end
