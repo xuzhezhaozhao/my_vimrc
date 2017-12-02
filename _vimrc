@@ -97,6 +97,12 @@ Plugin 'WolfgangMehner/matlab-support'
 Plugin 'xuzhezhaozhao/FileJump'
 
 Plugin 'LargeFile'
+
+Plugin 'Yggdroot/indentLine'
+
+" required: sudo apt-get install python-autopep8
+Plugin 'tell-k/vim-autopep8'
+
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -167,7 +173,7 @@ set whichwrap=<,>,[,] " 具体查看 :help, 设置左右方向键在行头行尾
 nnoremap <space> za
 set foldmethod=indent  " 设置折叠方式为按缩进折叠
 set foldlevel=99
- "set foldopen=all " 设置为自动打开折叠 
+ "set foldopen=all " 设置为自动打开折叠
 
 set wildmenu " 增强版命令行，状态栏列出符合条件的命令
 set wildignore=*.o,*~,*.swp " 补全时忽略指定后缀文件
@@ -194,8 +200,8 @@ set laststatus=2
 "set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ \ \ \ \ \ \%y
 set statusline+=%=
-set statusline+=\ %l\ /\ %L\ \ \ \ \ \ \ %v\ \ \ \ \ \ \ 
-set statusline+=%p%%\ \ \ 
+set statusline+=\ %l\ /\ %L\ \ \ \ \ \ \ %v\ \ \ \ \ \ \
+set statusline+=%p%%\ \ \
 
 " 高亮匹配 <>
 set mps+=<:>
@@ -224,7 +230,7 @@ set clipboard+=unnamed
 " }}} ==========================================================
 
 " {{{ ============= 变量设置 ====================================
-" 映射 <Leader>键 
+" 映射 <Leader>键
 let g:mapleader = ","
 " }}} ===========================================================
 
@@ -244,7 +250,7 @@ function! s:UltiVSearch()
   let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n','g')
   let @s = temp
 endfunction
-"holy hack! it works! 
+"holy hack! it works!
 """"""""""""""""""""""""""""""""""""""""""
 "Ultimate Visual Search
 """"""""""""""""""""""""""""""""""""""""""
@@ -350,7 +356,7 @@ vnoremap <leader>" <esc>a"<esc>`<i"<esc>`>l
 vnoremap <leader>' <esc>a'<esc>`<i'<esc>`>l
 
 " grep the WORD under the cursor in current directory
-"nnoremap <leader>g :execute "grep! -R" . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr><cr> 
+"nnoremap <leader>g :execute "grep! -R" . shellescape(expand("<cWORD>")) . " ."<cr>:copen<cr><cr>
 " add ; to the end of line
 nnoremap ; A;<esc>
 
@@ -393,7 +399,7 @@ iabbrev teh the
 iabbrev waht what
 iabbrev itn int
 " }}} ===================================================
- 
+
 "{{{ ==== plugin setup =====
 
 " {{{ ============= UltiSnips 插件设置 ==================
@@ -406,7 +412,7 @@ iabbrev itn int
 
 
 "{{{ ============ tags  ===============================
-" set tags+=/usr/include/tags 
+" set tags+=/usr/include/tags
 " set tags+=~/.vim/tags/glib.tags
 " set tags+=~/.vim/tags/libc.tags
 " set tags+=~/.vim/tags/susv2.tags
@@ -421,7 +427,7 @@ iabbrev itn int
 
 
 "{{{ ============= pyclewn 设置 =======================
-set previewheight=6 " 设置调试窗口大小, 宽度为 8 
+set previewheight=6 " 设置调试窗口大小, 宽度为 8
 "}}} ==================================================
 
 
@@ -459,11 +465,11 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_follow_symlinks = 1 	"显示链接文件
 
 " MRU模式下不显示的文件
-let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*' " MacOSX/Linux, 
+let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*' " MacOSX/Linux,
 " let g:ctrlp_mruf_include = '\.cpp$\|\.h$' " 只记住的文件
 
 "MRU模式下只显示工作目录下的文件
-let g:ctrlp_mruf_relative = 1 
+let g:ctrlp_mruf_relative = 1
 
 " 顺序即为<c-b>, <c-f>时出现的顺序
 "let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
@@ -473,8 +479,8 @@ let g:ctrlp_mruf_relative = 1
 
 
 "{{{ ================= YouCompleteme ====================
-"设置全局配置文件的路径  
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'  
+"设置全局配置文件的路径
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
 " 解决与Unisnips插件的冲突
 "let g:ycm_key_list_select_completion = ['<C-TAB>','<Down>']
@@ -508,7 +514,7 @@ au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:U
 
 " let g:UltiSnipsJumpForwardTrigger="<tab>"
 " let g:UltiSnipsListSnippets="<c-e>"
-" this mapping Enter key to <C-y> to chose the current highlight item 
+" this mapping Enter key to <C-y> to chose the current highlight item
 " and close the selection list, same as other IDEs.
 " CONFLICT with some plugins like tpope/Endwise
 " inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -518,30 +524,30 @@ au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:U
 "let ycm_key_invoke_completion = '<S-space>'
 
 
-"设置error和warning的提示符，如果没有设置，ycm会以syntastic的  
-" g:syntastic_warning_symbol 和 g:syntastic_error_symbol 这两个为准  
-" let g:ycm_error_symbol='>>'  
-" let g:ycm_warning_symbol='>*' 
+"设置error和warning的提示符，如果没有设置，ycm会以syntastic的
+" g:syntastic_warning_symbol 和 g:syntastic_error_symbol 这两个为准
+" let g:ycm_error_symbol='>>'
+" let g:ycm_warning_symbol='>*'
 
 
-"设置跳转的快捷键，可以跳转到definition和declaration  
+"设置跳转的快捷键，可以跳转到definition和declaration
 " 放到 .gvimrc 中, 在终端 vim 中映射这个键有 bug
-"nnoremap <c-[> :YcmCompleter GoToDefinitionElseDeclaration<CR>  
+"nnoremap <c-[> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-""开启基于tag的补全，可以在这之后添加需要的标签路径  
-"let g:ycm_collect_identifiers_from_tags_files = 1  
+""开启基于tag的补全，可以在这之后添加需要的标签路径
+"let g:ycm_collect_identifiers_from_tags_files = 1
 "set tags+=~/.vim/tags/cpp.tags 		" 插件生成的 STL tags
 
-" 语法关键字补全 
-let g:ycm_seed_identifiers_with_syntax = 1  
+" 语法关键字补全
+let g:ycm_seed_identifiers_with_syntax = 1
 
-"不显示开启vim时检查ycm_extra_conf文件的信息  
+"不显示开启vim时检查ycm_extra_conf文件的信息
 let g:ycm_confirm_extra_conf = 0
 
-"0 每次重新生成匹配项，禁止缓存匹配项  
+"0 每次重新生成匹配项，禁止缓存匹配项
 let g:ycm_cache_omnifunc = 0
 
-"1: 在注释中也可以补全  
+"1: 在注释中也可以补全
 let g:ycm_complete_in_comments = 1
 
 "1: 在字符串输入中也能补全
@@ -550,17 +556,17 @@ let g:ycm_complete_in_strings = 1
 "1: 注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 
-"输入第几个字符开始补全  
+"输入第几个字符开始补全
 let g:ycm_min_num_of_chars_for_completion = 1
 
 "查询ultisnips提供的代码模板补全,  就跟vs + Assist X一样
 let g:ycm_use_ultisnips_completer = 1
 
 "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
-set completeopt=longest,menu	
+set completeopt=longest,menu
 
 "离开插入模式后自动关闭预览窗口
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif	
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " 0: 关闭ycm的syntastic
 let g:ycm_show_diagnostics_ui = 1
@@ -578,8 +584,8 @@ let g:ycm_auto_trigger = 1
 
 
 "{{{ ================== NerdTree ========================
-" This option is used to specify which files the NERD tree should ignore. 
-" It must be a list of regular expressions. 
+" This option is used to specify which files the NERD tree should ignore.
+" It must be a list of regular expressions.
 " let NERDTreeIgnore=['\.vim$', '\~$']
 " let NERDTreeIgnore=['.d$[[dir]]', '.o$[[file]]']
 let NERDTreeIgnore=['\.o$[[file]]', '.asv$[[file]]', '.fig$[[file]]', '.xlsx$[[file]]', '.lo$[[file]]']
@@ -605,14 +611,14 @@ let NERDTreeWinSize = 30
 "let NERDTreeWinPos = "left"
 let NERDTreeWinPos = "right"
 
-" 自动更新 
+" 自动更新
 let NERDTreeAutoDeleteBuffer=1
 
 " 若最后一个窗口是NerdTree窗口时，自动关闭它
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " nnoremap f :NERDTreeToggle<CR><C-L>
- 
+
 function! NERDTreeCustomIgnoreFilter(path)
     return a:path.isExecutable
 endfunction
@@ -620,7 +626,7 @@ endfunction
 " 打开 vim 时自动打开 NERDTree 和 Tagbar
 " autocmd vimenter * call ToggleNERDTreeAndTagbar()
 " autocmd BufNewFile * call ToggleNERDTreeAndTagbar()
- 
+
 " 文件名按1,2,,...,10排序
 let NERDTreeNaturalSort = 1
 
@@ -628,7 +634,7 @@ let NERDTreeNaturalSort = 1
 
 
 "{{{ ========== 打开NERDTree和Tagbar，分左右两列 ===========
-function! ToggleNERDTreeAndTagbar2() 
+function! ToggleNERDTreeAndTagbar2()
 let w:jumpbacktohere = 1
 
 " Detect which plugins are open
@@ -661,7 +667,7 @@ for window in range(1, winnr('$'))
        unlet w:jumpbacktohere
        break
    endif
-endfor  
+endfor
 
 endfunction
 
@@ -676,7 +682,7 @@ nnoremap <leader>f :call ToggleNERDTreeAndTagbar2()<CR>
 nnoremap <c-d> :silent execute "CtrlSF " . shellescape(expand("<cword>"))<cr>
 
 " 搜索结果在右端显示
-" let g:ctrlsf_open_left = 0 
+" let g:ctrlsf_open_left = 0
 
 let g:ctrlsf_context = '-B 2 -A 2'
 let g:ctrlsf_indent = 2
@@ -719,7 +725,7 @@ let g:ctrlspace_default_mapping_key="<C-U>"
 
 "{{{ ============= color scheme ========================
 " colorscheme freya
-colorscheme neon 
+colorscheme neon
 "}}} ===================================================
 
 
@@ -888,6 +894,44 @@ let g:Matlab_MlintExecutable = '/home/xzz/.MATLAB/R2013b/bin/glnxa64/mlint'
 let g:AutoPairsFlyMode = 0
 "}}} ==================================================
 
+" {{{ =================== intendLine ==================
+let g:indentLine_enabled = 1
+"
+" 自定义颜色
+" let g:indentLine_setColors = 1
+" Vim
+" let g:indentLine_color_term = 239
+" GVim
+" let g:indentLine_color_gui = '#A4E57E'
+
+" 显示字符
+let g:indentLine_char = '¦'
+" }}} =================================================
+
+" {{{ =================== autopep8 ==================
+" map key
+" autocmd FileType python noremap <buffer> <F8> :call Autopep8()<CR>
+
+" Do not fix these errors/warnings (default: E226,E24,W6)
+" let g:autopep8_ignore="E501,W293"
+
+" Fix only these errors/warnings (e.g. E4,W)
+" let g:autopep8_select="E501,W293"
+
+" Set maximum allowed line length (default: 79)
+let g:autopep8_max_line_length=80
+
+" Number of spaces per indent level (default: 4)
+let g:autopep8_indent_size=2
+
+" Disable show diff window
+let g:autopep8_disable_show_diff=1
+
+" Chose diff window type. (default: horizontal)
+" let g:autopep8_diff_type='horizontal'
+" let g:autopep8_diff_type='vertical'
+" }}} =================================================
+
 "}}} ==== plugin setup end
 
 "{{{ ================== Help funtions =================
@@ -992,16 +1036,16 @@ endfunction
 func! SetTitle()
         "如果文件类型为.c或者.cpp文件
         if (&filetype == 'c' || &filetype == 'cpp')
-                call append(1, "/*******************************************************")  
+                call append(1, "/*******************************************************")
                 call append(2, "\ @Author: zhezhaoxu")
                 call append(3, "\ @Created Time : ".strftime("%c"))
                 call append(4, "\ @File Name: ".expand("%"))
                 call append(5, "\ @Description:")
-                call append(6, " ******************************************************/")  
-                call append(7,"")  
+                call append(6, " ******************************************************/")
+                call append(7,"")
         endif
         "如果文件类型为.sh文件
-        if &filetype == 'shell'  
+        if &filetype == 'shell'
                 call append(1, "\#!/bin/sh")
                 call append(2, "\# Author: zhezhaoxu")
                 call append(3, "\# Created Time : ".strftime("%c"))
@@ -1022,15 +1066,15 @@ func! SetTitle()
                 call append(9,"")
         endif
         "如果文件类型为.java文件
-        if &filetype == 'java'  
-                call append(1, "//coding=utf8")  
-                call append(2, "/**")  
-                call append(3, "\ *\ @Author: zhezhaoxu")  
-                call append(4, "\ *\ @Created Time : ".strftime("%c"))  
-                call append(5, "\ *\ @File Name: ".expand("%"))  
-                call append(6, "\ *\ @Description:")  
-                call append(7, "\ */")  
-                call append(8,"")  
+        if &filetype == 'java'
+                call append(1, "//coding=utf8")
+                call append(2, "/**")
+                call append(3, "\ *\ @Author: zhezhaoxu")
+                call append(4, "\ *\ @Created Time : ".strftime("%c"))
+                call append(5, "\ *\ @File Name: ".expand("%"))
+                call append(6, "\ *\ @Description:")
+                call append(7, "\ */")
+                call append(8,"")
         endif
 endfunc
 
