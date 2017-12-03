@@ -104,7 +104,9 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'tell-k/vim-autopep8'
 
 Plugin 'fisadev/vim-ctrlp-cmdpalette'
-Plugin 'kien/tabman.vim'
+
+"Plugin 'kien/tabman.vim'
+
 Plugin 'vim-scripts/IndexedSearch'
 
 " Gvim colorscheme
@@ -119,6 +121,8 @@ Plugin 'fisadev/fisa-vim-colorscheme'
 Plugin 'kien/rainbow_parentheses.vim'
 
 Plugin 'python-mode/python-mode'
+
+Plugin 'davidhalter/jedi-vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -976,7 +980,7 @@ let g:autopep8_disable_show_diff=0
 let g:loaded_tabman = 0
 
 " Change the default mappings
-let g:tabman_toggle = '<leader>g'
+"let g:tabman_toggle = '<leader>g'
 
 " Change the width of the TabMan window:
 let g:tabman_width = 25
@@ -1095,7 +1099,7 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " {{{ =================== python-mode ====================
 let g:pymode = 1
-"let g:pymode_paths = ['', '/home/xzz/anaconda2/envs/tensorflow/lib/python2.7', '/home/xzz/anaconda2/lib/python27.zip', '/home/xzz/anaconda2/lib/python2.7/plat-linux2', '/home/xzz/anaconda2/lib/python2.7/lib-tk', '/home/xzz/anaconda2/lib/python2.7/lib-old', '/home/xzz/anaconda2/lib/python2.7/lib-dynload', '/home/xzz/anaconda2/lib/python2.7/site-packages']
+let g:pymode_paths = ['', '/home/xzz/anaconda2/lib/python27.zip', '/home/xzz/anaconda2/lib/python2.7/plat-linux2', '/home/xzz/anaconda2/lib/python2.7/lib-tk', '/home/xzz/anaconda2/lib/python2.7/lib-old', '/home/xzz/anaconda2/lib/python2.7/lib-dynload', '/home/xzz/anaconda2/lib/python2.7/site-packages']
 
 " Trim unused white spaces on save
 let g:pymode_trim_whitespaces = 1
@@ -1151,6 +1155,32 @@ let g:pymode_syntax_builtin_objs = g:pymode_syntax_all
 let g:pymode_syntax_builtin_types = g:pymode_syntax_all
 let g:pymode_syntax_highlight_exceptions = g:pymode_syntax_all
 let g:pymode_syntax_docstrings = g:pymode_syntax_all
+" }}} =================================================
+
+
+" {{{ =================== jedi-vim ====================
+let g:jedi#auto_initialization = 1
+let g:jedi#completions_command = "<C-S>"
+
+let g:jedi#goto_command = '<leader>jd'
+
+let g:jedi#goto_assignments_command = '<leader>jg'
+let g:jedi#documentation_command = 'K'
+
+let g:jedi#rename_command = '<leader>jr'
+let g:jedi#usages_command = '<leader>jn'
+
+let g:jedi#popup_on_dot = 1
+let g:jedi#popup_select_first = 1
+
+" 0: disable 1: window 2: command line
+let g:jedi#show_call_signatures = 1
+let g:jedi#show_call_signatures_delay = 0
+
+" disable jedi completions, use YCM
+let g:jedi#completions_enabled = 0
+
+let g:jedi#use_splits_not_buffers = 'bottom'
 " }}} =================================================
 
 "}}} ==== plugin setup end
