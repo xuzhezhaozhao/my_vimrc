@@ -1093,9 +1093,9 @@ au Syntax * RainbowParenthesesLoadBraces
 " }}} =================================================
 
 
-" {{{ =================== RainbowParentheses ====================
+" {{{ =================== python-mode ====================
 let g:pymode = 1
-let g:pymode_paths = ['', '/home/xzz/anaconda2/lib/python27.zip', '/home/xzz/anaconda2/lib/python2.7/plat-linux2', '/home/xzz/anaconda2/lib/python2.7/lib-tk', '/home/xzz/anaconda2/lib/python2.7/lib-old', '/home/xzz/anaconda2/lib/python2.7/lib-dynload', '/home/xzz/anaconda2/lib/python2.7/site-packages']
+"let g:pymode_paths = ['', '/home/xzz/anaconda2/envs/tensorflow/lib/python2.7', '/home/xzz/anaconda2/lib/python27.zip', '/home/xzz/anaconda2/lib/python2.7/plat-linux2', '/home/xzz/anaconda2/lib/python2.7/lib-tk', '/home/xzz/anaconda2/lib/python2.7/lib-old', '/home/xzz/anaconda2/lib/python2.7/lib-dynload', '/home/xzz/anaconda2/lib/python2.7/site-packages']
 
 " Trim unused white spaces on save
 let g:pymode_trim_whitespaces = 1
@@ -1127,7 +1127,8 @@ let g:pymode_lint = 1
 let g:pymode_lint_on_write = 1
 let g:pymode_lint_message = 1
 
-let g:pymode_rope = 1
+" 0: diable rope
+let g:pymode_rope = 0
 let g:pymode_rope_completion = 1
 let g:pymode_rope_complete_on_dot = 1
 " Set |'g:pymode_rope_lookup_project'| to 0 for prevent searching in parent dirs
