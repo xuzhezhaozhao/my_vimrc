@@ -105,7 +105,7 @@ Plugin 'tell-k/vim-autopep8'
 
 Plugin 'fisadev/vim-ctrlp-cmdpalette'
 
-"Plugin 'kien/tabman.vim'
+Plugin 'kien/tabman.vim'
 
 Plugin 'vim-scripts/IndexedSearch'
 
@@ -125,6 +125,9 @@ Plugin 'python-mode/python-mode'
 Plugin 'davidhalter/jedi-vim'
 
 Plugin 'cjrh/vim-conda'
+
+" CtrlP is better
+" Plugin 'fholgado/minibufexpl.vim'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
@@ -515,6 +518,8 @@ let g:ctrlp_mruf_relative = 1
 "let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir', 'rtscript',
 "                          \ 'undo', 'line', 'changes', 'mixed', 'bookmarkdir']
 " let g:ctrlp_extensions = ['quickfix']
+
+nmap <leader>b :CtrlPBuffer<cr>
 "}}} ===================================================
 
 
@@ -695,8 +700,8 @@ Tagbar
 elseif tagbar_open
 NERDTree
 else
-NERDTree
 Tagbar
+NERDTree
 "set columns+=40
 endif
 
@@ -982,7 +987,7 @@ let g:autopep8_disable_show_diff=0
 let g:loaded_tabman = 0
 
 " Change the default mappings
-"let g:tabman_toggle = '<leader>g'
+let g:tabman_toggle = '<leader>g'
 
 " Change the width of the TabMan window:
 let g:tabman_width = 25
@@ -993,7 +998,7 @@ let g:tabman_side = 'left'
 let g:tabman_specials = 0
 
 " Set this to 0 to disable line numbering in the TabMan window
-let g:tabman_number = 1
+let g:tabman_number = 0
 " }}} =================================================
 
 " {{{ =================== yankring ====================
@@ -1101,7 +1106,7 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " {{{ =================== python-mode ====================
 let g:pymode = 1
-let g:pymode_paths = ['', '/home/xzz/anaconda2/lib/python27.zip', '/home/xzz/anaconda2/lib/python2.7/plat-linux2', '/home/xzz/anaconda2/lib/python2.7/lib-tk', '/home/xzz/anaconda2/lib/python2.7/lib-old', '/home/xzz/anaconda2/lib/python2.7/lib-dynload', '/home/xzz/anaconda2/lib/python2.7/site-packages']
+"let g:pymode_paths = ['', '/home/xzz/anaconda2/lib/python27.zip', '/home/xzz/anaconda2/lib/python2.7/plat-linux2', '/home/xzz/anaconda2/lib/python2.7/lib-tk', '/home/xzz/anaconda2/lib/python2.7/lib-old', '/home/xzz/anaconda2/lib/python2.7/lib-dynload', '/home/xzz/anaconda2/lib/python2.7/site-packages']
 
 " Trim unused white spaces on save
 let g:pymode_trim_whitespaces = 1
@@ -1127,7 +1132,7 @@ let g:pymode_run_bind = '<leader>r'
 let g:pymode_breakpoint = 1
 
 " ,b conflict with yankring
-" let g:pymode_breakpoint_bind = '<leader>b'
+let g:pymode_breakpoint_bind = '<leader>pb'
 
 let g:pymode_lint = 1
 let g:pymode_lint_on_write = 1
@@ -1172,17 +1177,31 @@ let g:jedi#documentation_command = 'K'
 let g:jedi#rename_command = '<leader>jr'
 let g:jedi#usages_command = '<leader>jn'
 
-let g:jedi#popup_on_dot = 1
-let g:jedi#popup_select_first = 1
+" diable, Use YCM
+let g:jedi#popup_on_dot = 0
+let g:jedi#popup_select_first = 0
 
 " 0: disable 1: window 2: command line
 let g:jedi#show_call_signatures = 1
-let g:jedi#show_call_signatures_delay = 0
+let g:jedi#show_call_signatures_delay = 500
 
 " disable jedi completions, use YCM
 let g:jedi#completions_enabled = 0
 
 let g:jedi#use_splits_not_buffers = 'bottom'
+" }}} =================================================
+
+
+" {{{ =================== minibufexpl ====================
+" nmap <Leader>b :MBEToggle<cr>
+"let g:miniBufExplVSplit = 20
+let g:miniBufExplSplitToEdge = 0
+
+let g:miniBufExplUseSingleClick = 1
+
+let g:miniBufExplCloseOnSelect = 0
+let g:miniBufExplShowBufNumbers = 0
+hi link MBEVisibleChanged Error
 " }}} =================================================
 
 "}}} ==== plugin setup end
