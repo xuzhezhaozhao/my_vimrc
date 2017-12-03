@@ -122,6 +122,7 @@ Plugin 'kien/rainbow_parentheses.vim'
 
 Plugin 'python-mode/python-mode'
 
+" pip install jedi
 Plugin 'davidhalter/jedi-vim'
 
 Plugin 'cjrh/vim-conda'
@@ -1106,7 +1107,7 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " {{{ =================== python-mode ====================
 let g:pymode = 1
-"let g:pymode_paths = ['', '/home/xzz/anaconda2/lib/python27.zip', '/home/xzz/anaconda2/lib/python2.7/plat-linux2', '/home/xzz/anaconda2/lib/python2.7/lib-tk', '/home/xzz/anaconda2/lib/python2.7/lib-old', '/home/xzz/anaconda2/lib/python2.7/lib-dynload', '/home/xzz/anaconda2/lib/python2.7/site-packages']
+" let g:pymode_paths = ['', '/home/xzz/anaconda2/lib/python27.zip', '/home/xzz/anaconda2/lib/python2.7/plat-linux2', '/home/xzz/anaconda2/lib/python2.7/lib-tk', '/home/xzz/anaconda2/lib/python2.7/lib-old', '/home/xzz/anaconda2/lib/python2.7/lib-dynload', '/home/xzz/anaconda2/lib/python2.7/site-packages']
 
 " Trim unused white spaces on save
 let g:pymode_trim_whitespaces = 1
@@ -1121,6 +1122,11 @@ let g:pymode_python = 'python'
 
 let g:pymode_indent = 1
 let g:pymode_folding = 1
+augroup unset_folding_in_insert_mode
+    autocmd!
+    autocmd InsertEnter *.py setlocal foldmethod=marker
+    autocmd InsertLeave *.py setlocal foldmethod=expr
+augroup END
 let g:pymode_motion = 1
 
 let g:pymode_doc = 1
@@ -1132,36 +1138,28 @@ let g:pymode_run_bind = '<leader>r'
 let g:pymode_breakpoint = 1
 
 " ,b conflict with yankring
-let g:pymode_breakpoint_bind = '<leader>pb'
+let g:pymode_breakpoint_bind = ''
 
 let g:pymode_lint = 1
-let g:pymode_lint_on_write = 1
+let g:pymode_lint_on_unmodified = 1
 let g:pymode_lint_message = 1
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+let g:pymode_lint_signs = 1
+let g:pymode_lint_todo_symbol = 'WW'
+let g:pymode_lint_comment_symbol = 'CC'
+let g:pymode_lint_visual_symbol = 'RR'
+let g:pymode_lint_error_symbol = 'EE'
+let g:pymode_lint_info_symbol = 'II'
+let g:pymode_lint_pyflakes_symbol = 'FF'
 
 " 0: diable rope
 let g:pymode_rope = 0
-let g:pymode_rope_completion = 1
-let g:pymode_rope_complete_on_dot = 1
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
 " Set |'g:pymode_rope_lookup_project'| to 0 for prevent searching in parent dirs
 let g:pymode_rope_lookup_project = 0
 
-let g:pymode_syntax = 1
 let g:pymode_syntax_all = 1
-let g:pymode_syntax_print_as_function = 0
-let g:pymode_syntax_highlight_async_await = g:pymode_syntax_all
-let g:pymode_syntax_highlight_equal_operator = g:pymode_syntax_all
-let g:pymode_syntax_highlight_stars_operator = g:pymode_syntax_all
-let g:pymode_syntax_highlight_self = g:pymode_syntax_all
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-let g:pymode_syntax_string_formatting = g:pymode_syntax_all
-let g:pymode_syntax_string_format = g:pymode_syntax_all
-let g:pymode_syntax_string_templates = g:pymode_syntax_all
-let g:pymode_syntax_doctests = g:pymode_syntax_all
-let g:pymode_syntax_builtin_objs = g:pymode_syntax_all
-let g:pymode_syntax_builtin_types = g:pymode_syntax_all
-let g:pymode_syntax_highlight_exceptions = g:pymode_syntax_all
-let g:pymode_syntax_docstrings = g:pymode_syntax_all
 " }}} =================================================
 
 
@@ -1183,7 +1181,7 @@ let g:jedi#popup_select_first = 0
 
 " 0: disable 1: window 2: command line
 let g:jedi#show_call_signatures = 1
-let g:jedi#show_call_signatures_delay = 500
+let g:jedi#show_call_signatures_delay = 100
 
 " disable jedi completions, use YCM
 let g:jedi#completions_enabled = 0
