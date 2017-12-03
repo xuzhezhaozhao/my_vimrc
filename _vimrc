@@ -1033,6 +1033,28 @@ let g:yankring_persist = 1
 " store yankring history file there too
 let g:yankring_history_dir = '~/.vim/dirs/'
 
+let g:yankring_paste_using_g = 0
+
+let g:yankring_window_auto_close = 1
+
+let g:yankring_window_height = 8
+
+let g:yankring_clipboard_monitor = 1
+
+let g:yankring_replace_n_pkey = ""
+
+let g:yankring_paste_n_bkey = ""
+
+let g:yankring_paste_n_akey = ""
+let g:yankring_replace_n_nkey = ""
+
+
+" This line remaps Y (which the user presses) to the YRYankCount command.  The
+" YRYankCount tells Vim to execute y$ instead.
+nnoremap Y  :<C-U>YRYankCount 'y$'<CR>
+
+" let g:yankring_o_keys = ''
+
 nnoremap <silent> <C-U> :YRShow<CR>
 inoremap <silent> <C-U> <ESC>:YRShow<CR>
 " }}} =================================================
