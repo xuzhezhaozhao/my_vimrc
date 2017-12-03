@@ -127,6 +127,10 @@ Plugin 'davidhalter/jedi-vim'
 
 Plugin 'cjrh/vim-conda'
 
+Plugin 'Vimjas/vim-python-pep8-indent'
+
+Plugin 'nvie/vim-flake8'
+
 " CtrlP is better
 " Plugin 'fholgado/minibufexpl.vim'
 
@@ -1107,7 +1111,6 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " {{{ =================== python-mode ====================
 let g:pymode = 1
-" let g:pymode_paths = ['', '/home/xzz/anaconda2/lib/python27.zip', '/home/xzz/anaconda2/lib/python2.7/plat-linux2', '/home/xzz/anaconda2/lib/python2.7/lib-tk', '/home/xzz/anaconda2/lib/python2.7/lib-old', '/home/xzz/anaconda2/lib/python2.7/lib-dynload', '/home/xzz/anaconda2/lib/python2.7/site-packages']
 
 " Trim unused white spaces on save
 let g:pymode_trim_whitespaces = 1
@@ -1120,13 +1123,16 @@ let g:pymode_options_colorcolumn = 1
 
 let g:pymode_python = 'python'
 
-let g:pymode_indent = 1
-let g:pymode_folding = 1
-augroup unset_folding_in_insert_mode
-    autocmd!
-    autocmd InsertEnter *.py setlocal foldmethod=marker
-    autocmd InsertLeave *.py setlocal foldmethod=expr
-augroup END
+let g:pymode_indent = 0
+
+" disable, conflict with '<<'
+let g:pymode_folding = 0
+"augroup unset_folding_in_insert_mode
+    "autocmd!
+    "autocmd InsertEnter *.py setlocal foldmethod=marker
+    "autocmd InsertLeave *.py setlocal foldmethod=expr
+"augroup END
+
 let g:pymode_motion = 1
 
 let g:pymode_doc = 1
@@ -1135,8 +1141,7 @@ let g:pymode_doc_bind = 'K'
 let g:pymode_run = 1
 let g:pymode_run_bind = '<leader>r'
 
-let g:pymode_breakpoint = 1
-
+let g:pymode_breakpoint = 0
 " ,b conflict with yankring
 let g:pymode_breakpoint_bind = ''
 
