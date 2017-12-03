@@ -1171,6 +1171,7 @@ let g:jedi#goto_command = '<leader>jd'
 
 let g:jedi#goto_assignments_command = '<leader>jg'
 let g:jedi#documentation_command = 'K'
+let g:jedi#max_doc_height = 20
 
 let g:jedi#rename_command = '<leader>jr'
 let g:jedi#usages_command = '<leader>jn'

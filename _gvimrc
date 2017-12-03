@@ -27,4 +27,5 @@ else
 endif
 endfunction
 
-nnoremap <c-[> :call <SID>FileJumpOrYcm()<CR>
+"nnoremap <c-[> :call <SID>FileJumpOrYcm()<CR>
+nnoremap <c-[> :YcmCompleter GoTo<CR>
