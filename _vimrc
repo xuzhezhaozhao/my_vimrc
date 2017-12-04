@@ -1,14 +1,13 @@
 " {{{ ====================== Vundle ========================
 set nocompatible              " be iMproved, required
 filetype off                  " required
-
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+
+" User Plugins
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
@@ -131,24 +130,11 @@ Plugin 'Vimjas/vim-python-pep8-indent'
 
 Plugin 'nvie/vim-flake8'
 
-" CtrlP is better
-" Plugin 'fholgado/minibufexpl.vim'
+Plugin 'fholgado/minibufexpl.vim'
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-" Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Avoid a name conflict with L9
-" Plugin 'user/L9', {'name': 'newL9'}
+Plugin 'tmhedberg/SimpylFold'
+
+Plugin 'Konfekt/FastFold'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -191,7 +177,7 @@ set cursorline " 高亮显示当前行
 set hlsearch " 高亮搜索结果
 set anti
 " 把字体文件放在 ~/.fonts 中
-set guifont=YaHei\ Consolas\ Hybrid\ 18,Fixed\ 18 " 设置 gvim 的字体及大小
+set guifont=YaHei\ Consolas\ Hybrid\ 16,Fixed\ 16 " 设置 gvim 的字体及大小
 "set guifont=Menlo\ Regular\ 12,Fixed\ 12 " 设置 gvim 的字体及大小
 set autochdir	" 自动设置当前编辑的文件所在路径为工作路径
 set so=3 " 光标在还有3行时自动滚屏
@@ -989,10 +975,11 @@ let g:autopep8_disable_show_diff=0
 
 
 " {{{ =================== tabman ==================
-let g:loaded_tabman = 0
+" disable
+let g:loaded_tabman = 1
 
 " Change the default mappings
-let g:tabman_toggle = '<leader>g'
+let g:tabman_toggle = ''
 
 " Change the width of the TabMan window:
 let g:tabman_width = 25
@@ -1197,7 +1184,7 @@ let g:jedi#use_splits_not_buffers = 'bottom'
 
 
 " {{{ =================== minibufexpl ====================
-" nmap <Leader>b :MBEToggle<cr>
+nmap <Leader>g :MBEToggle<cr>
 "let g:miniBufExplVSplit = 20
 let g:miniBufExplSplitToEdge = 0
 
@@ -1207,6 +1194,12 @@ let g:miniBufExplCloseOnSelect = 0
 let g:miniBufExplShowBufNumbers = 0
 hi link MBEVisibleChanged Error
 " }}} =================================================
+
+" {{{ =================== minibufexpl ====================
+let g:SimpylFold_docstring_preview = 1
+let g:SimpylFold_fold_import = 1
+" }}} =================================================
+
 
 "}}} ==== plugin setup end
 
