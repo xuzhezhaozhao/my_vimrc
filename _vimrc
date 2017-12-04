@@ -1191,7 +1191,11 @@ let g:miniBufExplSplitToEdge = 0
 let g:miniBufExplUseSingleClick = 1
 
 let g:miniBufExplCloseOnSelect = 0
-let g:miniBufExplShowBufNumbers = 0
+let g:miniBufExplShowBufNumbers = 1
+
+let g:miniBufExplAutoStart = 0
+let g:miniBufExplBuffersNeeded = 0
+
 hi link MBEVisibleChanged Error
 " }}} =================================================
 
