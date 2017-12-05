@@ -1164,8 +1164,7 @@ let g:pymode_syntax_print_as_function = 1
 let g:pymode_syntax_highlight_equal_operator = g:pymode_syntax_all
 let g:pymode_syntax_highlight_stars_operator = g:pymode_syntax_all
 let g:pymode_syntax_highlight_self = g:pymode_syntax_all
-" let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_indent_errors = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_syntax_space_errors = g:pymode_syntax_all
 
 let g:pymode_syntax_string_formatting = g:pymode_syntax_all
