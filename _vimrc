@@ -947,6 +947,8 @@ let g:indentLine_enabled = 1
 
 " 显示字符
 let g:indentLine_char = '¦'
+
+let g:indentLine_conceallevel = 2
 " }}} =================================================
 
 " {{{ =================== autopep8 ==================
@@ -966,11 +968,14 @@ let g:autopep8_max_line_length=79
 let g:autopep8_indent_size=4
 
 " Disable show diff window
-let g:autopep8_disable_show_diff=0
+" let g:autopep8_disable_show_diff=1
 
 " Chose diff window type. (default: horizontal)
 " let g:autopep8_diff_type='horizontal'
 " let g:autopep8_diff_type='vertical'
+
+" use '=='
+autocmd FileType python set equalprg=autopep8\ -
 " }}} =================================================
 
 
@@ -1133,6 +1138,8 @@ let g:pymode_breakpoint = 0
 let g:pymode_breakpoint_bind = ''
 
 let g:pymode_lint = 1
+" don't open cwindow if errors have beed found
+let g:pymode_lint_cwindow = 0
 let g:pymode_lint_on_unmodified = 1
 let g:pymode_lint_message = 1
 let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
@@ -1151,7 +1158,7 @@ let g:pymode_rope_complete_on_dot = 0
 " Set |'g:pymode_rope_lookup_project'| to 0 for prevent searching in parent dirs
 let g:pymode_rope_lookup_project = 0
 
-let g:pymode_syntax_all = 1
+let g:pymode_syntax_all = 0
 " }}} =================================================
 
 
@@ -1196,7 +1203,8 @@ let g:miniBufExplShowBufNumbers = 1
 let g:miniBufExplAutoStart = 0
 let g:miniBufExplBuffersNeeded = 0
 
-hi link MBEVisibleChanged Error
+" highlight
+"hi link MBEVisibleChanged Error
 " }}} =================================================
 
 " {{{ =================== minibufexpl ====================
@@ -1359,7 +1367,7 @@ augroup end
 
 " Remove trailing whitespace when writing a buffer, but not for diff files.
 " From: Vigil <vim5632@rainslide.net>
-function RemoveTrailingWhitespace()
+function! RemoveTrailingWhitespace()
     if &ft != "diff"
         let b:curcol = col(".")
         let b:curline = line(".")
