@@ -177,7 +177,7 @@ set cursorline " 高亮显示当前行
 set hlsearch " 高亮搜索结果
 set anti
 " 把字体文件放在 ~/.fonts 中
-set guifont=YaHei\ Consolas\ Hybrid\ 16,Fixed\ 16 " 设置 gvim 的字体及大小
+set guifont=YaHei\ Consolas\ Hybrid\ 18,Fixed\ 18 " 设置 gvim 的字体及大小
 "set guifont=Menlo\ Regular\ 12,Fixed\ 12 " 设置 gvim 的字体及大小
 set autochdir	" 自动设置当前编辑的文件所在路径为工作路径
 set so=3 " 光标在还有3行时自动滚屏
@@ -1197,7 +1197,7 @@ let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
 
 " 0: disable 1: window 2: command line
-let g:jedi#show_call_signatures = 1
+let g:jedi#show_call_signatures = 0
 let g:jedi#show_call_signatures_delay = 100
 
 " disable jedi completions, use YCM
