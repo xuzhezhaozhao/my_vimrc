@@ -1159,23 +1159,22 @@ let g:pymode_rope_complete_on_dot = 0
 let g:pymode_rope_lookup_project = 0
 
 let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
 let g:pymode_syntax_print_as_function = 1
-let g:pymode_syntax_highlight_equal_operator = g:pymode_syntax_all
-let g:pymode_syntax_highlight_stars_operator = g:pymode_syntax_all
-let g:pymode_syntax_highlight_self = g:pymode_syntax_all
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
+let g:pymode_syntax_highlight_equal_operator = 1
+let g:pymode_syntax_highlight_stars_operator = 1
+let g:pymode_syntax_highlight_self = 1
+let g:pymode_syntax_indent_errors = 0
+let g:pymode_syntax_space_errors = 0
 
-let g:pymode_syntax_string_formatting = g:pymode_syntax_all
-let g:pymode_syntax_string_format = g:pymode_syntax_all
-let g:pymode_syntax_string_templates = g:pymode_syntax_all
-let g:pymode_syntax_doctests = g:pymode_syntax_all
-let g:pymode_syntax_builtin_objs = g:pymode_syntax_all
-let g:pymode_syntax_builtin_types = g:pymode_syntax_all
-let g:pymode_syntax_highlight_exceptions = g:pymode_syntax_all
+let g:pymode_syntax_string_formatting = 1
+let g:pymode_syntax_string_format = 1
+let g:pymode_syntax_string_templates = 1
+let g:pymode_syntax_doctests = 1
+let g:pymode_syntax_builtin_objs = 1
+let g:pymode_syntax_builtin_types = 1
+let g:pymode_syntax_highlight_exceptions = 1
 " Highlight docstrings as pythonDocstring (otherwise as pythonString)
-let g:pymode_syntax_docstrings = g:pymode_syntax_all
+let g:pymode_syntax_docstrings = 1
 " }}} =================================================
 
 
