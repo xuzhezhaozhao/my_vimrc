@@ -177,7 +177,7 @@ set cursorline " 高亮显示当前行
 set hlsearch " 高亮搜索结果
 set anti
 " 把字体文件放在 ~/.fonts 中
-set guifont=YaHei\ Consolas\ Hybrid\ 18,Fixed\ 18 " 设置 gvim 的字体及大小
+set guifont=YaHei\ Consolas\ Hybrid\ 16,Fixed\ 16 " 设置 gvim 的字体及大小
 "set guifont=Menlo\ Regular\ 12,Fixed\ 12 " 设置 gvim 的字体及大小
 set autochdir	" 自动设置当前编辑的文件所在路径为工作路径
 set so=3 " 光标在还有3行时自动滚屏
@@ -195,7 +195,7 @@ set whichwrap=<,>,[,] " 具体查看 :help, 设置左右方向键在行头行尾
 nnoremap <space> za
 set foldmethod=indent  " 设置折叠方式为按缩进折叠
 set foldlevel=99
- "set foldopen=all " 设置为自动打开折叠
+"set foldopen=all " 设置为自动打开折叠
 
 set wildmenu " 增强版命令行，状态栏列出符合条件的命令
 set wildignore=*.o,*~,*.swp " 补全时忽略指定后缀文件
@@ -357,8 +357,8 @@ nnoremap <leader>q :q!<CR>
 "vnoremap <silent> # :call VisualSelection('b')<CR>
 
 " Treat long lines as break lines (useful when moving around in them)
-nnoremap j gj
-nnoremap k gk
+"nnoremap j gj
+"nnoremap k gk
 
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 " 上下移动一行或选定的区域
@@ -624,7 +624,7 @@ let g:ycm_auto_trigger = 1
 " It must be a list of regular expressions.
 " let NERDTreeIgnore=['\.vim$', '\~$']
 " let NERDTreeIgnore=['.d$[[dir]]', '.o$[[file]]']
-let NERDTreeIgnore=['\.o$[[file]]', '.asv$[[file]]', '.fig$[[file]]', '.xlsx$[[file]]', '.lo$[[file]]']
+let NERDTreeIgnore=['\.o$[[file]]', '.asv$[[file]]', '.fig$[[file]]', '.xlsx$[[file]]', '.lo$[[file]]', '\.pyc$[[file]]', '\.so$[[file]]', '\.a$[[file]]']
 
 " display line number
 " let NERDTreeShowLineNumbers=1
@@ -956,7 +956,7 @@ let g:indentLine_conceallevel = 2
 " autocmd FileType python noremap <buffer> <F8> :call Autopep8()<CR>
 
 " Do not fix these errors/warnings (default: E226,E24,W6)
-" let g:autopep8_ignore="E501,W293"
+let g:autopep8_ignore="E501,W293"
 
 " Fix only these errors/warnings (e.g. E4,W)
 " let g:autopep8_select="E501,W293"
@@ -1150,7 +1150,7 @@ let g:pymode_lint_visual_symbol = 'RR'
 let g:pymode_lint_error_symbol = 'EE'
 let g:pymode_lint_info_symbol = 'II'
 let g:pymode_lint_pyflakes_symbol = 'FF'
-
+" let g:pymode_lint_ignore = "E501"
 " 0: diable rope
 let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
