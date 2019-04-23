@@ -136,6 +136,12 @@ Plugin 'tmhedberg/SimpylFold'
 
 Plugin 'Konfekt/FastFold'
 
+Plugin 'severin-lemaignan/vim-minimap'
+
+Plugin 'forevernull/vim-json-format'
+
+Plugin 'jez/vim-superman'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -961,8 +967,8 @@ let g:autopep8_ignore="E501,W293"
 " Fix only these errors/warnings (e.g. E4,W)
 " let g:autopep8_select="E501,W293"
 
-" Set maximum allowed line length (default: 79)
-let g:autopep8_max_line_length=79
+" Set maximum allowed line length (default: 80)
+let g:autopep8_max_line_length=80
 
 " Number of spaces per indent level (default: 4)
 let g:autopep8_indent_size=4
@@ -1110,7 +1116,7 @@ let g:pymode_trim_whitespaces = 1
 " Setup default python options.
 let g:pymode_options = 1
 
-let g:pymode_options_max_line_length = 79
+let g:pymode_options_max_line_length = 80
 let g:pymode_options_colorcolumn = 1
 
 let g:pymode_python = 'python'
@@ -1150,7 +1156,7 @@ let g:pymode_lint_visual_symbol = 'RR'
 let g:pymode_lint_error_symbol = 'EE'
 let g:pymode_lint_info_symbol = 'II'
 let g:pymode_lint_pyflakes_symbol = 'FF'
-" let g:pymode_lint_ignore = "E501"
+"let g:pymode_lint_ignore = 'E501,W'
 " 0: diable rope
 let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
