@@ -6,7 +6,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-
 " User Plugins
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
@@ -48,99 +47,61 @@ Plugin 'tpope/vim-surround'
 Plugin 'godlygeek/tabular'
 "Plugin 'plasticboy/vim-markdown'
 "Plugin 'bbchung/clighter'
-
 "Plugin 'xuzhezhaozhao/vim-potion'
 Plugin 'name5566/vim-bookmark'
 " Plugin 'MattesGroeger/vim-bookmarks'
-
 Plugin 'saihoooooooo/glowshi-ft.vim'
 Plugin 'panozzaj/vim-autocorrect'
 "Plugin 'matlab.vim'
 "Plugin 'MatlabFilesEdition'
 "Plugin 'Align.vim'
-
 Plugin 'mattn/emmet-vim'
-
 "Plugin 'justinmk/vim-syntax-extra'
-
 " Plugin 'hdima/python-syntax'
-
 Plugin 'raichoo/haskell-vim'
-
 Plugin 'tpope/vim-repeat'
-
 Plugin 'tmhedberg/matchit'
-
 "Plugin 'Igorjan94/codeforces.vim'
-
 "Plugin 'rdnetto/YCM-Generator'
-
 "Plugin 'tpope/vim-fugitive'
-
 Plugin 'terryma/vim-multiple-cursors'
-
 Plugin 'Shougo/unite.vim'
-
 Plugin 'rust-lang/rust.vim'
-
 Plugin 'szw/vim-tags'
-
 Plugin 'octol/vim-cpp-enhanced-highlight'
-
 "Plugin 'tomasr/molokai'
-
 Plugin 'WolfgangMehner/matlab-support'
-
 "Plugin 'gilgigilgil/anderson.vim'
-
 Plugin 'xuzhezhaozhao/FileJump'
-
 Plugin 'LargeFile'
-
 Plugin 'Yggdroot/indentLine'
-
 " required: sudo apt-get install python-autopep8
 Plugin 'tell-k/vim-autopep8'
-
 Plugin 'fisadev/vim-ctrlp-cmdpalette'
-
 Plugin 'kien/tabman.vim'
-
 Plugin 'vim-scripts/IndexedSearch'
-
 " Gvim colorscheme
 Plugin 'vim-scripts/Wombat'
-
 " Yank history navigation
 Plugin 'vim-scripts/YankRing.vim'
-
 " Terminal Vim with 256 colors colorscheme
 Plugin 'fisadev/fisa-vim-colorscheme'
-
 Plugin 'kien/rainbow_parentheses.vim'
-
 Plugin 'python-mode/python-mode'
-
 " pip install jedi
 Plugin 'davidhalter/jedi-vim'
-
 Plugin 'cjrh/vim-conda'
-
 Plugin 'Vimjas/vim-python-pep8-indent'
-
 Plugin 'nvie/vim-flake8'
-
 Plugin 'fholgado/minibufexpl.vim'
-
 Plugin 'tmhedberg/SimpylFold'
-
 Plugin 'Konfekt/FastFold'
-
 Plugin 'severin-lemaignan/vim-minimap'
-
 Plugin 'forevernull/vim-json-format'
-
 Plugin 'jez/vim-superman'
+Plugin 'fatih/vim-go'
+Plugin 'volgar1x/vim-gocode'
+Plugin 'xuzhezhaozhao/let-modeline.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -1115,8 +1076,7 @@ let g:pymode_trim_whitespaces = 1
 
 " Setup default python options.
 let g:pymode_options = 1
-
-let g:pymode_options_max_line_length = 80
+let g:pymode_options_max_line_length = 81
 let g:pymode_options_colorcolumn = 1
 
 let g:pymode_python = 'python'
@@ -1156,7 +1116,7 @@ let g:pymode_lint_visual_symbol = 'RR'
 let g:pymode_lint_error_symbol = 'EE'
 let g:pymode_lint_info_symbol = 'II'
 let g:pymode_lint_pyflakes_symbol = 'FF'
-"let g:pymode_lint_ignore = 'E501,W'
+let g:pymode_lint_ignore = ["E501"]
 " 0: diable rope
 let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
