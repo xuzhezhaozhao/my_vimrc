@@ -145,7 +145,7 @@ set hlsearch " 高亮搜索结果
 set anti
 " 把字体文件放在 ~/.fonts 中
 set guifont=YaHei\ Consolas\ Hybrid\ 16,Fixed\ 16 " 设置 gvim 的字体及大小
-"set guifont=Menlo\ Regular\ 12,Fixed\ 12 " 设置 gvim 的字体及大小
+" set guifont=Cascadia\ Code\ 16,Fixed\ 16 " 设置 gvim 的字体及大小
 set autochdir	" 自动设置当前编辑的文件所在路径为工作路径
 set so=3 " 光标在还有3行时自动滚屏
 set ignorecase smartcase " 搜索时默认不区分大小写，只有搜索关键字中出现一个大字母时才区分大小写
@@ -484,6 +484,7 @@ nmap <leader>b :CtrlPBuffer<cr>
 "{{{ ================= YouCompleteme ====================
 "设置全局配置文件的路径
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+let g:ycm_max_diagnostics_to_display = 0
 
 " 解决与Unisnips插件的冲突
 "let g:ycm_key_list_select_completion = ['<C-TAB>','<Down>']
@@ -923,7 +924,7 @@ let g:indentLine_conceallevel = 2
 " autocmd FileType python noremap <buffer> <F8> :call Autopep8()<CR>
 
 " Do not fix these errors/warnings (default: E226,E24,W6)
-let g:autopep8_ignore="E501,W293"
+let g:autopep8_ignore="E501,W293,E402"
 
 " Fix only these errors/warnings (e.g. E4,W)
 " let g:autopep8_select="E501,W293"
@@ -1116,7 +1117,7 @@ let g:pymode_lint_visual_symbol = 'RR'
 let g:pymode_lint_error_symbol = 'EE'
 let g:pymode_lint_info_symbol = 'II'
 let g:pymode_lint_pyflakes_symbol = 'FF'
-let g:pymode_lint_ignore = ["E501"]
+let g:pymode_lint_ignore = ["E501", "E402"]
 " 0: diable rope
 let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
