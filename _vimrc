@@ -72,7 +72,7 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 "Plugin 'tomasr/molokai'
 Plugin 'WolfgangMehner/matlab-support'
 "Plugin 'gilgigilgil/anderson.vim'
-Plugin 'xuzhezhaozhao/FileJump'
+"Plugin 'xuzhezhaozhao/FileJump'
 Plugin 'LargeFile'
 Plugin 'Yggdroot/indentLine'
 " required: sudo apt-get install python-autopep8
@@ -483,6 +483,8 @@ nmap <leader>b :CtrlPBuffer<cr>
 
 "{{{ ================= YouCompleteme ====================
 "设置全局配置文件的路径
+let g:ycm_python_binary_path='/usr/bin/python'
+let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 let g:ycm_max_diagnostics_to_display = 0
 
@@ -1070,7 +1072,7 @@ au Syntax * RainbowParenthesesLoadBraces
 
 
 " {{{ =================== python-mode ====================
-let g:pymode = 1
+let g:pymode = 0
 
 " Trim unused white spaces on save
 let g:pymode_trim_whitespaces = 1
