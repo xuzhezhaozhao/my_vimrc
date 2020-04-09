@@ -1,7 +1,7 @@
 ---
 Language:        Cpp
 # BasedOnStyle:  Google
-AccessModifierOffset: -4
+AccessModifierOffset: -1
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: false
 AlignConsecutiveDeclarations: false
@@ -12,7 +12,7 @@ AllowAllParametersOfDeclarationOnNextLine: true
 AllowShortBlocksOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: All
-AllowShortIfStatementsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: false
 AllowShortLoopsOnASingleLine: true
 AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakAfterReturnType: None
@@ -20,7 +20,7 @@ AlwaysBreakBeforeMultilineStrings: true
 AlwaysBreakTemplateDeclarations: true
 BinPackArguments: true
 BinPackParameters: true
-BraceWrapping:   
+BraceWrapping:
   AfterClass:      false
   AfterControlStatement: false
   AfterEnum:       false
@@ -48,7 +48,7 @@ DerivePointerAlignment: true
 DisableFormat:   false
 ExperimentalAutoDetectBinPacking: false
 ForEachMacros:   [ foreach, Q_FOREACH, BOOST_FOREACH ]
-IncludeCategories: 
+IncludeCategories:
   - Regex:           '^<.*\.h>'
     Priority:        1
   - Regex:           '^<.*'
@@ -57,7 +57,7 @@ IncludeCategories:
     Priority:        3
 IncludeIsMainRegex: '([-_](test|unittest))?$'
 IndentCaseLabels: true
-IndentWidth:     4
+IndentWidth:     2
 IndentWrappedFunctionNames: false
 JavaScriptQuotes: Leave
 JavaScriptWrapImports: true
@@ -89,7 +89,6 @@ SpacesInCStyleCastParentheses: false
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
 Standard:        Auto
-TabWidth:        4
-UseTab:          true
+TabWidth:        8
+UseTab:          Never
 ...
-
