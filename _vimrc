@@ -99,9 +99,10 @@ Plugin 'Konfekt/FastFold'
 Plugin 'severin-lemaignan/vim-minimap'
 Plugin 'forevernull/vim-json-format'
 Plugin 'jez/vim-superman'
-Plugin 'fatih/vim-go'
+" Plugin 'fatih/vim-go'
 Plugin 'volgar1x/vim-gocode'
 Plugin 'xuzhezhaozhao/let-modeline.vim'
+Plugin 'joshdick/onedark.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -739,6 +740,7 @@ else
 endif
 
 if has('gui_running')
+  "colorscheme onedark
   colorscheme neon
 endif
 "}}} ===================================================
