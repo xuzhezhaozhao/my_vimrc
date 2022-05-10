@@ -1,0 +1,48 @@
+{
+    "editor.fontSize": 15,
+    "security.workspace.trust.untrustedFiles": "open",
+    "window.zoomLevel": 1,
+    "editor.minimap.enabled": false,
+    "editor.semanticTokenColorCustomizations": {
+
+    },
+
+    // vim 配置
+    "vim.leader": ",",
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<leader>", "w"],
+            "commands":[":w"]
+        },
+        {
+            "before": ["<leader>", "q"],
+            "commands":[":q"]
+        },  
+        {
+            "before": ["<c-h>"],
+            "after":["<c-w>", "<c-h>"]
+        },
+        {
+            "before": ["<c-j>"],
+            "after":["<c-w>", "<c-j>"]
+        },  
+        {
+            "before": ["<c-k>"],
+            "after":["<c-w>", "<c-k>"]
+        },  
+        {
+            "before": ["<c-l>"],
+            "after":["<c-w>", "<c-l>"]
+        },  
+        {
+            "before": ["H"],
+            "after":["^"]
+        },  
+        {
+            "before": ["L"],
+            "after":["$"]
+        },
+    ],
+    "vim.insertModeKeyBindings": [
+    ]
+}
